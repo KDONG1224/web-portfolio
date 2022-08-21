@@ -12,6 +12,7 @@ export const history = createBrowserHistory();
 const store = createStore(
   reducer(history),
   composeWithDevTools({
+    // NOTE: ui/PAGE_LOADER 액션을 확인하고 싶으면 아래 부분 주석 처리
     actionsBlacklist: ['ui/PAGE_LOADER']
   })(applyMiddleware(sagaMiddleware, routerMiddleware(history)))
 );

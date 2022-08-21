@@ -1,16 +1,26 @@
-@import 'assets/less/common.less';
-@import 'assets/less/reset.less';
+// @import './assets/less/fonts.less';
+@import './assets/less/reset.less';
+@import './assets/less/common.less';
+@import '../node_modules/highlight.js/scss/paraiso-dark.scss';
+
+:root {
+  --calc-px-from-rpx: 0.72;
+  --primary-color: #ff4c01;
+  --swiper-theme-color: #ff4c01 !important;
+}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  //   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  //   sans-serif;
+  font-family: 'GmarketSans-Medium';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  // font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  //   monospace;
+  font-family: 'GmarketSans-Medium';
 }

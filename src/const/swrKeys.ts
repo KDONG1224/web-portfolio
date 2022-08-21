@@ -1,0 +1,2 @@
+export const SWR_REFERENCE_KEY = 'SWR_REFERENCE_KEY';
+export const SWR_NOTION_KEY = 'SWR_NOTION_KEY';

@@ -1,26 +1,29 @@
+// redux
 import { combineReducers } from 'redux';
-import { connectRouter, RouterState } from 'connected-react-router';
-import { History } from 'history';
 import { all, fork } from 'redux-saga/effects';
 
-import { PageState, pageSaga, pageReducer } from './page';
+// router
+import { connectRouter, RouterState } from 'connected-react-router';
 
-export interface Indexable {
-  [key: string]: any;
-}
+// history
+import { History } from 'history';
+
+// modules
+import { uiReducer, uiSaga, UiState } from './ui';
 
 export interface StoreState {
   router: RouterState;
+  ui: UiState;
 }
 
 export function* saga() {
-  yield all([fork(pageSaga)]);
+  yield all([fork(uiSaga)]);
 }
 
 const reducer = (history: History) =>
   combineReducers<StoreState>({
     router: connectRouter(history),
-    pageState: pageReducer
+    ui: uiReducer
   });
 
 export default reducer;

@@ -1,10 +1,23 @@
+// base
 import React from 'react';
 
-const HomePage = () => {
+// layout
+import { MainLayout } from 'layouts';
+import { MainBanner, MainCard } from 'container';
+import styled from 'styled-components';
+
+const StyledHomePage = styled.div`
+  padding: 50px 50px 50px 20px;
+`;
+
+const HomePage: React.FC = () => {
   return (
-    <div>
-      <div>ssadsd</div>
-    </div>
+    <MainLayout>
+      <StyledHomePage>
+        <MainBanner />
+        <MainCard />
+      </StyledHomePage>
+    </MainLayout>
   );
 };
 
