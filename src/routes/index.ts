@@ -81,6 +81,14 @@ export const routes: Routes = {
     {
       path: paths.ROUTE_NOTION_INFO,
       component: pages.LazyNotionPage
+    },
+    {
+      path: paths.ROUTE_ALCHOL_CUP,
+      component: pages.LazyAlcholCupPage
+    },
+    {
+      path: paths.ROUTE_ALCHOL_CUP_INFO,
+      component: pages.LazyAlcholCupPage
     }
   ]
 };

@@ -33,6 +33,11 @@ export const menus = [
     root: 'notion',
     key: 'info',
     name: '노션 설명'
+  },
+  {
+    root: 'alchol',
+    key: 'info',
+    name: '알콜컵 설명'
   }
 ];
 
@@ -64,5 +69,8 @@ export const menuNames: {
   },
   notion: {
     admin: '노션'
+  },
+  alchol: {
+    admin: '알콜컵'
   }
 };

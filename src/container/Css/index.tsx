@@ -55,7 +55,7 @@ export const Css = () => {
       dataIndex: 'apply',
       render: (_, tag) => (
         <Tag color='green' key={tag.id}>
-          {tag.apply.toLocaleLowerCase()}
+          {tag.apply}
         </Tag>
       )
     },

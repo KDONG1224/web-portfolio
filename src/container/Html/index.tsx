@@ -60,25 +60,12 @@ export const Html = () => {
     {
       title: '태그',
       key: 'tag',
-      dataIndex: 'tag'
-      // render: (_, tag) => (
-      //   <>
-      //   <Tag color='green' key={tag}>
-      //           {tag.toUpperCase()}
-      //         </Tag>
-      //     {/* {tags.map(tag => {
-      //       let color = tag.length > 5 ? 'geekblue' : 'green';
-      //       if (tag === 'loser') {
-      //         color = 'volcano';
-      //       }
-      //       return (
-      //         <Tag color={color} key={tag}>
-      //           {tag.toUpperCase()}
-      //         </Tag>
-      //       );
-      //     })} */}
-      //   </>
-      // )
+      dataIndex: 'tag',
+      render: (_, tag) => (
+        <Tag color='blue' key={tag.id}>
+          {tag.tag}
+        </Tag>
+      )
     },
     {
       title: '상세보기',

@@ -41,3 +41,7 @@ export const ROUTE_FIGMA_INFO = `${ROUTE_FIGMA}/info`;
 // notion
 export const ROUTE_NOTION = '/notion';
 export const ROUTE_NOTION_INFO = `${ROUTE_NOTION}/info`;
+
+// alcholcup
+export const ROUTE_ALCHOL_CUP = '/alchol';
+export const ROUTE_ALCHOL_CUP_INFO = `${ROUTE_ALCHOL_CUP}/info`;

@@ -21,6 +21,7 @@ export const StyledMainBanner = styled.div`
     .banner-swiper-slide {
       img {
         width: 100%;
+        height: 100%;
         object-fit: cover;
         vertical-align: middle;
       }

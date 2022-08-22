@@ -3,6 +3,32 @@ import { Menu } from 'antd';
 import { menuIcons } from 'const/images';
 
 export const StyledMainMenu = styled(Menu)`
+  .main-menu {
+    &-search {
+      padding: 20px;
+      color: #fff;
+      text-align: center;
+
+      .ant-input {
+        border: 1px solid #f7f7f7;
+
+        &::placeholder {
+          font-size: 0.8rem;
+        }
+      }
+
+      .ant-input-group-addon {
+        button {
+          background: black;
+        }
+      }
+    }
+  }
+  .ant-divider-horizontal {
+    margin: 10px 0 20px;
+    border-top: 10px solid rgba(0, 0, 0, 0.06);
+  }
+
   .navi-icon {
     width: 2rem;
     height: 2rem;
@@ -146,17 +172,18 @@ export const StyledMainMenu = styled(Menu)`
     background-image: url(${menuIcons.FIGMA_ICON});
   }
 
-  .ant-menu-submenu-title .content-icon {
-    /* background-image: url(../../assets/icon/content_default.svg); */
+  // alchol
+  .ant-menu-submenu-title .alchol-icon {
+    background-image: url(${menuIcons.ALCHOL_ICON});
   }
 
-  .ant-menu-submenu-active .content-icon {
-    /* background-image: url(../../assets/icon/content_hover.svg); */
+  .ant-menu-submenu-active .alchol-icon {
+    background-image: url(${menuIcons.ALCHOL_ICON});
   }
 
-  .ant-menu-submenu-open .content-icon,
-  .ant-menu-submenu-vertical.ant-menu-submenu-active .content-icon {
-    /* background-image: url(../../assets/icon/content_active.svg); */
+  .ant-menu-submenu-open .alchol-icon,
+  .ant-menu-submenu-vertical.ant-menu-submenu-active .alchol-icon {
+    background-image: url(${menuIcons.ALCHOL_ICON});
   }
 
   .ant-menu-submenu-title .statistics-icon {

@@ -6,5 +6,6 @@ export * from './js';
 export * from './algorithm';
 export * from './figma';
 export * from './notion';
+export * from './alcholcup';
 
 export const LazyHomePage = lazy(() => import('./HomePage'));

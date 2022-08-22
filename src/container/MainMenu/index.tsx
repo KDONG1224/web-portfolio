@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { StyledMainMenu } from './style';
 
 // library
-import { Menu, Space } from 'antd';
+import { Divider, Menu, Space } from 'antd';
 import { AppleOutlined } from '@ant-design/icons';
 
 // const
@@ -15,6 +15,7 @@ import { menuNames, menus } from 'const';
 
 // modules
 import { StoreState } from 'modules';
+import Search from 'antd/lib/input/Search';
 
 interface MenuType {
   [key: string]: {
@@ -59,6 +60,10 @@ const mainMenu: MenuType = {
   notion: {
     icon: <div className='notion-icon navi-icon' />,
     title: '노션'
+  },
+  alchol: {
+    icon: <div className='alchol-icon navi-icon' />,
+    title: '알콜컵'
   }
 };
 
@@ -89,6 +94,10 @@ export const MainMenu: React.FC<MainMenuProps> = ({ collapsed = false }) => {
     history.push(id);
   };
 
+  const onSearch = (value: string) => {
+    console.log('onSearch : ', value);
+  };
+
   useEffect(() => {
     const pathname = history.location.pathname;
     const openKey = pathname.split(/(?=\/)/g)[0];
@@ -106,36 +115,51 @@ export const MainMenu: React.FC<MainMenuProps> = ({ collapsed = false }) => {
       onOpenChange={openKeys => onOpenChange(openKeys)}
       activeKey={activeKey}
     >
+      {isSideMenuCollapsed ? (
+        <></>
+      ) : (
+        <div className='main-menu-search'>
+          <Search
+            placeholder='검색어를 입력해주세요.'
+            onSearch={onSearch}
+            enterButton
+          />
+        </div>
+      )}
       {roots.map(root => {
         const menu = menuNames[root]?.admin;
 
         if (!menu) return null;
 
         return (
-          <Menu.SubMenu
-            key={`/${root}`}
-            title={
-              <Space style={{ height: '100%' }}>
-                {mainMenu[root]?.icon || ''}
-                {!collapsed && (
-                  <span className='main-nav__menu-title'>{menu}</span>
-                )}
-              </Space>
-            }
-          >
-            {menus
-              .filter(x => x.root === root)
-              .map(item => {
-                const pathNames =
-                  item.root === 'home' ? '' : `/${item.root}/${item.key}`;
+          <React.Fragment key={root}>
+            {root === 'home' && <Divider />}
+            <Menu.SubMenu
+              key={`/${root}`}
+              title={
+                <Space style={{ height: '100%' }}>
+                  {mainMenu[root]?.icon || ''}
+                  {!collapsed && (
+                    <span className='main-nav__menu-title'>{menu}</span>
+                  )}
+                </Space>
+              }
+            >
+              {menus
+                .filter(x => x.root === root)
+                .map(item => {
+                  const pathNames =
+                    item.root === 'home' ? '' : `/${item.root}/${item.key}`;
 
-                return (
-                  <Menu.Item key={pathNames}>
-                    <div onClick={() => onClick(pathNames)}>{item.name}</div>
-                  </Menu.Item>
-                );
-              })}
-          </Menu.SubMenu>
+                  return (
+                    <Menu.Item key={pathNames}>
+                      <div onClick={() => onClick(pathNames)}>{item.name}</div>
+                    </Menu.Item>
+                  );
+                })}
+            </Menu.SubMenu>
+            {root === 'home' && <Divider />}
+          </React.Fragment>
         );
       })}
     </StyledMainMenu>

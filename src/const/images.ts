@@ -30,6 +30,7 @@ import REACT_ICON from 'assets/images/icons/React.png';
 import ALGORITHM_ICON from 'assets/images/icons/Algorithm.png';
 import MAC_ICON from 'assets/images/icons/MacOS.png';
 import NOTION_ICON from 'assets/images/icons/Notion.png';
+import ALCHOL_ICON from 'assets/images/icons/alchol.png';
 
 export const menuIcons = {
   HOME_ICON,
@@ -41,7 +42,8 @@ export const menuIcons = {
   REACT_ICON,
   ALGORITHM_ICON,
   MAC_ICON,
-  NOTION_ICON
+  NOTION_ICON,
+  ALCHOL_ICON
 };
 
 // banner

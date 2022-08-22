@@ -22,3 +22,6 @@ export * from './Figma';
 
 // notion
 export * from './Notion';
+
+// alcholcup
+export * from './AlcholCup';
