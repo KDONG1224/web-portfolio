@@ -23,10 +23,15 @@ export const referenceInstance = new AxiosInstanceCreator({
 // https://kdong1224.github.io/react999/src/assets/json/refer.json
 
 export const referenceApi = {
-  getHtmlRefer: () => {
-    return referenceInstance
-      .get<ReferenceProps>('/refer.json')
-      .then(res => res.data.data.htmlRefer);
+  getHtmlRefer: (id?: string) => {
+    return referenceInstance.get<any>('/refer.json').then(res => {
+      if (id) {
+        return res.data.data.htmlRefer?.filter(
+          (x: any) => x.id === Number(id)
+        )[0];
+      }
+      return res.data.data.htmlRefer;
+    });
   },
   getCssRefer: () => {
     return referenceInstance

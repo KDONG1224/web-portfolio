@@ -1,4 +1,3 @@
-// https://notion-api.splitbee.io/v1/page/
 import AxiosInstanceCreator from 'services/api';
 
 export const notionInstance = new AxiosInstanceCreator({
@@ -8,9 +7,6 @@ export const notionInstance = new AxiosInstanceCreator({
 
 export const notionApi = {
   getNotionPage: (id: string) => {
-    return notionInstance.get(`/${id}`).then(res => {
-      console.log('res.data : ', res.data);
-      return res.data;
-    });
+    return notionInstance.get(`/${id}`).then(res => res.data);
   }
 };

@@ -89,6 +89,10 @@ export const routes: Routes = {
     {
       path: paths.ROUTE_ALCHOL_CUP_INFO,
       component: pages.LazyAlcholCupPage
+    },
+    {
+      path: paths.ROUTE_ALCHOL_CUP_DETAIL,
+      component: pages.LazyAlcholCupDetailPage
     }
   ]
 };

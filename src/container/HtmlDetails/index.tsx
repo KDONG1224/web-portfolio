@@ -1,28 +1,44 @@
 // base
+import { SWR_REFERENCE_KEY } from 'const';
+import { referenceApi } from 'modules/reference';
 import React from 'react';
+import { useRouteMatch } from 'react-router';
+import useSWR from 'swr';
 
 // style
 import { StyledHtmlDetails } from './style';
 
 export const HtmlDetails = () => {
+  const match = useRouteMatch<{ id: string }>();
+
+  const id = match.params.id;
+
+  const getHtmlDatas = (id: string) => {
+    if (id === '') return null;
+    return referenceApi.getHtmlRefer(id);
+  };
+
+  const { data } = useSWR([SWR_REFERENCE_KEY, id], (_, key) =>
+    getHtmlDatas(key)
+  );
+
+  console.log(id);
+  console.log('data : ', data);
+
+  if (!data) return <div>다시시도 해주세요.</div>;
+
   return (
     <StyledHtmlDetails>
       <main id='main'>
         <section id='explanation'>
           <div className='container'>
-            <h2>&lt;a&gt;</h2>
-            <p>
-              &lt;a&gt; 태그는 다른 페이지 이동을 설정합니다. 페이지 주소 뿐만
-              아니라, 메일 주소, 전화 번호 등도 연결할 수 있으며, 아이디(#)
-              값으로 페이지 내에서도 이동이 가능합니다.
-            </p>
+            <h2>{data.title}</h2>
+            <p>{data.desc1}</p>
 
             <hr />
 
-            <h3>&lt;a&gt;</h3>
-            <p className='blue'>
-              &lt;a&gt; 태그는 다른 페이지 이동을 설정합니다.
-            </p>
+            <h3>{data.title}</h3>
+            <p className='blue'>{data.desc2}</p>
 
             <div className='table'>
               <table>
@@ -39,23 +55,23 @@ export const HtmlDetails = () => {
                 <tbody>
                   <tr>
                     <th>요소</th>
-                    <td>인라인 구조(Inline Element)</td>
+                    <td>{data.element}</td>
                   </tr>
                   <tr>
                     <th>닫는 태그</th>
-                    <td>적용(&lt;a&gt; ~ &lt;/a&gt;)</td>
+                    <td>{data.tag}</td>
                   </tr>
                   <tr>
                     <th>버전</th>
-                    <td>HTML4</td>
+                    <td>{data.version}</td>
                   </tr>
                   <tr>
                     <th>시각적 표현</th>
-                    <td>밑줄과 파란색으로 표시</td>
+                    <td>{data.view}</td>
                   </tr>
                   <tr>
                     <th>사용성</th>
-                    <td>★★★★★</td>
+                    <td>{data.use || '★★★★★'}</td>
                   </tr>
                 </tbody>
               </table>
@@ -63,32 +79,9 @@ export const HtmlDetails = () => {
 
             <h4>정의(Definition)</h4>
             <ul>
-              <li>
-                &lt;a&gt; 태그는 클릭하면 다른 페이지로 이동합니다. 현재
-                페이지에서 다른 페이지 URL로 연결하는 것을 하이퍼링크라고
-                합니다.
-              </li>
-              <li>
-                &lt;a&gt; 태그는 페이지 주소 뿐만 아니라, 메일 주소, 전화 번호
-                등도 연결할 수 있습니다.
-              </li>
-              <li>&lt;a&gt; 태그는 아이디(#id)로 이동 할 수 있습니다.</li>
-              <li>
-                &lt;a&gt; 태그는 target 속성을 이용하면 새로운 브라우저 창에서
-                페이지 이동을 할 수 있습니다.
-              </li>
-              <li>
-                &lt;a&gt; 태그는 방문한 링크는 밑줄과 보라색으로 표시되고,
-                활성화된 링크는 밑줄과 빨간색으로 표시됩니다.
-              </li>
-              <li>
-                원칙적으로 &lt;a&gt; 태그는 블록구조를 포함 할 수 없지만,
-                HTML5에서는 &lt;a&gt; 태그는 블록 요소를 포함할 수 있습니다.
-              </li>
-              <li>
-                href="#"의 페이지 지정을 막기 위해 javascript:void(0)를 사용하는
-                것보다 &lt;button&gt; 태그를 사용하는 것이 바람직합니다.
-              </li>
+              {(data.definition || []).map((item: any) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
 
             <h4>접근성(Accessibility)</h4>

@@ -45,3 +45,6 @@ export const ROUTE_NOTION_INFO = `${ROUTE_NOTION}/info`;
 // alcholcup
 export const ROUTE_ALCHOL_CUP = '/alchol';
 export const ROUTE_ALCHOL_CUP_INFO = `${ROUTE_ALCHOL_CUP}/info`;
+export const ROUTE_ALCHOL_CUP_DETAIL = `${ROUTE_ALCHOL_CUP_INFO}/:id`;
+export const ROUTE_ALCHOL_CUP_DETAIL_WITH_ID = (id: string) =>
+  `${ROUTE_ALCHOL_CUP_INFO}/${id}`;

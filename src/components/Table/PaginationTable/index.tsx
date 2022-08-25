@@ -215,7 +215,8 @@ export const PaginationTable = (props: PaginationTableProps<any>) => {
               ]
         }
         size='small'
-        dataSource={(dataSource || []).slice(0, pagination.pageSize)}
+        // dataSource={(dataSource || []).slice(0, pagination.pageSize)}
+        dataSource={dataSource}
         components={{ table: doubleScroll }}
       />
     </StyledPaginationTable>

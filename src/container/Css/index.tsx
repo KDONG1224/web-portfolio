@@ -37,6 +37,8 @@ export const Css = () => {
 
   console.log('cssData : ', data);
 
+  if (!data) return <></>;
+
   const columns: ColumnsType<TableDataType> = [
     {
       title: '태그 이름',

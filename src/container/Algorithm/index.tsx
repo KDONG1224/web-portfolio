@@ -46,12 +46,6 @@ export const Algorithm: React.FC = () => {
         justify='space-between'
         // gutter={isSideMenuCollapsed ? [112, 80] : [10, 80]}
         gutter={[16, 80]}
-        style={
-          {
-            // marginLeft: isSideMenuCollapsed ? '36px' : '20px',
-            // marginRight: isSideMenuCollapsed ? '70px' : '40px'
-          }
-        }
       >
         {algorithmInfo.map(algorithm => (
           <Col span={6} key={algorithm.key}>

@@ -11,6 +11,7 @@ export interface ReferStateProps {
   useStars: string;
   version: string;
   view: string;
+  use?: string;
 }
 
 export interface ReferDatas {
