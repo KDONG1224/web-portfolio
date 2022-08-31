@@ -6,6 +6,6 @@ module.exports = {
   trailingComma: 'none', //후행 쉼표 제거
   printWidth: 80, //줄바꿈 넓이
   bracketSpacing: true, // 브라켓 간격
-  arrowParens: 'avoid', //arrow function 매개변수 하나일때 괄호 제거
-  jsxSingleQuote: true //jsx 인용부호 작은 따옴표 사용
+  arrowParens: 'always', //arrow function 매개변수 하나일때 괄호 제거
+  jsxSingleQuote: false //jsx 인용부호 작은 따옴표 사용
 };

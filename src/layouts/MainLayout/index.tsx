@@ -47,17 +47,17 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             collapsed={isSideMenuCollapsed}
             style={{ position: 'relative' }}
           >
-            <Row gutter={24} className='layout-sider-row'>
-              <Col span={24} className='layout-sider-col'>
-                <div className='layout-sider-thumb'>
+            <Row gutter={24} className="layout-sider-row">
+              <Col span={24} className="layout-sider-col">
+                <div className="layout-sider-thumb">
                   <div
                     className={`layout-sider-thumb-box ${
                       isSideMenuCollapsed ? 'active' : ''
                     }`}
                   >
                     <img
-                      src='https://avatars.githubusercontent.com/u/87642774?v=4'
-                      alt='kdong'
+                      src="https://avatars.githubusercontent.com/u/87642774?v=4"
+                      alt="kdong"
                     />
                   </div>
                   <h3
@@ -83,7 +83,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
                 backgroundColor: '#F2F3F6'
               }}
             >
-              <div className='navi-toggle' onClick={handleToggle} />
+              <div className="navi-toggle" onClick={handleToggle} />
             </div>
           </Sider>
 
