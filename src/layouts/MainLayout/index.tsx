@@ -1,6 +1,6 @@
 // base
-import React, { HTMLAttributes } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { HTMLAttributes, useState } from 'react';
+
 
 // style
 import { StyledMainLayout } from './style';
@@ -12,8 +12,8 @@ import { Col, Layout, Row } from 'antd';
 import { MainMenu } from 'container';
 
 // modules
-import { StoreState } from 'modules';
 import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules/ui';
+import { useAppDispatch, useAppSelector } from 'modules/hooks';
 
 const { Content, Sider } = Layout;
 
@@ -23,14 +23,19 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   ...props
 }) => {
-  const { isSideMenuCollapsed } = useSelector((state: StoreState) => state.ui);
+  const [collapsed, setCollapsed] = useState(false);
+  const { isSideMenuCollapsed } = useAppSelector((state) => state.ui);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleToggle = () => {
-    dispatch(sideMenuCollapsedAction(!isSideMenuCollapsed));
-    dispatch(touchSideMenuCollapsed(true));
+     dispatch(sideMenuCollapsedAction(!isSideMenuCollapsed));
+     dispatch(touchSideMenuCollapsed(true));    
+     setCollapsed(!collapsed)
   };
+
+  console.log('isSideMenuCollapsed : ', isSideMenuCollapsed);
+  console.log('collapsed : ', collapsed);
 
   return (
     <StyledMainLayout>
@@ -38,13 +43,13 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         <Layout>
           <Sider
             className={`side-layout-background ${
-              isSideMenuCollapsed ? 'side_collapsed' : ''
+              collapsed ? 'side_collapsed' : ''
             }`}
             trigger={null}
             width={'15rem'}
             collapsible
             collapsedWidth={'5rem'}
-            collapsed={isSideMenuCollapsed}
+            collapsed={collapsed}
             style={{ position: 'relative' }}
           >
             <Row gutter={24} className="layout-sider-row">
@@ -52,7 +57,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
                 <div className="layout-sider-thumb">
                   <div
                     className={`layout-sider-thumb-box ${
-                      isSideMenuCollapsed ? 'active' : ''
+                      collapsed ? 'active' : ''
                     }`}
                   >
                     <img
@@ -62,13 +67,13 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
                   </div>
                   <h3
                     className={`layout-sider-title ${
-                      isSideMenuCollapsed ? 'active' : ''
+                      collapsed ? 'active' : ''
                     }`}
                   >
                     밥값하는 개발자 강동재
                   </h3>
                 </div>
-                <MainMenu collapsed={isSideMenuCollapsed} />
+                <MainMenu collapsed={collapsed} />
               </Col>
             </Row>
 
@@ -77,7 +82,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
                 width: '2rem',
                 height: '100%',
                 position: 'fixed',
-                left: isSideMenuCollapsed ? '4.8rem' : '14.8rem',
+                left: collapsed ? '4.8rem' : '14.8rem',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 backgroundColor: '#F2F3F6'

@@ -1,7 +1,6 @@
 // base
 import React, { ReactNode, useMemo, useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 // style
 import { StyledMainMenu } from './style';
@@ -14,8 +13,9 @@ import { AppleOutlined } from '@ant-design/icons';
 import { menuNames, menus } from 'const';
 
 // modules
-import { StoreState } from 'modules';
+
 import Search from 'antd/lib/input/Search';
+import { useAppSelector } from 'modules/hooks';
 
 interface MenuType {
   [key: string]: {
@@ -30,56 +30,56 @@ interface MainMenuProps {
 
 const mainMenu: MenuType = {
   home: {
-    icon: <div className='home-icon navi-icon' />,
+    icon: <div className="home-icon navi-icon" />,
     title: '홈'
   },
   about: {
-    icon: <div className='about-icon navi-icon' />,
+    icon: <div className="about-icon navi-icon" />,
     title: '어바웃'
   },
   html: {
-    icon: <div className='html-icon navi-icon' />,
+    icon: <div className="html-icon navi-icon" />,
     title: 'HTML'
   },
   css: {
-    icon: <div className='css-icon navi-icon' />,
+    icon: <div className="css-icon navi-icon" />,
     title: 'CSS'
   },
   javascript: {
-    icon: <div className='javascript-icon navi-icon' />,
+    icon: <div className="javascript-icon navi-icon" />,
     title: '자바스크립트'
   },
   algorithm: {
-    icon: <div className='algorithm-icon navi-icon' />,
+    icon: <div className="algorithm-icon navi-icon" />,
     title: '알고리즘'
   },
   figma: {
-    icon: <div className='figma-icon navi-icon' />,
+    icon: <div className="figma-icon navi-icon" />,
     title: '피그마'
   },
   notion: {
-    icon: <div className='notion-icon navi-icon' />,
+    icon: <div className="notion-icon navi-icon" />,
     title: '노션'
   },
   alchol: {
-    icon: <div className='alchol-icon navi-icon' />,
+    icon: <div className="alchol-icon navi-icon" />,
     title: '알콜컵'
   }
 };
 
 export const MainMenu: React.FC<MainMenuProps> = ({ collapsed = false }) => {
-  const { isSideMenuCollapsed } = useSelector((state: StoreState) => state.ui);
+  const { isSideMenuCollapsed } = useAppSelector((state) => state.ui);
 
   const [openKeys, setOpenkeys] = useState<string[] | undefined>();
   const [selectedKeys, setSelectedKeys] = useState<string[]>();
   const [activeKey, setActiveKey] = useState<string>('');
 
-  const history = useHistory();
+  const router = useRouter();
 
   const roots = useMemo(
     () =>
-      menus ? Array.from(new Set(menus.map(item => item.root)).values()) : [],
-    [history.location.pathname]
+      menus ? Array.from(new Set(menus.map((item) => item.root)).values()) : [],
+    []
   );
 
   // if (!selectedKeys) {
@@ -91,7 +91,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ collapsed = false }) => {
   };
 
   const onClick = (id: string) => {
-    history.push(id);
+    router.push(id);
   };
 
   const onSearch = (value: string) => {
@@ -99,34 +99,34 @@ export const MainMenu: React.FC<MainMenuProps> = ({ collapsed = false }) => {
   };
 
   useEffect(() => {
-    const pathname = history.location.pathname;
+    const pathname = router.pathname;
     const openKey = pathname.split(/(?=\/)/g)[0];
     setActiveKey(openKey);
     setOpenkeys(isSideMenuCollapsed ? undefined : [openKey]);
     setSelectedKeys([pathname]);
-  }, [history.location.pathname, isSideMenuCollapsed]);
+  }, [router.pathname, isSideMenuCollapsed]);
 
   return (
     <StyledMainMenu
-      className='main-menu'
-      mode='inline'
+      className="main-menu"
+      mode="inline"
       openKeys={openKeys}
       selectedKeys={selectedKeys}
-      onOpenChange={openKeys => onOpenChange(openKeys)}
+      onOpenChange={(openKeys) => onOpenChange(openKeys)}
       activeKey={activeKey}
     >
       {isSideMenuCollapsed ? (
         <></>
       ) : (
-        <div className='main-menu-search'>
+        <div className="main-menu-search">
           <Search
-            placeholder='검색어를 입력해주세요.'
+            placeholder="검색어를 입력해주세요."
             onSearch={onSearch}
             enterButton
           />
         </div>
       )}
-      {roots.map(root => {
+      {roots.map((root) => {
         const menu = menuNames[root]?.admin;
 
         if (!menu) return null;
@@ -140,14 +140,14 @@ export const MainMenu: React.FC<MainMenuProps> = ({ collapsed = false }) => {
                 <Space style={{ height: '100%' }}>
                   {mainMenu[root]?.icon || ''}
                   {!collapsed && (
-                    <span className='main-nav__menu-title'>{menu}</span>
+                    <span className="main-nav__menu-title">{menu}</span>
                   )}
                 </Space>
               }
             >
               {menus
-                .filter(x => x.root === root)
-                .map(item => {
+                .filter((x) => x.root === root)
+                .map((item) => {
                   const pathNames =
                     item.root === 'home' ? '' : `/${item.root}/${item.key}`;
 

@@ -1,20 +1,27 @@
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import { routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
+import { AnyAction, configureStore, Reducer } from '@reduxjs/toolkit';
+import { createWrapper } from 'next-redux-wrapper';
+import rootReducer, { ReducerStates } from './rootReducer';
 
-import reducer from './index';
+const initialState = {
+  user: null
+};
 
-export const sagaMiddleware = createSagaMiddleware();
-export const history = createBrowserHistory();
+const makeStore = () => {
+  return configureStore({
+    reducer: rootReducer as Reducer<ReducerStates, AnyAction>
+    // devTools: process.env.NODE_ENV === 'development',
+    // middleware: [...middleware]
+    // devTools: true
+  });
+};
 
-const store = createStore(
-  reducer(history),
-  composeWithDevTools({
-    // NOTE: ui/PAGE_LOADER 액션을 확인하고 싶으면 아래 부분 주석 처리
-    actionsBlacklist: ['ui/PAGE_LOADER']
-  })(applyMiddleware(sagaMiddleware, routerMiddleware(history)))
-);
+const store = makeStore();
 
-export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+const wrapper = createWrapper(makeStore, {
+  // debug: process.env.NODE_ENV === 'development'
+});
+
+export default wrapper;

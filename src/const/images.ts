@@ -1,12 +1,16 @@
+const EX_PATH = '/images/ex';
+const ICON_PATH = '/images/icons';
+const BANNER_PATH = '/images/main';
+
 // example
-import EX_NUM_01 from 'assets/images/ex/ex01.jpg';
-import EX_NUM_02 from 'assets/images/ex/ex02.jpg';
-import EX_NUM_03 from 'assets/images/ex/ex03.jpg';
-import EX_NUM_04 from 'assets/images/ex/ex04.jpg';
-import EX_NUM_05 from 'assets/images/ex/ex05.jpg';
-import EX_NUM_06 from 'assets/images/ex/ex06.jpg';
-import EX_NUM_07 from 'assets/images/ex/ex07.jpg';
-import EX_NUM_08 from 'assets/images/ex/ex08.jpg';
+export const EX_NUM_01 = `${EX_PATH}/ex01.jpg`;
+export const EX_NUM_02 = `${EX_PATH}/ex02.jpg`;
+export const EX_NUM_03 = `${EX_PATH}/ex03.jpg`;
+export const EX_NUM_04 = `${EX_PATH}/ex04.jpg`;
+export const EX_NUM_05 = `${EX_PATH}/ex05.jpg`;
+export const EX_NUM_06 = `${EX_PATH}/ex06.jpg`;
+export const EX_NUM_07 = `${EX_PATH}/ex07.jpg`;
+export const EX_NUM_08 = `${EX_PATH}/ex08.jpg`;
 
 export const exImg = {
   EX_NUM_01,
@@ -20,17 +24,17 @@ export const exImg = {
 };
 
 // icons
-import HOME_ICON from 'assets/images/icons/Home.png';
-import HTML_ICON from 'assets/images/icons/html.png';
-import CSS_ICON from 'assets/images/icons/css.png';
-import JS_ICON from 'assets/images/icons/js.png';
-import GIT_ICON from 'assets/images/icons/Git.png';
-import FIGMA_ICON from 'assets/images/icons/Figma.png';
-import REACT_ICON from 'assets/images/icons/React.png';
-import ALGORITHM_ICON from 'assets/images/icons/Algorithm.png';
-import MAC_ICON from 'assets/images/icons/MacOS.png';
-import NOTION_ICON from 'assets/images/icons/Notion.png';
-import ALCHOL_ICON from 'assets/images/icons/alchol.png';
+export const HOME_ICON = `${ICON_PATH}/Home.png`;
+export const HTML_ICON = `${ICON_PATH}/html.png`;
+export const CSS_ICON = `${ICON_PATH}/css.png`;
+export const JS_ICON = `${ICON_PATH}/js.png`;
+export const GIT_ICON = `${ICON_PATH}/Git.png`;
+export const FIGMA_ICON = `${ICON_PATH}/Figma.png`;
+export const REACT_ICON = `${ICON_PATH}/React.png`;
+export const ALGORITHM_ICON = `${ICON_PATH}/Algorithm.png`;
+export const MAC_ICON = `${ICON_PATH}/MacOS.png`;
+export const NOTION_ICON = `${ICON_PATH}/Notion.png`;
+export const ALCHOL_ICON = `${ICON_PATH}/alchol.png`;
 
 export const menuIcons = {
   HOME_ICON,
@@ -47,12 +51,12 @@ export const menuIcons = {
 };
 
 // banner
-import BANNER_01 from 'assets/images/main/banner01.png';
-import BANNER_02 from 'assets/images/main/banner02.png';
-import BANNER_03 from 'assets/images/main/banner03.png';
-import BANNER_04 from 'assets/images/main/banner04.png';
-import BANNER_05 from 'assets/images/main/banner05.png';
-import BANNER_06 from 'assets/images/main/banner06.png';
+export const BANNER_01 = `${BANNER_PATH}/banner01.png`;
+export const BANNER_02 = `${BANNER_PATH}/banner02.png`;
+export const BANNER_03 = `${BANNER_PATH}/banner03.png`;
+export const BANNER_04 = `${BANNER_PATH}/banner04.png`;
+export const BANNER_05 = `${BANNER_PATH}/banner05.png`;
+export const BANNER_06 = `${BANNER_PATH}/banner06.png`;
 
 export const mainBanner = {
   BANNER_01,

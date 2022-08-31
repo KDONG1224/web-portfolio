@@ -1,3 +1,18 @@
+// base
 import React from 'react';
 
-export const LazyNotionPage = React.lazy(() => import('./NotionPage'));
+// layouts
+import { MainLayout } from 'layouts';
+
+// container
+import { Notion } from 'container';
+
+const NotionPage = () => {
+  return (
+    <MainLayout>
+      <Notion />
+    </MainLayout>
+  );
+};
+
+export default NotionPage;

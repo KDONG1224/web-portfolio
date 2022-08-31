@@ -1,18 +1,18 @@
 // base
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useRouter } from 'next/router';
 
 // style
 import { StyledCss } from './style';
 
 // conponents
 import { PaginationTable } from 'components';
-import { ROUTE_CSS_DETAIL_WITH_ID } from 'routes/const';
-import { referenceApi } from 'modules/reference';
+
 import { SWR_REFERENCE_KEY } from 'const';
 import useSWR from 'swr';
 import { ColumnsType } from 'antd/lib/table';
 import { Button, Tag } from 'antd';
+import { ROUTE_CSS_DETAIL_WITH_ID } from 'const/route';
 
 interface TableDataType {
   id: number;
@@ -22,15 +22,15 @@ interface TableDataType {
 }
 
 export const Css = () => {
-  const history = useHistory();
+  const router = useRouter();
 
   const handleMove = (record: any) => {
     console.log('record : ', record);
-    return history.push(ROUTE_CSS_DETAIL_WITH_ID(record.id));
+    return router.push(ROUTE_CSS_DETAIL_WITH_ID(record.id));
   };
 
   const getCssDatas = () => {
-    return referenceApi.getCssRefer();
+    console.log('CSS');
   };
 
   const { data } = useSWR([SWR_REFERENCE_KEY], () => getCssDatas());
@@ -56,7 +56,7 @@ export const Css = () => {
       key: 'apply',
       dataIndex: 'apply',
       render: (_, tag) => (
-        <Tag color='green' key={tag.id}>
+        <Tag color="green" key={tag.id}>
           {tag.apply}
         </Tag>
       )
@@ -67,8 +67,8 @@ export const Css = () => {
       render: (_, record) => (
         <>
           <Button
-            className='btn-28 btn-primary color-white'
-            type='primary'
+            className="btn-28 btn-primary color-white"
+            type="primary"
             onClick={() => {
               handleMove(record);
             }}
@@ -82,11 +82,11 @@ export const Css = () => {
 
   return (
     <StyledCss>
-      <div className='css-head'>CSS 태그 설명</div>
+      <div className="css-head">CSS 태그 설명</div>
       <PaginationTable
         columns={columns}
         dataSource={data}
-        rowKey='id'
+        rowKey="id"
         showRowSelection={false}
         showPageSize={false}
         noAsync

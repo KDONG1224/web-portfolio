@@ -1,7 +1,18 @@
+// base
 import React from 'react';
 
-export const LazyAlgorithmPage = React.lazy(() => import('./AlgorithmPage'));
+// layouts
+import { MainLayout } from 'layouts';
 
-export const LazyAlgorithmDetailPage = React.lazy(
-  () => import('./AlgorithmDetailePage')
-);
+// container
+import { Algorithm } from 'container';
+
+const AlgorithmPage = () => {
+  return (
+    <MainLayout>
+      <Algorithm />
+    </MainLayout>
+  );
+};
+
+export default AlgorithmPage;
