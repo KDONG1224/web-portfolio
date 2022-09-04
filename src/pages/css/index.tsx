@@ -1,3 +1,18 @@
+// base
 import React from 'react';
 
-export const LazyCssPage = React.lazy(() => import('./CssPage'));
+// layouts
+import { MainLayout } from 'layouts';
+
+// container
+import { Css } from 'container';
+
+const CssPage = () => {
+  return (
+    <MainLayout>
+      <Css />
+    </MainLayout>
+  );
+};
+
+export default CssPage;

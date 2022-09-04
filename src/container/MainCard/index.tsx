@@ -1,6 +1,6 @@
 // base
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 // style
 import { StyledMainCard } from './style';
@@ -15,12 +15,12 @@ import { Col, Row } from 'antd';
 import { exImg } from 'const/images';
 
 // modules
-import { StoreState } from 'modules';
+// import { StoreState } from 'modules';
 
 interface MainCardProps {}
 
 export const MainCard: React.FC<MainCardProps> = ({}) => {
-  const { isSideMenuCollapsed } = useSelector((state: StoreState) => state.ui);
+  // const { isSideMenuCollapsed } = useSelector((state: StoreState) => state.ui);
 
   const item = [
     {
@@ -100,10 +100,11 @@ export const MainCard: React.FC<MainCardProps> = ({}) => {
   return (
     <StyledMainCard>
       <Row
-        justify='space-between'
-        gutter={isSideMenuCollapsed ? [112, 40] : [58, 40]}
+        justify="space-between"
+        // gutter={isSideMenuCollapsed ? [112, 40] : [58, 40]}
+        gutter={[40, 40]}
       >
-        {item.map(card => (
+        {item.map((card) => (
           <Col span={6} key={card.key}>
             <MainCardItem url={card.url} title={card.title} desc={card.desc} />
           </Col>

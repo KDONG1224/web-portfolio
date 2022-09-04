@@ -1,46 +1,31 @@
-import AxiosInstanceCreator from 'services/api';
-import { ReferenceProps } from '..';
+import { AxiosInstance } from 'axios';
+import AxiosServerInstanceCreator from 'services/reqeust-server';
+export class ReferApi {
+  Axios: AxiosInstance;
 
-export const referenceInstance = new AxiosInstanceCreator({
-  baseURL: process.env.REACT_APP_REFERNCE_API_URL
-}).create();
-
-// referenceInstance.interceptors.request.use(config => {
-//   if (!config.headers['X-Access-token']) {
-//     const token = cookieStorage.getCookie(COOKIE_ACCESS_TOKEN);
-
-//     if (token) {
-//       Object.assign(config.headers, {
-//         Accept: 'application/json',
-//         'X-Access-token': token,
-//       });
-//     }
-//   }
-
-//   return config;
-// });
-
-// https://kdong1224.github.io/react999/src/assets/json/refer.json
-
-export const referenceApi = {
-  getHtmlRefer: (id?: string) => {
-    return referenceInstance.get<any>('/refer.json').then(res => {
-      if (id) {
-        return res.data.data.htmlRefer?.filter(
-          (x: any) => x.id === Number(id)
-        )[0];
+  constructor() {
+    this.Axios = new AxiosServerInstanceCreator({
+      baseURL: process.env.NEXT_PUBLIC_KDONG_API_URL + 'reference',
+      headers: {
+        // 'X-access-token': accessToken,
+        // icToken: icToken
       }
-      return res.data.data.htmlRefer;
-    });
-  },
-  getCssRefer: () => {
-    return referenceInstance
-      .get<ReferenceProps>('/cssRefer.json')
-      .then(res => res.data.data.cssRefer);
-  },
-  getJavascriptRefer: () => {
-    return referenceInstance
-      .get<ReferenceProps>('/javascriptRefer.json')
-      .then(res => res.data.data.javascriptRefer);
+    }).create();
   }
-};
+
+  getReferenceLists() {
+    return this.Axios.get<any>('').then((res) => res.data);
+  }
+
+  getReferenceById(id: string) {
+    return this.Axios.get<any>(`/${id}`).then((res) => res.data);
+  }
+
+  updateReference(id: string, formData: FormData) {
+    return this.Axios.post<any>(`/create/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((res) => res.data);
+  }
+}

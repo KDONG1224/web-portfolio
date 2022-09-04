@@ -1,21 +1,36 @@
 // base
-import React, { HTMLAttributes } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { HTMLAttributes, useState } from 'react';
+import { useRouter } from 'next/router';
 
 // style
 import { StyledMainLayout } from './style';
 
-// library
-import { Col, Layout, Row } from 'antd';
+// libraries
+import { Layout, Menu } from 'antd';
 
-// containers
-import { MainMenu } from 'container';
+// utils
+import { getMenuItem, MenuItem } from 'utils';
+import { MenuInfo } from 'rc-menu/lib/interface';
+
+// route
+import {
+  ROUTE_ROOT,
+  ROUTE_ABOUT,
+  ROUTE_HTML,
+  ROUTE_HTML_INFO,
+  ROUTE_CSS,
+  ROUTE_JS,
+  ROUTE_ALGORITHM,
+  ROUTE_FIGMA,
+  ROUTE_NOTION,
+  ROUTE_ALCHOL_CUP
+} from 'const/route';
 
 // modules
-import { StoreState } from 'modules';
-import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules/ui';
+import { useAppDispatch, useAppSelector } from 'modules/hooks';
+import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules';
 
-const { Content, Sider } = Layout;
+const { Header, Content, Footer, Sider } = Layout;
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -23,85 +38,117 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   ...props
 }) => {
-  const { isSideMenuCollapsed } = useSelector((state: StoreState) => state.ui);
+  const [collapsed, setCollapsed] = useState(false);
 
-  const dispatch = useDispatch();
+  const { isSideMenuCollapsed } = useAppSelector((state) => state.ui);
 
-  const handleToggle = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const items: MenuItem[] = [
+    getMenuItem('홈', ROUTE_ROOT, <div className="home-icon navi-icon" />),
+    getMenuItem(
+      '어바웃',
+      ROUTE_ABOUT,
+      <div className="about-icon navi-icon" />
+    ),
+    getMenuItem('HTML', 'html', <div className="html-icon navi-icon" />, [
+      getMenuItem('HTML 설명', ROUTE_HTML)
+    ]),
+    getMenuItem('CSS', ROUTE_CSS, <div className="css-icon navi-icon" />),
+    getMenuItem(
+      '자바스크립트',
+      ROUTE_JS,
+      <div className="javascript-icon navi-icon" />
+    ),
+    getMenuItem(
+      '알고리즘',
+      ROUTE_ALGORITHM,
+      <div className="algorithm-icon navi-icon" />
+    ),
+    getMenuItem(
+      '피그마',
+      ROUTE_FIGMA,
+      <div className="figma-icon navi-icon" />
+    ),
+    getMenuItem(
+      '노션',
+      ROUTE_NOTION,
+      <div className="notion-icon navi-icon" />
+    ),
+    getMenuItem(
+      '알콜컵',
+      ROUTE_ALCHOL_CUP,
+      <div className="alchol-icon navi-icon" />
+    )
+  ];
+
+  const onCollapse = (value: boolean) => {
     dispatch(sideMenuCollapsedAction(!isSideMenuCollapsed));
-    dispatch(touchSideMenuCollapsed(true));
+    dispatch(touchSideMenuCollapsed(value));
+    setCollapsed(value);
+  };
+
+  const onClick = (key: string) => {
+    console.log('클릭! : ', key);
+    const url = key as unknown as URL;
+    router.push(url);
   };
 
   return (
     <StyledMainLayout>
-      <Layout>
-        <Layout>
-          <Sider
-            className={`side-layout-background ${
-              isSideMenuCollapsed ? 'side_collapsed' : ''
-            }`}
-            trigger={null}
-            width={'15rem'}
-            collapsible
-            collapsedWidth={'5rem'}
-            collapsed={isSideMenuCollapsed}
-            style={{ position: 'relative' }}
-          >
-            <Row gutter={24} className='layout-sider-row'>
-              <Col span={24} className='layout-sider-col'>
-                <div className='layout-sider-thumb'>
-                  <div
-                    className={`layout-sider-thumb-box ${
-                      isSideMenuCollapsed ? 'active' : ''
-                    }`}
-                  >
-                    <img
-                      src='https://avatars.githubusercontent.com/u/87642774?v=4'
-                      alt='kdong'
-                    />
-                  </div>
-                  <h3
-                    className={`layout-sider-title ${
-                      isSideMenuCollapsed ? 'active' : ''
-                    }`}
-                  >
-                    밥값하는 개발자 강동재
-                  </h3>
-                </div>
-                <MainMenu collapsed={isSideMenuCollapsed} />
-              </Col>
-            </Row>
-
-            <div
-              style={{
-                width: '2rem',
-                height: '100%',
-                position: 'fixed',
-                left: isSideMenuCollapsed ? '4.8rem' : '14.8rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                backgroundColor: '#F2F3F6'
-              }}
-            >
-              <div className='navi-toggle' onClick={handleToggle} />
+      <Layout {...props}>
+        <Sider
+          collapsible
+          collapsed={isSideMenuCollapsed}
+          onCollapse={(value) => onCollapse(value)}
+        >
+          <div className="layout-sider-thumb">
+            <div className={`layout-sider-thumb-box`}>
+              <img
+                src="https://avatars.githubusercontent.com/u/87642774?v=4"
+                alt="kdong"
+              />
             </div>
-          </Sider>
-
-          <Layout
+            <h3
+              className={`layout-sider-title ${
+                isSideMenuCollapsed ? 'active' : ''
+              }`}
+            >
+              {isSideMenuCollapsed ? '강동재' : '밥값하는 개발자 강동재'}
+            </h3>
+          </div>
+          <Menu
+            defaultSelectedKeys={['home']}
+            mode="inline"
+            items={items}
+            onClick={({ key }) => onClick(key)}
+          />
+        </Sider>
+        <Layout
+          className="site-layout"
+          style={{
+            height: '100vh',
+            overflowY: 'scroll'
+          }}
+        >
+          <Content
             style={{
-              height: '100vh',
-              overflowY: 'scroll'
+              marginLeft: '2rem',
+              paddingTop: '36px',
+              paddingRight: '36px'
             }}
           >
-            <Content
-              style={{
-                marginLeft: '2rem',
-                padding: '36px'
-              }}
-            >
-              {children}
-            </Content>
-          </Layout>
+            {/* <div
+              className="site-layout-background"
+              style={{ padding: 24, minHeight: 360 }}
+            > */}
+            {children}
+            {/* </div> */}
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            KDONG Portfolio ©2022 Created by KDONG
+          </Footer>
         </Layout>
       </Layout>
     </StyledMainLayout>

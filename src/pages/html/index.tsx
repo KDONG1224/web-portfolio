@@ -1,5 +1,23 @@
+// base
 import React from 'react';
 
-export const LazyHtmlPage = React.lazy(() => import('./HtmlPage'));
+// layouts
+import { MainLayout } from 'layouts';
 
-export const LazyHtmlDetailPage = React.lazy(() => import('./HtmlDetailPage'));
+// container
+import { Html } from 'container';
+
+
+interface HtmlPageProps {
+  
+}
+
+const HtmlPage: React.FC<HtmlPageProps> = ({ }) => {
+  return (
+    <MainLayout>
+      <Html />
+    </MainLayout>
+  );
+};
+
+export default HtmlPage;

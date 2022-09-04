@@ -3,7 +3,6 @@
 export * from './Card';
 
 export * from './Loader';
-export * from './Results';
 
 // slider
 export * from './Carousel';

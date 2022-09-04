@@ -48,6 +48,8 @@ interface Pagination extends PaginationProps {
 }
 
 const doubleScroll = ({ ...restProps }) => {
+  if (typeof window !== 'object') return <div />
+  
   return (
     <DoubleScrollbar>
       <table {...restProps}></table>

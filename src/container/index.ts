@@ -1,5 +1,4 @@
 // mainLayout
-export * from './MainMenu';
 export * from './MainBanner';
 export * from './MainCard';
 
