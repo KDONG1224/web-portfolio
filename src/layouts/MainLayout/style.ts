@@ -46,7 +46,7 @@ export const StyledMainLayout = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 15%;
+        width: 10%;
         margin-right: 36px;
 
         span {
