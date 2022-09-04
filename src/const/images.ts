@@ -25,6 +25,7 @@ export const exImg = {
 
 // icons
 export const HOME_ICON = `${ICON_PATH}/Home.png`;
+export const ABOUT_ICON = `${ICON_PATH}/About.png`;
 export const HTML_ICON = `${ICON_PATH}/html.png`;
 export const CSS_ICON = `${ICON_PATH}/css.png`;
 export const JS_ICON = `${ICON_PATH}/js.png`;
@@ -38,6 +39,7 @@ export const ALCHOL_ICON = `${ICON_PATH}/alchol.png`;
 
 export const menuIcons = {
   HOME_ICON,
+  ABOUT_ICON,
   HTML_ICON,
   CSS_ICON,
   JS_ICON,
@@ -57,6 +59,7 @@ export const BANNER_03 = `${BANNER_PATH}/banner03.png`;
 export const BANNER_04 = `${BANNER_PATH}/banner04.png`;
 export const BANNER_05 = `${BANNER_PATH}/banner05.png`;
 export const BANNER_06 = `${BANNER_PATH}/banner06.png`;
+export const NOT_IMAGE = `${BANNER_PATH}/kdong-not.png`;
 
 export const mainBanner = {
   BANNER_01,
@@ -64,5 +67,6 @@ export const mainBanner = {
   BANNER_03,
   BANNER_04,
   BANNER_05,
-  BANNER_06
+  BANNER_06,
+  NOT_IMAGE
 };

@@ -1,11 +1,14 @@
 // base
+import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+
+// hooks
+import { useInterval } from 'hooks';
 
 // const
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useInterval } from 'hooks';
+import { mainBanner } from 'const';
 
 const ErrorPage: NextPage = () => {
   const router = useRouter();
@@ -43,14 +46,8 @@ const ErrorPage: NextPage = () => {
       }}
     >
       <div>
-        <div
-          style={{
-            width: '540px',
-            height: '540px',
-            backgroundColor: '#000'
-          }}
-        >
-          {/* <Image src={SVZN_LOGO_V2} width={540} height={540} alt="" /> */}
+        <div>
+          <Image src={mainBanner.NOT_IMAGE} width={540} height={540} alt="" />
         </div>
         <div
           style={{

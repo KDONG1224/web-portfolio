@@ -1,17 +1,16 @@
 // base
-import React from 'react';
-import type { GetServerSideProps, NextPage } from 'next';
+import type { NextPage } from 'next';
 
-// layout
+// libraries
+import styled from 'styled-components';
+
+// layouts
 import { MainLayout } from 'layouts';
 import { MainBanner, MainCard } from 'container';
-import styled from 'styled-components';
 
 interface HomePageProps {}
 
-const StyledHomePage = styled.div`
-  padding: 50px 50px 50px 20px;
-`;
+const StyledHomePage = styled.div``;
 
 const HomePage: NextPage<HomePageProps> = () => {
   return (
@@ -23,7 +22,5 @@ const HomePage: NextPage<HomePageProps> = () => {
     </MainLayout>
   );
 };
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default HomePage;

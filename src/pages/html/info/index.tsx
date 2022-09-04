@@ -7,12 +7,9 @@ import { MainLayout } from 'layouts';
 // container
 import { Html } from 'container';
 
+interface HtmlInfoPageProps {}
 
-interface HtmlPageProps {
-  
-}
-
-const HtmlPage: React.FC<HtmlPageProps> = ({ }) => {
+const HtmlInfoPage: React.FC<HtmlInfoPageProps> = ({}) => {
   return (
     <MainLayout>
       <Html />
@@ -20,4 +17,4 @@ const HtmlPage: React.FC<HtmlPageProps> = ({ }) => {
   );
 };
 
-export default HtmlPage;
+export default HtmlInfoPage;

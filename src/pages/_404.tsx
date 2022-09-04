@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 
 // const
-// import { SVZN_LOGO_V2 } from 'const';
+import { mainBanner } from 'const';
 
 const NotFoundPage: NextPage = () => {
   return (
@@ -21,14 +21,8 @@ const NotFoundPage: NextPage = () => {
       }}
     >
       <div>
-        <div
-          style={{
-            width: '540px',
-            height: '540px',
-            backgroundColor: '#000'
-          }}
-        >
-          {/* <Image src={SVZN_LOGO_V2} width={540} height={540} alt="" /> */}
+        <div>
+          <Image src={mainBanner.NOT_IMAGE} width={540} height={540} alt="" />
         </div>
         <div
           style={{
