@@ -39,6 +39,7 @@ export const ALCHOL_ICON = `${ICON_PATH}/alchol.png`;
 export const GITHUB_ICON = `${ICON_PATH}/github.png`;
 export const TISTORY_ICON = `${ICON_PATH}/tistory.png`;
 export const INSTAGRAM_ICON = `${ICON_PATH}/instagram.png`;
+export const API_ICON = `${ICON_PATH}/api.png`;
 
 export const menuIcons = {
   HOME_ICON,
@@ -58,7 +59,8 @@ export const menuIcons = {
 export const socialIcons = {
   GITHUB_ICON,
   TISTORY_ICON,
-  INSTAGRAM_ICON
+  INSTAGRAM_ICON,
+  API_ICON
 };
 
 // banner
