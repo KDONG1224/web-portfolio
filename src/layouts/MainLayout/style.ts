@@ -16,6 +16,7 @@ export const StyledMainLayout = styled.div`
 
     img {
       width: 100%;
+      border-radius: 50%;
     }
   }
 

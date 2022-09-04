@@ -8,9 +8,9 @@ export const ROUTE_ABOUT_INFO = `${ROUTE_ABOUT}/info`;
 // html
 export const ROUTE_HTML = '/html';
 export const ROUTE_HTML_INFO = `${ROUTE_HTML}/info`;
-export const ROUTE_HTML_DETAIL = `${ROUTE_HTML_INFO}/:id`;
+export const ROUTE_HTML_DETAIL = `${ROUTE_HTML}/:id`;
 export const ROUTE_HTML_DETAIL_WITH_ID = (id: string) =>
-  `${ROUTE_HTML_INFO}/${id}`;
+  `${ROUTE_HTML}/${id}`;
 
 // css
 export const ROUTE_CSS = '/css';

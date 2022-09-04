@@ -1,3 +1,2 @@
-export * from './actions/ui.action';
 export * from './models/ui.model';
-// export * from './slice/ui.slice';
+export * from './slice/ui.slice';

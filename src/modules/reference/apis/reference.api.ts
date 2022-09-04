@@ -5,8 +5,7 @@ export class ReferApi {
 
   constructor() {
     this.Axios = new AxiosServerInstanceCreator({
-      // baseURL: process.env.KDONG_API_URL + '/api/v1/reference',
-      baseURL: 'https://kdong-server.herokuapp.com/api/v1/reference',
+      baseURL: process.env.NEXT_PUBLIC_KDONG_API_URL + 'reference',
       headers: {
         // 'X-access-token': accessToken,
         // icToken: icToken

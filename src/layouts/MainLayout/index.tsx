@@ -26,6 +26,10 @@ import {
   ROUTE_ALCHOL_CUP
 } from 'const/route';
 
+// modules
+import { useAppDispatch, useAppSelector } from 'modules/hooks';
+import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules';
+
 const { Header, Content, Footer, Sider } = Layout;
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {}
@@ -36,7 +40,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
 }) => {
   const [collapsed, setCollapsed] = useState(false);
 
+  const { isSideMenuCollapsed } = useAppSelector((state) => state.ui);
+
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const items: MenuItem[] = [
     getMenuItem('홈', ROUTE_ROOT, <div className="home-icon navi-icon" />),
@@ -45,8 +52,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       ROUTE_ABOUT,
       <div className="about-icon navi-icon" />
     ),
-    getMenuItem('HTML', ROUTE_HTML, <div className="html-icon navi-icon" />, [
-      getMenuItem('HTML 설명', ROUTE_HTML_INFO)
+    getMenuItem('HTML', 'html', <div className="html-icon navi-icon" />, [
+      getMenuItem('HTML 설명', ROUTE_HTML)
     ]),
     getMenuItem('CSS', ROUTE_CSS, <div className="css-icon navi-icon" />),
     getMenuItem(
@@ -76,7 +83,13 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     )
   ];
 
-  const onClick = (key: MenuInfo) => {
+  const onCollapse = (value: boolean) => {
+    dispatch(sideMenuCollapsedAction(!isSideMenuCollapsed));
+    dispatch(touchSideMenuCollapsed(value));
+    setCollapsed(value);
+  };
+
+  const onClick = (key: string) => {
     console.log('클릭! : ', key);
     const url = key as unknown as URL;
     router.push(url);
@@ -87,8 +100,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       <Layout {...props}>
         <Sider
           collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
+          collapsed={isSideMenuCollapsed}
+          onCollapse={(value) => onCollapse(value)}
         >
           <div className="layout-sider-thumb">
             <div className={`layout-sider-thumb-box`}>
@@ -97,8 +110,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
                 alt="kdong"
               />
             </div>
-            <h3 className={`layout-sider-title ${collapsed ? 'active' : ''}`}>
-              {collapsed ? '강동재' : '밥값하는 개발자 강동재'}
+            <h3
+              className={`layout-sider-title ${
+                isSideMenuCollapsed ? 'active' : ''
+              }`}
+            >
+              {isSideMenuCollapsed ? '강동재' : '밥값하는 개발자 강동재'}
             </h3>
           </div>
           <Menu

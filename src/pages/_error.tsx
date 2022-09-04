@@ -22,6 +22,7 @@ const ErrorPage: NextPage = () => {
       if (prevPath) router.back();
       else router.push('/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   useInterval(

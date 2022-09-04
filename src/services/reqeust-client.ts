@@ -6,7 +6,7 @@ import { STORAGE_SESSION_ICT } from './storage';
 import { cookieStorage, COOKIE_ACCESS_TOKEN } from './cookie';
 import { isTokenExpired } from 'utils/protocol';
 
-export const extractErrorMsg = (error: AxiosError<any>) => {
+export const extractErrorMsgV2 = (error: AxiosError<any>) => {
   if (!error.response) {
     return '서버에 접속할 수 없습니다';
   } else {

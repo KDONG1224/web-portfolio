@@ -12,7 +12,8 @@ export const isSafari = /Safari/i.test(
 
 export const isAppAndroid =
   typeof window === 'object'
-    ? /Android/i.test(window.navigator.userAgent) && window.oasis
+    ? // ? /Android/i.test(window.navigator.userAgent) && window.oasis
+      /Android/i.test(window.navigator.userAgent)
     : '';
 
 export const isAndroid = /Android/i.test(
@@ -21,10 +22,10 @@ export const isAndroid = /Android/i.test(
 
 export const isAppIos =
   typeof window === 'object'
-    ? /iPhone|iPad|iPod/i.test(navigator.userAgent) &&
-      window.webkit &&
-      window.webkit.messageHandlers.oasis
-    : '';
+    ? /iPhone|iPad|iPod/i.test(navigator.userAgent)
+    : // window.webkit &&
+      // window.webkit.messageHandlers.oasis
+      '';
 
 export const isIos = /iPhone|iPad|iPod/i.test(
   typeof window === 'object' ? navigator.userAgent : ''

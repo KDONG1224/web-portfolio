@@ -5,7 +5,9 @@ export const extractErrorMsg = (error: AxiosError) => {
   if (!error.response) {
     return '서버에 접속할 수 없습니다';
   } else {
-    return error.response.data.error.message || '에러 발생';
+    // const err = error.response.data.error.message || '에러 발생'
+    const err = '에러 발생';
+    return err;
   }
 };
 
@@ -34,7 +36,7 @@ class AxiosInstanceCreator {
   }
 
   interceptors() {
-    this.#instance.interceptors.request.use(config => {
+    this.#instance.interceptors.request.use((config) => {
       // const icToken = sessionStorage.getItem(STORAGE_SESSION_ICT);
 
       // if (!config.headers['ictoken']) {
@@ -50,14 +52,14 @@ class AxiosInstanceCreator {
     });
 
     this.#instance.interceptors.response.use(
-      res => {
+      (res) => {
         if (res.data.code) {
           throw new Error(res.data.message).message;
         }
 
         return res;
       },
-      error => {
+      (error) => {
         if (axios.isCancel(error)) {
           // clearUserToken();
 
