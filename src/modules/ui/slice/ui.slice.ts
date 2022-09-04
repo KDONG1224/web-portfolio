@@ -34,7 +34,6 @@ const uiSlice = createSlice({
       state.pageLoading = state.calledActions.length ? true : false;
     },
     sideMenuCollapsedAction: (state, action: PayloadAction<boolean>) => {
-      console.log('action : ', action.payload);
       state.isSideMenuCollapsed = action.payload;
     },
     touchSideMenuCollapsed: (state, action: PayloadAction<boolean>) => {
