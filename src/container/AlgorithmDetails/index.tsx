@@ -18,19 +18,20 @@ import { CommonCollapse } from 'components';
 import { algorithmInfo } from 'const';
 
 interface AlgorithmDetailsProps {
-  id: string;
+  // id: string;
 }
 
 const IconFont = createFromIconfontCN({
   scriptUrl: ['//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js']
 });
 
-export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({ id }) => {
+export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({}) => {
   const [isAnswer, setIsAnswer] = useState<string>('');
 
+  const id = 'algorithm-01';
   console.log('id : ', id);
 
-  const check = algorithmInfo.filter(x => x.key === id)[0];
+  const check = algorithmInfo.filter((x) => x.key === id)[0];
 
   const {
     question,
@@ -62,16 +63,16 @@ export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({ id }) => {
 
   return (
     <StyledAlgorithmDetails>
-      <div className='detail-head'>{title}</div>
-      <div id='sample1' className='sample'>
+      <div className="detail-head">{title}</div>
+      <div id="sample1" className="sample">
         <h2>
-          {title} <span className='dot'></span>
+          {title} <span className="dot"></span>
         </h2>
-        <p className='problem'>
+        <p className="problem">
           <strong>Q : </strong> <br />
           {question}
         </p>
-        <div className='desc'>
+        <div className="desc">
           <dl>
             <dt>
               <SoundOutlined /> 입력 설명
@@ -83,26 +84,26 @@ export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({ id }) => {
             <dd>{outputInfo}</dd>
           </dl>
         </div>
-        <div className='sam'>
+        <div className="sam">
           <dl>
             <dt>
               <EditOutlined /> 입력 예제
             </dt>
             <dd>{questionEx}</dd>
             <dt>
-              <IconFont type='icon-javascript' /> 출력 예제
+              <IconFont type="icon-javascript" /> 출력 예제
             </dt>
             <dt>{outputEx}</dt>
           </dl>
         </div>
-        <div className='code'>
-          <pre className='line-number'>
-            <code className='language-js'></code>
+        <div className="code">
+          <pre className="line-number">
+            <code className="language-js"></code>
           </pre>
         </div>
       </div>
       <CommonCollapse
-        className='answer-btn'
+        className="answer-btn"
         code={answerCode}
         answer={isAnswer}
         onClick={onClickAnswer}
