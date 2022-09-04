@@ -97,6 +97,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   const onClickSocial = (type: string) => {
+    if (type === 'api')
+      return window.open('https://kdong-server.herokuapp.com/api/v1/kdong');
     if (type === 'github') return window.open('https://github.com/KDONG1224');
     if (type === 'tistory')
       return window.open('https://kdong1224.tistory.com/');
@@ -150,6 +152,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
                 </span>
               </div>
               <div className="header-wrapper-social">
+                <span onClick={() => onClickSocial('api')}>
+                  <img src={socialIcons.API_ICON} alt="api" />
+                </span>
                 <span onClick={() => onClickSocial('github')}>
                   <img src={socialIcons.GITHUB_ICON} alt="깃허브" />
                 </span>
