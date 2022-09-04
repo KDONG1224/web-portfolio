@@ -26,7 +26,45 @@ export const StyledMainLayout = styled.div`
     }
   }
 
-  .ant-menu.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title,
+  .site-layout-header {
+    .header-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+
+      &-text {
+        width: 80%;
+
+        span {
+          margin-left: 36px;
+        }
+      }
+
+      &-social {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 15%;
+        margin-right: 36px;
+
+        span {
+          display: flex;
+          cursor: pointer;
+
+          img {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+
+  .ant-menu.ant-menu-inline-collapsed
+    > .ant-menu-submenu
+    > .ant-menu-submenu-title,
   .ant-menu.ant-menu-inline-collapsed > .ant-menu-item {
     padding: 0 calc(50% - 30px / 2);
   }

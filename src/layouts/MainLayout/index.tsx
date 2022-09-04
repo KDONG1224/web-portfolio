@@ -29,6 +29,7 @@ import {
 // modules
 import { useAppDispatch, useAppSelector } from 'modules/hooks';
 import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules';
+import { socialIcons } from 'const';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -95,6 +96,14 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     router.push(url);
   };
 
+  const onClickSocial = (type: string) => {
+    if (type === 'github') return window.open('https://github.com/KDONG1224');
+    if (type === 'tistory')
+      return window.open('https://kdong1224.tistory.com/');
+    if (type === 'instagram')
+      return window.open('https://www.instagram.com/noyclah_jdk/');
+  };
+
   return (
     <StyledMainLayout>
       <Layout {...props}>
@@ -132,13 +141,25 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             overflowY: 'scroll'
           }}
         >
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            <div
-              style={{
-                marginLeft: '36px'
-              }}
-            >
-              밥 ----- 값하는 개발자 강동재의 포트폴리오에 오신걸 환영합니다.
+          <Header className="site-layout-header" style={{ padding: 0 }}>
+            <div className="header-wrapper">
+              <div className="header-wrapper-text">
+                <span>
+                  밥 ----- 값하는 개발자 강동재의 포트폴리오에 오신걸
+                  환영합니다.
+                </span>
+              </div>
+              <div className="header-wrapper-social">
+                <span onClick={() => onClickSocial('github')}>
+                  <img src={socialIcons.GITHUB_ICON} alt="깃허브" />
+                </span>
+                <span onClick={() => onClickSocial('tistory')}>
+                  <img src={socialIcons.TISTORY_ICON} alt="티스토리" />
+                </span>
+                <span onClick={() => onClickSocial('instagram')}>
+                  <img src={socialIcons.INSTAGRAM_ICON} alt="인스타그램" />
+                </span>
+              </div>
             </div>
           </Header>
           <Content
@@ -155,7 +176,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             {children}
             {/* </div> */}
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
+          <Footer style={{ textAlign: 'center', background: '#fff' }}>
             KDONG Portfolio ©2022 Created by KDONG
           </Footer>
         </Layout>

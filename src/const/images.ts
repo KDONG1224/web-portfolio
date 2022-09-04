@@ -36,6 +36,9 @@ export const ALGORITHM_ICON = `${ICON_PATH}/Algorithm.png`;
 export const MAC_ICON = `${ICON_PATH}/MacOS.png`;
 export const NOTION_ICON = `${ICON_PATH}/Notion.png`;
 export const ALCHOL_ICON = `${ICON_PATH}/alchol.png`;
+export const GITHUB_ICON = `${ICON_PATH}/github.png`;
+export const TISTORY_ICON = `${ICON_PATH}/tistory.png`;
+export const INSTAGRAM_ICON = `${ICON_PATH}/instagram.png`;
 
 export const menuIcons = {
   HOME_ICON,
@@ -50,6 +53,12 @@ export const menuIcons = {
   MAC_ICON,
   NOTION_ICON,
   ALCHOL_ICON
+};
+
+export const socialIcons = {
+  GITHUB_ICON,
+  TISTORY_ICON,
+  INSTAGRAM_ICON
 };
 
 // banner

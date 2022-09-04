@@ -17,7 +17,6 @@ const mainSlice = createSlice({
   initialState,
   reducers: {
     sideMenuCollapsedActionV2: (state, action: PayloadAction<boolean>) => {
-      console.log('action : ', action.payload);
       state.isSideMenuCollapsedV2 = action.payload;
     },
     touchSideMenuCollapsedV2: (state, action: PayloadAction<boolean>) => {

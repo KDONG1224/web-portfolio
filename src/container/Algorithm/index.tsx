@@ -45,10 +45,20 @@ export const Algorithm: React.FC = () => {
       <Row
         justify="space-between"
         // gutter={isSideMenuCollapsed ? [112, 80] : [10, 80]}
-        gutter={[16, 80]}
+        gutter={[40, 40]}
+        style={{
+          width: '100%',
+          marginLeft: '0px',
+          marginRight: '-84px',
+          rowGap: '84px'
+        }}
       >
         {algorithmInfo.map((algorithm) => (
-          <Col span={6} key={algorithm.key}>
+          <Col span={6} key={algorithm.key} style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
             <CommonCard
               id={algorithm.key}
               title={algorithm.title}
