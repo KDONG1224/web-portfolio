@@ -132,6 +132,15 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             overflowY: 'scroll'
           }}
         >
+          <Header className="site-layout-background" style={{ padding: 0 }}>
+            <div
+              style={{
+                marginLeft: '36px'
+              }}
+            >
+              밥 ----- 값하는 개발자 강동재의 포트폴리오에 오신걸 환영합니다.
+            </div>
+          </Header>
           <Content
             style={{
               marginLeft: '2rem',
