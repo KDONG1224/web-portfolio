@@ -25,32 +25,29 @@ export default class MyDocument extends Document {
             <meta property="og:locale" content="ko_KR" />
             <meta name="robots" content="all" />
             <meta name="Googlebot" content="index, follow" />
-            <meta name="title" content="세이브온" />
-            <meta name="description" content="온라인 쇼핑몰 - 세이브온" />
-            <meta
-              name="keywords"
-              content="세이브존, 세이브온, 온라인 쇼핑몰, 쇼핑몰"
-            />
-            <meta name="og:site_name" content="온라인 쇼핑몰 - 세이브온" />
-            <meta name="og:title" content="세이브온" />
-            <meta name="og:description" content="온라인 쇼핑몰 - 세이브온" />
+            <meta name="title" content="동재의 포트폴리오" />
+            <meta name="description" content="밥 --- 값하는 개발자 강동재" />
+            <meta name="keywords" content="강동재, 밥값, 프론트엔드, KDONG" />
+            <meta name="og:site_name" content="동재의 포트폴리오" />
+            <meta name="og:title" content="동재의 포트폴리오" />
+            <meta name="og:description" content="밥 --- 값하는 개발자 강동재" />
             <meta name="og:type" content="website" />
             {/* <meta name="og:url" content={`${process.env.NEXT_PUBLIC_URL}`} /> */}
             <meta
               name="og:image"
-              content="https://assets.ifdev.cc/upload/thumbnail/FtG2V5HssFZlfijnRiQdz5eL.png"
+              content="https://avatars.githubusercontent.com/u/87642774?v=4"
             />
             <meta name="twitter:card" content="summary" />
-            <meta name="twitter:title" content="세이브온" />
+            <meta name="twitter:title" content="동재의 포트폴리오" />
             <meta
               name="twitter:description"
-              content="온라인 쇼핑몰 - 세이브온"
+              content="밥 --- 값하는 개발자 강동재"
             />
             <meta
               name="twitter:image"
-              content="https://assets.ifdev.cc/upload/thumbnail/FtG2V5HssFZlfijnRiQdz5eL.png"
+              content="https://avatars.githubusercontent.com/u/87642774?v=4"
             />
-            <title>강동재 포트폴리오</title>
+            <title>KDONG 포트폴리오</title>
 
             {/* 추후 적용 */}
             {/* <meta name="google-site-verification" content="" />
@@ -65,7 +62,7 @@ export default class MyDocument extends Document {
             <meta name="Slurp" content="noindex, nofollow, noarchive" />
             <meta name="msnbot" content="noindex, nofollow, noarchive" /> */}
             {/* 페이지별 head로 정의 */}
-            {/* <meta name="title" content="오아시스" />
+            {/* <meta name="title" content="KDONG" />
             <meta name="description" content="oasis" />
             <meta name="keywords" content="oasis" />
             <meta name="og:site_name" content="" />
