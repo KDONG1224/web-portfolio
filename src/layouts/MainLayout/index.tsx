@@ -1,5 +1,5 @@
 // base
-import React, { HTMLAttributes, useState } from 'react';
+import React, { HTMLAttributes, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // style
@@ -10,14 +10,12 @@ import { Layout, Menu } from 'antd';
 
 // utils
 import { getMenuItem, MenuItem } from 'utils';
-import { MenuInfo } from 'rc-menu/lib/interface';
 
 // route
 import {
   ROUTE_ROOT,
   ROUTE_ABOUT,
   ROUTE_HTML,
-  ROUTE_HTML_INFO,
   ROUTE_CSS,
   ROUTE_JS,
   ROUTE_ALGORITHM,
@@ -25,15 +23,41 @@ import {
   ROUTE_NOTION,
   ROUTE_ALCHOL_CUP
 } from 'const/route';
+import { socialIcons } from 'const';
 
 // modules
 import { useAppDispatch, useAppSelector } from 'modules/hooks';
 import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules';
-import { socialIcons } from 'const';
+import { useMedia } from 'hooks';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {}
+
+interface PcStyledLayoutProps extends MainLayoutProps {}
+interface TabletStyledLayoutProps extends MainLayoutProps {}
+interface MobileStyledLayoutProps extends MainLayoutProps {}
+
+export const pcStyledLayout: React.FC<PcStyledLayoutProps> = ({
+  children,
+  ...props
+}) => {
+  return <StyledMainLayout>{children}</StyledMainLayout>;
+};
+
+export const tabletStyledLayout: React.FC<TabletStyledLayoutProps> = ({
+  children,
+  ...props
+}) => {
+  return <StyledMainLayout>{children}</StyledMainLayout>;
+};
+
+export const mobileStyledLayout: React.FC<MobileStyledLayoutProps> = ({
+  children,
+  ...props
+}) => {
+  return <StyledMainLayout>{children}</StyledMainLayout>;
+};
 
 export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
@@ -41,10 +65,30 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
 }) => {
   const [collapsed, setCollapsed] = useState(false);
 
+  /*
+    메인메뉴 사이더 관련
+  */
+  const [openKeys, setOpenkeys] = useState<string[] | undefined>();
+  const [selectedKeys, setSelectedKeys] = useState<string[]>();
+  const [activeKey, setActiveKey] = useState<string>('');
+
   const { isSideMenuCollapsed } = useAppSelector((state) => state.ui);
 
   const router = useRouter();
+  const pathname = router.pathname;
   const dispatch = useAppDispatch();
+
+  /*
+    반응형
+  */
+
+  const { isMobile, isPc, isTablet } = useMedia();
+
+  console.log('===============');
+  console.log('isPc : ', isPc);
+  console.log('isTablet : ', isTablet);
+  console.log('isMobile : ', isMobile);
+  console.log('===============');
 
   const items: MenuItem[] = [
     getMenuItem('홈', ROUTE_ROOT, <div className="home-icon navi-icon" />),
@@ -90,8 +134,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     setCollapsed(value);
   };
 
+  const onOpenChange = (openKeys: string[]) => {
+    setOpenkeys(openKeys as string[]);
+  };
+
   const onClick = (key: string) => {
-    console.log('클릭! : ', key);
     const url = key as unknown as URL;
     router.push(url);
   };
@@ -106,86 +153,99 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       return window.open('https://www.instagram.com/noyclah_jdk/');
   };
 
+  const handleOpen = () => {
+    const openKey = pathname.split(/(?=\/)/g)[0];
+
+    setActiveKey(openKey);
+    setOpenkeys(isSideMenuCollapsed ? undefined : [openKey]);
+    setSelectedKeys([pathname]);
+  };
+
+  useEffect(() => {
+    handleOpen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, isSideMenuCollapsed]);
+
   return (
-    <StyledMainLayout>
-      <Layout {...props}>
-        <Sider
-          collapsible
-          collapsed={isSideMenuCollapsed}
-          onCollapse={(value) => onCollapse(value)}
-        >
-          <div className="layout-sider-thumb">
-            <div className={`layout-sider-thumb-box`}>
-              <img
-                src="https://avatars.githubusercontent.com/u/87642774?v=4"
-                alt="kdong"
-              />
-            </div>
-            <h3
-              className={`layout-sider-title ${
-                isSideMenuCollapsed ? 'active' : ''
-              }`}
-            >
-              {isSideMenuCollapsed ? '강동재' : '밥값하는 개발자 강동재'}
-            </h3>
+    <Layout {...props}>
+      <Sider
+        collapsible
+        collapsed={isSideMenuCollapsed}
+        onCollapse={(value) => onCollapse(value)}
+        style={{
+          height: '100vh',
+          overflowY: 'scroll'
+        }}
+      >
+        <div className="layout-sider-thumb">
+          <div className={`layout-sider-thumb-box`}>
+            <img
+              src="https://avatars.githubusercontent.com/u/87642774?v=4"
+              alt="kdong"
+            />
           </div>
-          <Menu
-            defaultSelectedKeys={['home']}
-            mode="inline"
-            items={items}
-            onClick={({ key }) => onClick(key)}
-          />
-        </Sider>
-        <Layout
-          className="site-layout"
+          <h3
+            className={`layout-sider-title ${
+              isSideMenuCollapsed ? 'active' : ''
+            }`}
+          >
+            {isSideMenuCollapsed ? '강동재' : '밥값하는 개발자 강동재'}
+          </h3>
+        </div>
+        <Menu
+          mode="inline"
+          items={items}
+          onClick={({ key }) => onClick(key)}
+          onOpenChange={(openKeys) => onOpenChange(openKeys)}
+          activeKey={activeKey}
+          openKeys={openKeys}
+          selectedKeys={selectedKeys}
+          defaultSelectedKeys={['home']}
+        />
+      </Sider>
+      <Layout
+        className="site-layout"
+        style={{
+          height: '100vh',
+          overflowY: 'scroll'
+        }}
+      >
+        <Header className="site-layout-header" style={{ padding: 0 }}>
+          <div className="header-wrapper">
+            <div className="header-wrapper-text">
+              <span>
+                밥 ----- 값하는 개발자 강동재의 포트폴리오에 오신걸 환영합니다.
+              </span>
+            </div>
+            <div className="header-wrapper-social">
+              <span onClick={() => onClickSocial('api')}>
+                <img src={socialIcons.API_ICON} alt="api" />
+              </span>
+              <span onClick={() => onClickSocial('github')}>
+                <img src={socialIcons.GITHUB_ICON} alt="깃허브" />
+              </span>
+              <span onClick={() => onClickSocial('tistory')}>
+                <img src={socialIcons.TISTORY_ICON} alt="티스토리" />
+              </span>
+              <span onClick={() => onClickSocial('instagram')}>
+                <img src={socialIcons.INSTAGRAM_ICON} alt="인스타그램" />
+              </span>
+            </div>
+          </div>
+        </Header>
+        <Content
           style={{
-            height: '100vh',
-            overflowY: 'scroll'
+            marginLeft: '2rem',
+            paddingTop: '36px',
+            paddingRight: '36px'
           }}
         >
-          <Header className="site-layout-header" style={{ padding: 0 }}>
-            <div className="header-wrapper">
-              <div className="header-wrapper-text">
-                <span>
-                  밥 ----- 값하는 개발자 강동재의 포트폴리오에 오신걸
-                  환영합니다.
-                </span>
-              </div>
-              <div className="header-wrapper-social">
-                <span onClick={() => onClickSocial('api')}>
-                  <img src={socialIcons.API_ICON} alt="api" />
-                </span>
-                <span onClick={() => onClickSocial('github')}>
-                  <img src={socialIcons.GITHUB_ICON} alt="깃허브" />
-                </span>
-                <span onClick={() => onClickSocial('tistory')}>
-                  <img src={socialIcons.TISTORY_ICON} alt="티스토리" />
-                </span>
-                <span onClick={() => onClickSocial('instagram')}>
-                  <img src={socialIcons.INSTAGRAM_ICON} alt="인스타그램" />
-                </span>
-              </div>
-            </div>
-          </Header>
-          <Content
-            style={{
-              marginLeft: '2rem',
-              paddingTop: '36px',
-              paddingRight: '36px'
-            }}
-          >
-            {/* <div
-              className="site-layout-background"
-              style={{ padding: 24, minHeight: 360 }}
-            > */}
-            {children}
-            {/* </div> */}
-          </Content>
-          <Footer style={{ textAlign: 'center', background: '#fff' }}>
-            KDONG Portfolio ©2022 Created by KDONG
-          </Footer>
-        </Layout>
+          {children}
+        </Content>
+        <Footer style={{ textAlign: 'center', background: '#fff' }}>
+          KDONG Portfolio ©2022 Created by KDONG
+        </Footer>
       </Layout>
-    </StyledMainLayout>
+    </Layout>
   );
 };

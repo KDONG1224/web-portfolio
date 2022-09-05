@@ -4,7 +4,9 @@ import styled from 'styled-components';
 // const
 import { menuIcons } from 'const';
 
-export const StyledMainLayout = styled.div`
+interface StyledMainLayoutProps {}
+
+export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
   color: #000;
 
   .layout-sider-thumb {
@@ -69,6 +71,12 @@ export const StyledMainLayout = styled.div`
     padding: 0 calc(50% - 30px / 2);
   }
 
+  .ant-menu.ant-menu-inline-collapsed
+    > .ant-menu-submenu
+    > .ant-menu-submenu-title {
+    /* padding-top: 8px; */
+  }
+
   .ant-layout-content {
     overflow-y: scroll;
   }
@@ -78,6 +86,18 @@ export const StyledMainLayout = styled.div`
     color: #000;
   }
 
+  .ant-menu-submenu-selected {
+    background-color: yellow;
+  }
+
+  .ant-menu.ant-menu-inline-collapsed
+    > .ant-menu-submenu
+    > .ant-menu-submenu-title
+    .ant-menu-item-icon,
+  .ant-menu.ant-menu-inline-collapsed > .ant-menu-item .ant-menu-item-icon {
+    margin-top: 5px;
+  }
+
   // sidebar icons
   .ant-menu-submenu-title,
   .ant-menu-item {
@@ -85,6 +105,7 @@ export const StyledMainLayout = styled.div`
       width: 30px;
       height: 30px;
       background-size: 100%;
+      background-repeat: no-repeat;
     }
   }
 
