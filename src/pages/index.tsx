@@ -5,8 +5,9 @@ import type { NextPage } from 'next';
 import styled from 'styled-components';
 
 // layouts
+
+import { MainBanner, MainCard } from 'container';;
 import { MainLayout } from 'layouts';
-import { MainBanner, MainCard } from 'container';
 
 interface HomePageProps {}
 

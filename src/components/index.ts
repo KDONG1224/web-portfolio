@@ -12,3 +12,11 @@ export * from './Collapse';
 export * from './Table';
 
 export * from './List';
+
+export * from './Icons';
+
+// header
+export * from './Header';
+
+// Footer
+export * from './Footer';

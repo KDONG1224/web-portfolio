@@ -55,7 +55,7 @@ export const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
   // useEffect(() => storePathValues, [router.asPath]);
 
   // const storage = globalThis?.sessionStorage;
-  
+
   // const storePathValues = () => {
   //   if (!storage) return;
   //   // Set the previous path as the value of the current path.
