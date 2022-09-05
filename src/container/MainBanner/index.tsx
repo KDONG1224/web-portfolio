@@ -10,9 +10,14 @@ import { mainBanner } from 'const';
 // style
 import { StyledMainBanner } from './style';
 
+// hooks
+import { useMedia } from 'hooks';
+
 interface MainBannerProps {}
 
 export const MainBanner: React.FC<MainBannerProps> = ({}) => {
+  const { isMobile } = useMedia();
+
   const bannerUrl = [
     {
       url: mainBanner.BANNER_01,
@@ -45,12 +50,15 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
   };
 
   return (
-    <StyledMainBanner style={{ backgroundColor: '#efbd5a' }}>
+    <StyledMainBanner
+      style={{ backgroundColor: '#efbd5a' }}
+      isMobile={isMobile}
+    >
       <BannerSlider
         banner={bannerUrl}
         autoplay={{ delay: 2000, disableOnInteraction: false }}
         loop={true}
-        height={500}
+        height={isMobile ? 300 : 500}
         showDesc
         onClick={({ realIndex }) => {
           console.log('realIndex : ', realIndex);
