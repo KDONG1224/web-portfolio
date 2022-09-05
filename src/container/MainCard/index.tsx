@@ -14,6 +14,9 @@ import { Col, Row } from 'antd';
 // images
 import { exImg } from 'const/images';
 
+// hooks
+import { useMedia } from 'hooks';
+
 // modules
 // import { StoreState } from 'modules';
 
@@ -21,6 +24,8 @@ interface MainCardProps {}
 
 export const MainCard: React.FC<MainCardProps> = ({}) => {
   // const { isSideMenuCollapsed } = useSelector((state: StoreState) => state.ui);
+
+  const { isMobile } = useMedia();
 
   const item = [
     {
@@ -98,7 +103,7 @@ export const MainCard: React.FC<MainCardProps> = ({}) => {
   ];
 
   return (
-    <StyledMainCard>
+    <StyledMainCard isMobile={isMobile}>
       <Row
         justify="space-between"
         // gutter={isSideMenuCollapsed ? [112, 40] : [58, 40]}
