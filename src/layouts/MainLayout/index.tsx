@@ -3,7 +3,7 @@ import React, { HTMLAttributes, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // style
-import { StyledMainLayout } from './style';
+import { StyledMainLayout, StyledMobileLayout } from './style';
 
 // libraries
 import { Layout, Menu } from 'antd';
@@ -28,42 +28,22 @@ import { socialIcons } from 'const';
 // modules
 import { useAppDispatch, useAppSelector } from 'modules/hooks';
 import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules';
+
+// hooks
 import { useMedia } from 'hooks';
+
+// components
+import { MobileFooter, MobileHeader } from 'components';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {}
 
-interface PcStyledLayoutProps extends MainLayoutProps {}
-interface TabletStyledLayoutProps extends MainLayoutProps {}
-interface MobileStyledLayoutProps extends MainLayoutProps {}
-
-export const PcStyledLayout: React.FC<PcStyledLayoutProps> = ({
+export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   ...props
 }) => {
-  return <StyledMainLayout>{children}</StyledMainLayout>;
-};
-
-export const TabletStyledLayout: React.FC<TabletStyledLayoutProps> = ({
-  children,
-  ...props
-}) => {
-  return <StyledMainLayout>{children}</StyledMainLayout>;
-};
-
-export const MobileStyledLayout: React.FC<MobileStyledLayoutProps> = ({
-  children,
-  ...props
-}) => {
-  return <StyledMainLayout>{children}</StyledMainLayout>;
-};
-
-export const MainComponents: React.FC<MainLayoutProps> = ({
-  children,
-  ...props
-}) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [_, setCollapsed] = useState(false);
 
   /*
     메인메뉴 사이더 관련
@@ -77,6 +57,8 @@ export const MainComponents: React.FC<MainLayoutProps> = ({
   const router = useRouter();
   const pathname = router.pathname;
   const dispatch = useAppDispatch();
+
+  const { isMobile, isPc, isTablet } = useMedia();
 
   const items: MenuItem[] = [
     getMenuItem('홈', ROUTE_ROOT, <div className="home-icon navi-icon" />),
@@ -155,122 +137,108 @@ export const MainComponents: React.FC<MainLayoutProps> = ({
   }, [pathname, isSideMenuCollapsed]);
 
   return (
-    <Layout {...props}>
-      <Sider
-        collapsible
-        collapsed={isSideMenuCollapsed}
-        onCollapse={(value) => onCollapse(value)}
-        style={{
-          height: '100vh',
-          overflowY: 'scroll'
-        }}
-      >
-        <div className="layout-sider-thumb">
-          <div className={`layout-sider-thumb-box`}>
-            <img
-              src="https://avatars.githubusercontent.com/u/87642774?v=4"
-              alt="kdong"
-            />
-          </div>
-          <h3
-            className={`layout-sider-title ${
-              isSideMenuCollapsed ? 'active' : ''
-            }`}
+    <StyledMainLayout>
+      {(isPc || isTablet) && (
+        <Layout {...props}>
+          <Sider
+            collapsible
+            collapsed={isSideMenuCollapsed}
+            onCollapse={(value) => onCollapse(value)}
+            style={{
+              height: '100vh',
+              overflowY: 'scroll'
+            }}
           >
-            {isSideMenuCollapsed ? '강동재' : '밥값하는 개발자 강동재'}
-          </h3>
-        </div>
-        <Menu
-          mode="inline"
-          items={items}
-          onClick={({ key }) => onClick(key)}
-          onOpenChange={(openKeys) => onOpenChange(openKeys)}
-          activeKey={activeKey}
-          openKeys={openKeys}
-          selectedKeys={selectedKeys}
-          defaultSelectedKeys={['home']}
-        />
-      </Sider>
-      <Layout
-        className="site-layout"
-        style={{
-          height: '100vh',
-          overflowY: 'scroll'
-        }}
-      >
-        <Header className="site-layout-header" style={{ padding: 0 }}>
-          <div className="header-wrapper">
-            <div className="header-wrapper-text">
-              <span>
-                밥 ----- 값하는 개발자 강동재의 포트폴리오에 오신걸 환영합니다.
-              </span>
+            <div className="layout-sider-thumb">
+              <div className={`layout-sider-thumb-box`}>
+                <img
+                  src="https://avatars.githubusercontent.com/u/87642774?v=4"
+                  alt="kdong"
+                />
+              </div>
+              <h3
+                className={`layout-sider-title ${
+                  isSideMenuCollapsed ? 'active' : ''
+                }`}
+              >
+                {isSideMenuCollapsed ? '강동재' : '밥값하는 개발자 강동재'}
+              </h3>
             </div>
-            <div className="header-wrapper-social">
-              <span onClick={() => onClickSocial('api')}>
-                <img src={socialIcons.API_ICON} alt="api" />
-              </span>
-              <span onClick={() => onClickSocial('github')}>
-                <img src={socialIcons.GITHUB_ICON} alt="깃허브" />
-              </span>
-              <span onClick={() => onClickSocial('tistory')}>
-                <img src={socialIcons.TISTORY_ICON} alt="티스토리" />
-              </span>
-              <span onClick={() => onClickSocial('instagram')}>
-                <img src={socialIcons.INSTAGRAM_ICON} alt="인스타그램" />
-              </span>
-            </div>
-          </div>
-        </Header>
-        <Content
-          style={{
-            marginLeft: '2rem',
-            paddingTop: '36px',
-            paddingRight: '36px'
-          }}
-        >
-          {children}
-        </Content>
-        <Footer style={{ textAlign: 'center', background: '#fff' }}>
-          KDONG Portfolio ©2022 Created by KDONG
-        </Footer>
-      </Layout>
-    </Layout>
+            <Menu
+              mode="inline"
+              items={items}
+              onClick={({ key }) => onClick(key)}
+              onOpenChange={(openKeys) => onOpenChange(openKeys)}
+              activeKey={activeKey}
+              openKeys={openKeys}
+              selectedKeys={selectedKeys}
+              defaultSelectedKeys={['home']}
+            />
+          </Sider>
+          <Layout
+            className="site-layout"
+            style={{
+              height: '100vh',
+              overflowY: 'scroll'
+            }}
+          >
+            <Header className="site-layout-header" style={{ padding: 0 }}>
+              <div className="header-wrapper">
+                <div className="header-wrapper-text" style={isTablet ? {display: 'none'} : { display: 'block'}}>
+                  <span>
+                    밥 ----- 값하는 개발자 강동재의 포트폴리오에 오신걸
+                    환영합니다.
+                  </span>
+                  <span
+                    style={{
+                      marginLeft: '30px'
+                    }}
+                  >{`지금 PC버전: ${isPc} / 태블릿버전: ${isTablet} / 모바일버젼: ${isMobile}`}</span>
+                </div>
+                <div className="header-wrapper-social">
+                  <span onClick={() => onClickSocial('api')}>
+                    <img src={socialIcons.API_ICON} alt="api" />
+                  </span>
+                  <span onClick={() => onClickSocial('github')}>
+                    <img src={socialIcons.GITHUB_ICON} alt="깃허브" />
+                  </span>
+                  <span onClick={() => onClickSocial('tistory')}>
+                    <img src={socialIcons.TISTORY_ICON} alt="티스토리" />
+                  </span>
+                  <span onClick={() => onClickSocial('instagram')}>
+                    <img src={socialIcons.INSTAGRAM_ICON} alt="인스타그램" />
+                  </span>
+                </div>
+              </div>
+            </Header>
+            <Content
+              style={{
+                marginLeft: '2rem',
+                paddingTop: '36px',
+                paddingRight: '36px'
+              }}
+            >
+              {children}
+            </Content>
+            <Footer style={{ textAlign: 'center', background: '#fff' }}>
+              KDONG Portfolio ©2022 Created by KDONG
+            </Footer>
+          </Layout>
+        </Layout>
+      )}
+      {isMobile && (
+        <StyledMobileLayout>
+          <Layout>
+            <Header>
+              <MobileHeader />
+            </Header>
+            <Content>{children}</Content>
+            <Footer>
+              <MobileFooter />
+            </Footer>
+          </Layout>
+        </StyledMobileLayout>
+      )}
+    </StyledMainLayout>
   );
-};
-
-interface MainLayoutV2Props extends HTMLAttributes<HTMLDivElement> {}
-
-export const MainLayoutV2: React.FC<MainLayoutV2Props> = ({
-  children,
-  ...props
-}) => {
-  const { isMobile, isPc, isTablet } = useMedia();
-  if (isMobile) {
-    return (
-      <MobileStyledLayout>
-        {`isMobile : ${isMobile}`}
-        <MainComponents {...props}>{children}</MainComponents>
-      </MobileStyledLayout>
-    );
-  }
-
-  if (isPc) {
-    return (
-      <PcStyledLayout>
-        {`isPc : ${isPc}`}
-        <MainComponents {...props}>{children}</MainComponents>
-      </PcStyledLayout>
-    );
-  }
-
-  if (isTablet) {
-    return (
-      <TabletStyledLayout>
-        {`isTablet : ${isTablet}`}
-        <MainComponents {...props}>{children}</MainComponents>
-      </TabletStyledLayout>
-    );
-  }
-
-  return <></>;
 };

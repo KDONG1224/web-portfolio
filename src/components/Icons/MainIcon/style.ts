@@ -4,88 +4,7 @@ import styled from 'styled-components';
 // const
 import { menuIcons } from 'const';
 
-interface StyledMainLayoutProps {}
-
-export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
-  color: #000;
-
-  .layout-sider-thumb {
-    padding: 16px;
-  }
-
-  .layout-sider-thumb-box {
-    margin-bottom: 16px;
-
-    img {
-      width: 100%;
-      border-radius: 50%;
-    }
-  }
-
-  .layout-sider-title {
-    &.active {
-      /* display: none; */
-    }
-  }
-
-  .site-layout-header {
-    .header-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      height: 100%;
-
-      &-text {
-        width: 80%;
-
-        span {
-          margin-left: 36px;
-        }
-      }
-
-      &-social {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 18%;
-        margin-right: 36px;
-
-        span {
-          display: flex;
-          cursor: pointer;
-
-          img {
-            width: 40px;
-            height: 40px;
-          }
-        }
-      }
-    }
-  }
-
-  .ant-menu.ant-menu-inline-collapsed
-    > .ant-menu-submenu
-    > .ant-menu-submenu-title,
-  .ant-menu.ant-menu-inline-collapsed > .ant-menu-item {
-    padding: 0 calc(50% - 30px / 2);
-  }
-
-  .ant-menu.ant-menu-inline-collapsed
-    > .ant-menu-submenu
-    > .ant-menu-submenu-title {
-    /* padding-top: 8px; */
-  }
-
-  .ant-layout-content {
-    overflow-y: scroll;
-  }
-
-  .ant-layout-sider-trigger {
-    background: #fff;
-    color: #000;
-  }
-
+export const StyledMainIcon = styled.div`
   .ant-menu-submenu-selected {
     background-color: yellow;
   }
@@ -237,26 +156,4 @@ export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
   .ant-menu-submenu-vertical.ant-menu-submenu-active .alchol-icon {
     background-image: url(${menuIcons.ALCHOL_ICON});
   } */
-`;
-
-export const StyledMobileLayout = styled.div`
-  position: relative;
-  height: 100vh;
-
-  .ant-layout-header {
-    height: 50px;
-    padding: 0;
-  }
-
-  .ant-layout-content {
-    height: calc(100vh - 100px);
-    overflow-y: scroll;
-    padding: 20px;
-    background: #ddd;
-  }
-
-  .ant-layout-footer {
-    height: 50px;
-    padding: 0;
-  }
 `;

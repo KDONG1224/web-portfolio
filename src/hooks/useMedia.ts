@@ -1,5 +1,5 @@
 // base
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // react-responsive
 import { useMediaQuery } from 'react-responsive';
@@ -17,11 +17,29 @@ export const useMedia = () => {
   });
   const mobile = useMediaQuery({ query: '(max-width: 767px)' });
 
-  const handleFront = useCallback(() => {
-    if (pc) return setIsPc(true);
-    if (tablet) return setIsTablet(true);
-    if (mobile) return setIsMobile(true);
-  }, [mobile, pc, tablet]);
+  const handleFront = () => {
+    setIsPc(false);
+    setIsTablet(false);
+    setIsMobile(false);
+
+    if (pc) {
+      setIsMobile(false);
+      setIsTablet(false);
+      return setIsPc(true);
+    }
+
+    if (tablet) {
+      setIsPc(false);
+      setIsMobile(false);
+      return setIsTablet(true);
+    }
+
+    if (mobile) {
+      setIsPc(false);
+      setIsTablet(false);
+      return setIsMobile(true);
+    }
+  };
 
   useEffect(() => {
     handleFront();

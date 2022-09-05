@@ -6,8 +6,8 @@ import styled from 'styled-components';
 
 // layouts
 
-import { MainBanner, MainCard } from 'container';
-import { MainLayoutV2 } from 'layouts';
+import { MainBanner, MainCard } from 'container';;
+import { MainLayout } from 'layouts';
 
 interface HomePageProps {}
 
@@ -15,12 +15,12 @@ const StyledHomePage = styled.div``;
 
 const HomePage: NextPage<HomePageProps> = () => {
   return (
-    <MainLayoutV2>
+    <MainLayout>
       <StyledHomePage>
         <MainBanner />
         <MainCard />
       </StyledHomePage>
-    </MainLayoutV2>
+    </MainLayout>
   );
 };
 
