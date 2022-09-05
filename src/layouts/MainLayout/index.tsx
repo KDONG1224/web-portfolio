@@ -38,28 +38,28 @@ interface PcStyledLayoutProps extends MainLayoutProps {}
 interface TabletStyledLayoutProps extends MainLayoutProps {}
 interface MobileStyledLayoutProps extends MainLayoutProps {}
 
-export const pcStyledLayout: React.FC<PcStyledLayoutProps> = ({
+export const PcStyledLayout: React.FC<PcStyledLayoutProps> = ({
   children,
   ...props
 }) => {
   return <StyledMainLayout>{children}</StyledMainLayout>;
 };
 
-export const tabletStyledLayout: React.FC<TabletStyledLayoutProps> = ({
+export const TabletStyledLayout: React.FC<TabletStyledLayoutProps> = ({
   children,
   ...props
 }) => {
   return <StyledMainLayout>{children}</StyledMainLayout>;
 };
 
-export const mobileStyledLayout: React.FC<MobileStyledLayoutProps> = ({
+export const MobileStyledLayout: React.FC<MobileStyledLayoutProps> = ({
   children,
   ...props
 }) => {
   return <StyledMainLayout>{children}</StyledMainLayout>;
 };
 
-export const MainLayout: React.FC<MainLayoutProps> = ({
+export const MainComponents: React.FC<MainLayoutProps> = ({
   children,
   ...props
 }) => {
@@ -77,18 +77,6 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   const router = useRouter();
   const pathname = router.pathname;
   const dispatch = useAppDispatch();
-
-  /*
-    반응형
-  */
-
-  const { isMobile, isPc, isTablet } = useMedia();
-
-  console.log('===============');
-  console.log('isPc : ', isPc);
-  console.log('isTablet : ', isTablet);
-  console.log('isMobile : ', isMobile);
-  console.log('===============');
 
   const items: MenuItem[] = [
     getMenuItem('홈', ROUTE_ROOT, <div className="home-icon navi-icon" />),
@@ -248,4 +236,41 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       </Layout>
     </Layout>
   );
+};
+
+interface MainLayoutV2Props extends HTMLAttributes<HTMLDivElement> {}
+
+export const MainLayoutV2: React.FC<MainLayoutV2Props> = ({
+  children,
+  ...props
+}) => {
+  const { isMobile, isPc, isTablet } = useMedia();
+  if (isMobile) {
+    return (
+      <MobileStyledLayout>
+        {`isMobile : ${isMobile}`}
+        <MainComponents {...props}>{children}</MainComponents>
+      </MobileStyledLayout>
+    );
+  }
+
+  if (isPc) {
+    return (
+      <PcStyledLayout>
+        {`isPc : ${isPc}`}
+        <MainComponents {...props}>{children}</MainComponents>
+      </PcStyledLayout>
+    );
+  }
+
+  if (isTablet) {
+    return (
+      <TabletStyledLayout>
+        {`isTablet : ${isTablet}`}
+        <MainComponents {...props}>{children}</MainComponents>
+      </TabletStyledLayout>
+    );
+  }
+
+  return <></>;
 };
