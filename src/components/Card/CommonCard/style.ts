@@ -8,6 +8,7 @@ export const StyledCommonCard = styled.div`
     &-top {
       width: 100%;
       height: 520px;
+      position: relative;
       img {
         width: 100%;
         height: 100%;
@@ -20,8 +21,7 @@ export const StyledCommonCard = styled.div`
         opacity: 0.5;
         color: #745a00;
         position: absolute;
-        left: -50%;
-        transform: translateX(-50%);
+        left: 0;
         bottom: 0px;
         width: 350px;
         padding: 20px;
