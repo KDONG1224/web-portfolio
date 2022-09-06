@@ -4,9 +4,11 @@ import styled from 'styled-components';
 // const
 import { menuIcons } from 'const';
 
-interface StyledMainLayoutProps {}
+interface StyledMainLayoutProps {
+  isMobile: boolean;
+}
 
-export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
+export const StyledMainLayout = styled.div`
   color: #000;
 
   .layout-sider-thumb {
@@ -239,7 +241,7 @@ export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
   } */
 `;
 
-export const StyledMobileLayout = styled.div`
+export const StyledMobileLayout = styled.div<StyledMainLayoutProps>`
   position: relative;
   height: 100vh;
 
@@ -251,7 +253,7 @@ export const StyledMobileLayout = styled.div`
   .ant-layout-content {
     height: calc(100vh - 100px);
     overflow-y: scroll;
-    padding: 20px;
+    /* padding: 20px; */
     background: #ddd;
   }
 

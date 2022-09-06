@@ -45,3 +45,24 @@ export const StyledMainBanner = styled.div<StyledMainBannerProps>`
   }
   `}
 `;
+
+export const StyledMainBannerMobile = styled.div`
+  width: 100%;
+  height: 490px;
+  /* margin-bottom: 50px; */
+  /* border-radius: 30px; */
+  position: relative;
+
+  .swiper {
+    overflow: visible !important;
+  }
+
+  .banner-swiper-slide {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      vertical-align: middle;
+    }
+  }
+`;

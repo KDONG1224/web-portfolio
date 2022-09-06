@@ -8,7 +8,7 @@ import { BannerSlider } from 'components';
 import { mainBanner } from 'const';
 
 // style
-import { StyledMainBanner } from './style';
+import { StyledMainBanner, StyledMainBannerMobile } from './style';
 
 // hooks
 import { useMedia } from 'hooks';
@@ -50,21 +50,38 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
   };
 
   return (
-    <StyledMainBanner
-      style={{ backgroundColor: '#efbd5a' }}
-      isMobile={isMobile}
-    >
-      <BannerSlider
-        banner={bannerUrl}
-        autoplay={{ delay: 2000, disableOnInteraction: false }}
-        loop={true}
-        height={isMobile ? 300 : 500}
-        showDesc
-        onClick={({ realIndex }) => {
-          console.log('realIndex : ', realIndex);
-          onClick();
-        }}
-      />
-    </StyledMainBanner>
+    <>
+      {!isMobile && (
+        <StyledMainBanner
+          style={{ backgroundColor: '#efbd5a' }}
+          isMobile={isMobile}
+        >
+          <BannerSlider
+            banner={bannerUrl}
+            autoplay={{ delay: 2000, disableOnInteraction: false }}
+            loop={true}
+            height={isMobile ? 300 : 500}
+            showDesc
+            onClick={({ realIndex }) => {
+              console.log('realIndex : ', realIndex);
+              onClick();
+            }}
+          />
+        </StyledMainBanner>
+      )}
+      {isMobile && (
+        <StyledMainBannerMobile>
+          <BannerSlider
+            banner={bannerUrl}
+            autoplay={{ delay: 2000, disableOnInteraction: false }}
+            loop={true}
+            height={430}
+            pagination={false}
+            isMobile={isMobile}
+            onClick={({ realIndex }) => onClick()}
+          />
+        </StyledMainBannerMobile>
+      )}
+    </>
   );
 };

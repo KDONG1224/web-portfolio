@@ -45,5 +45,20 @@ export const StyledBannerSwiperSlider = styled.div<StyledBannerSwiperSliderProps
     .text-white {
       color: #fff;
     }
+
+    &.mobile {
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      white-space: nowrap;
+      text-align: center;
+      color: #fff;
+      background-color: blue;
+      width: 94%;
+      border-radius: 10px;
+      z-index: 2;
+      padding: 10px 0;
+    }
   }
 `;
