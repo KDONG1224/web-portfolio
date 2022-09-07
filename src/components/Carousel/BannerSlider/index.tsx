@@ -1,5 +1,5 @@
 // base
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // libraries
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
@@ -8,7 +8,8 @@ import SwiperCore, {
   Pagination,
   Scrollbar,
   Autoplay,
-  EffectFade
+  EffectFade,
+  Controller
 } from 'swiper';
 
 // style
@@ -20,6 +21,7 @@ interface BannerSliderProps extends SwiperProps {
   banner: {
     url?: string;
     desc?: string;
+    mobile?: string;
   }[];
   height?: number;
   showDesc?: boolean;
@@ -34,6 +36,14 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
   onClick,
   ...rest
 }) => {
+  const [firstSwiper, setFirstSwiper] = useState<any>();
+  const [secondSwiper, setSecondSwiper] = useState<any>();
+
+  // useEffect(() => {
+  //   firstSwiper.controller.control = secondSwiper;
+  //   secondSwiper.controller.control = firstSwiper;
+  // }, [isMobile])
+
   return (
     <StyledBannerSwiper>
       {!isMobile && (
@@ -75,11 +85,16 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
       {isMobile && (
         <>
           <Swiper
-            modules={[Scrollbar, A11y, EffectFade]}
+            modules={[Controller, Scrollbar, A11y, EffectFade]}
             pagination={{ clickable: true }}
             onClick={onClick}
             effect="fade"
             fadeEffect={{ crossFade: true }}
+            onSwiper={(swiper) => {
+              console.log(swiper);
+              setFirstSwiper(swiper);
+            }}
+            controller={{ control: secondSwiper }}
             {...rest}
           >
             {banner.map((item, idx) => (
@@ -90,11 +105,29 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
                   url={!height ? undefined : item.url}
                 >
                   <img src={item.url || ''} alt={`배너 ${idx}`} />
-
+                </StyledBannerSwiperSlider>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <Swiper
+            modules={[Controller, Scrollbar, A11y]}
+            pagination={{ clickable: true }}
+            onClick={onClick}
+            onSwiper={setSecondSwiper}
+            controller={{ control: firstSwiper }}
+            className="swiper-slide-desc"
+            {...rest}
+          >
+            {banner.map((item, idx) => (
+              <SwiperSlide key={idx}>
+                <StyledBannerSwiperSlider
+                  className="banner-swiper-slide desc"
+                  url={''}
+                >
                   <div
-                    className="banner-swiper-slide-desc mobile"
+                    className={`banner-swiper-slide-desc mobile desc${idx + 1}`}
                     dangerouslySetInnerHTML={{
-                      __html: `${idx + 1} 안녕하세요! 동재의 포트폴리오`
+                      __html: `${idx + 1} ${item.mobile}`
                     }}
                   />
                 </StyledBannerSwiperSlider>

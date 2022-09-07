@@ -88,9 +88,9 @@ export const StyledMainLayout = styled.div`
     color: #000;
   }
 
-  .ant-menu-submenu-selected {
+  /* .ant-menu-submenu-selected {
     background-color: yellow;
-  }
+  } */
 
   .ant-menu.ant-menu-inline-collapsed
     > .ant-menu-submenu

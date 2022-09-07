@@ -21,27 +21,33 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
   const bannerUrl = [
     {
       url: mainBanner.BANNER_01,
-      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     },
     {
       url: mainBanner.BANNER_02,
-      desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     },
     {
       url: mainBanner.BANNER_03,
-      desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     },
     {
       url: mainBanner.BANNER_04,
-      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     },
     {
       url: mainBanner.BANNER_05,
-      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     },
     {
       url: mainBanner.BANNER_06,
-      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     }
   ];
 
@@ -73,7 +79,7 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
         <StyledMainBannerMobile>
           <BannerSlider
             banner={bannerUrl}
-            autoplay={{ delay: 2000, disableOnInteraction: false }}
+            autoplay={{ delay: 5000, disableOnInteraction: false }}
             loop={true}
             height={430}
             pagination={false}

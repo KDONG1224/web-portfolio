@@ -54,11 +54,29 @@ export const StyledBannerSwiperSlider = styled.div<StyledBannerSwiperSliderProps
       white-space: nowrap;
       text-align: center;
       color: #fff;
-      background-color: blue;
       width: 94%;
-      border-radius: 10px;
+      border-radius: 5px;
       z-index: 2;
       padding: 10px 0;
+    }
+
+    &.desc1 {
+      background-color: #000b1d;
+    }
+    &.desc2 {
+      background-color: #ff7b00;
+    }
+    &.desc3 {
+      background-color: #746eaf;
+    }
+    &.desc4 {
+      background-color: #f7df1e;
+    }
+    &.desc5 {
+      background-color: #f0f0f0;
+    }
+    &.desc6 {
+      background-color: #cc4d58;
     }
   }
 `;
