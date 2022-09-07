@@ -48,7 +48,7 @@ export const StyledMainBanner = styled.div<StyledMainBannerProps>`
 
 export const StyledMainBannerMobile = styled.div`
   width: 100%;
-  height: 490px;
+  height: 350px;
   /* margin-bottom: 50px; */
   /* border-radius: 30px; */
   position: relative;

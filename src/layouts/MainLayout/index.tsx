@@ -30,7 +30,7 @@ import { useAppDispatch, useAppSelector } from 'modules/hooks';
 import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules';
 
 // hooks
-import { useMedia } from 'hooks';
+import { useMedia, useScroll } from 'hooks';
 
 // components
 import { MobileFooter, MobileHeader } from 'components';
@@ -43,6 +43,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   ...props
 }) => {
+  const { scrollY } = useScroll();
+
   const [_, setCollapsed] = useState(false);
 
   /*
@@ -233,7 +235,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         <StyledMobileLayout isMobile={isMobile}>
           <Layout>
             <Header>
-              <MobileHeader />
+              <MobileHeader scrollY={scrollY} />
             </Header>
             <Content>{children}</Content>
             <Footer>

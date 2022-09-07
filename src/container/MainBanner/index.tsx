@@ -68,10 +68,7 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
             loop={true}
             height={isMobile ? 300 : 500}
             showDesc
-            onClick={({ realIndex }) => {
-              console.log('realIndex : ', realIndex);
-              onClick();
-            }}
+            onClick={({ realIndex }) => onClick()}
           />
         </StyledMainBanner>
       )}
@@ -79,9 +76,9 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
         <StyledMainBannerMobile>
           <BannerSlider
             banner={bannerUrl}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            autoplay={{ delay: 10000, disableOnInteraction: false }}
             loop={true}
-            height={430}
+            height={300}
             pagination={false}
             isMobile={isMobile}
             onClick={({ realIndex }) => onClick()}
