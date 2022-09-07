@@ -30,7 +30,7 @@ import { useAppDispatch, useAppSelector } from 'modules/hooks';
 import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules';
 
 // hooks
-import { useMedia } from 'hooks';
+import { useMedia, useScroll } from 'hooks';
 
 // components
 import { MobileFooter, MobileHeader } from 'components';
@@ -43,6 +43,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   ...props
 }) => {
+  const { scrollY } = useScroll();
+
   const [_, setCollapsed] = useState(false);
 
   /*
@@ -184,7 +186,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
           >
             <Header className="site-layout-header" style={{ padding: 0 }}>
               <div className="header-wrapper">
-                <div className="header-wrapper-text" style={isTablet ? {display: 'none'} : { display: 'block'}}>
+                <div
+                  className="header-wrapper-text"
+                  style={isTablet ? { display: 'none' } : { display: 'block' }}
+                >
                   <span>
                     밥 ----- 값하는 개발자 강동재의 포트폴리오에 오신걸
                     환영합니다.
@@ -227,10 +232,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         </Layout>
       )}
       {isMobile && (
-        <StyledMobileLayout>
+        <StyledMobileLayout isMobile={isMobile}>
           <Layout>
             <Header>
-              <MobileHeader />
+              <MobileHeader scrollY={scrollY} />
             </Header>
             <Content>{children}</Content>
             <Footer>

@@ -8,7 +8,7 @@ import { BannerSlider } from 'components';
 import { mainBanner } from 'const';
 
 // style
-import { StyledMainBanner } from './style';
+import { StyledMainBanner, StyledMainBannerMobile } from './style';
 
 // hooks
 import { useMedia } from 'hooks';
@@ -21,27 +21,33 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
   const bannerUrl = [
     {
       url: mainBanner.BANNER_01,
-      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     },
     {
       url: mainBanner.BANNER_02,
-      desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     },
     {
       url: mainBanner.BANNER_03,
-      desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     },
     {
       url: mainBanner.BANNER_04,
-      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     },
     {
       url: mainBanner.BANNER_05,
-      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     },
     {
       url: mainBanner.BANNER_06,
-      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>'
+      desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
+      mobile: '안녕하세요! KDONG 입니다'
     }
   ];
 
@@ -50,21 +56,35 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
   };
 
   return (
-    <StyledMainBanner
-      style={{ backgroundColor: '#efbd5a' }}
-      isMobile={isMobile}
-    >
-      <BannerSlider
-        banner={bannerUrl}
-        autoplay={{ delay: 2000, disableOnInteraction: false }}
-        loop={true}
-        height={isMobile ? 300 : 500}
-        showDesc
-        onClick={({ realIndex }) => {
-          console.log('realIndex : ', realIndex);
-          onClick();
-        }}
-      />
-    </StyledMainBanner>
+    <>
+      {!isMobile && (
+        <StyledMainBanner
+          style={{ backgroundColor: '#efbd5a' }}
+          isMobile={isMobile}
+        >
+          <BannerSlider
+            banner={bannerUrl}
+            autoplay={{ delay: 2000, disableOnInteraction: false }}
+            loop={true}
+            height={isMobile ? 300 : 500}
+            showDesc
+            onClick={({ realIndex }) => onClick()}
+          />
+        </StyledMainBanner>
+      )}
+      {isMobile && (
+        <StyledMainBannerMobile>
+          <BannerSlider
+            banner={bannerUrl}
+            autoplay={{ delay: 10000, disableOnInteraction: false }}
+            loop={true}
+            height={300}
+            pagination={false}
+            isMobile={isMobile}
+            onClick={({ realIndex }) => onClick()}
+          />
+        </StyledMainBannerMobile>
+      )}
+    </>
   );
 };
