@@ -112,11 +112,11 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
           <Swiper
             modules={[Controller, Scrollbar, A11y]}
             pagination={{ clickable: true }}
+            loop={true}
             onClick={onClick}
             onSwiper={setSecondSwiper}
             controller={{ control: firstSwiper }}
             className="swiper-slide-desc"
-            {...rest}
           >
             {banner.map((item, idx) => (
               <SwiperSlide key={idx}>
