@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { menuIcons } from 'const';
 
 export const StyledMainIcon = styled.div`
-  .ant-menu-submenu-selected {
+  /* .ant-menu-submenu-selected {
     background-color: yellow;
-  }
+  } */
 
   .ant-menu.ant-menu-inline-collapsed
     > .ant-menu-submenu

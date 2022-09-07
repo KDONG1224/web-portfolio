@@ -18,6 +18,8 @@ import '../assets/less/index.less';
 import 'nprogress/nprogress.css';
 import 'swiper/css';
 import 'swiper/less/pagination';
+import 'swiper/less/effect-fade';
+import 'swiper/css/effect-fade';
 import 'antd-mobile/bundle/css-vars-patch.css';
 
 export interface InitialProps {}

@@ -9,8 +9,11 @@ import { NavBar } from 'antd-mobile';
 import { stack as Menu } from 'react-burger-menu';
 import { useRouter } from 'next/router';
 import { ROUTE_ROOT } from 'const/route';
+import { useScroll } from 'hooks';
 
-interface MobileHeaderProps {}
+interface MobileHeaderProps {
+  scrollY: number;
+}
 
 const HeaderRight = () => {
   const onClick = () => {
@@ -46,12 +49,18 @@ const HeaderRight = () => {
   );
 };
 
-export const MobileHeader: React.FC<MobileHeaderProps> = ({}) => {
+export const MobileHeader: React.FC<MobileHeaderProps> = ({ scrollY }) => {
   const router = useRouter();
   const pathname = router.pathname === ROUTE_ROOT ? false : true;
 
+  console.log(scrollY);
+
   return (
-    <StyledMobileHeader>
+    <StyledMobileHeader
+      className={`mainLayout-header-bottom-searchbar ${
+        scrollY > 100 && 'hide'
+      }`}
+    >
       <NavBar
         // back="返回"
         backArrow={pathname}
