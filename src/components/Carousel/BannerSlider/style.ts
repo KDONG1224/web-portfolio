@@ -47,17 +47,17 @@ export const StyledBannerSwiperSlider = styled.div<StyledBannerSwiperSliderProps
     }
 
     &.mobile {
-      bottom: -25px;
+      bottom: -20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       white-space: nowrap;
       text-align: center;
       color: #fff;
-      width: 94%;
+      width: 90%;
       border-radius: 5px;
       z-index: 2;
-      padding: 10px 0;
+      padding: 5px 0;
     }
 
     &.desc1 {

@@ -12,6 +12,11 @@ export const StyledMainCard = styled.div<StyledMainCardProps>`
   ${(props) =>
     props.isMobile &&
     `
+    .ant-row {
+      width: 100%;
+      margin: 0 !impotant;
+    }
+
     .card-wrapper {
       height: 150px;
     }

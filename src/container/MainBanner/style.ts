@@ -52,8 +52,9 @@ export const StyledMainBannerMobile = styled.div`
   /* margin-bottom: 50px; */
   /* border-radius: 30px; */
   position: relative;
+  overflow: hidden;
 
-  .swiper {
+  .swiper-slide-desc {
     overflow: visible !important;
   }
 
