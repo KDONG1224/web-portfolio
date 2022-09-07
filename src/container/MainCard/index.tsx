@@ -107,7 +107,12 @@ export const MainCard: React.FC<MainCardProps> = ({}) => {
       <Row
         justify="space-between"
         // gutter={isSideMenuCollapsed ? [112, 40] : [58, 40]}
-        gutter={[40, 40]}
+        gutter={isMobile ? [40, 40] : [40, 40]}
+        style={
+          isMobile
+            ? { marginRight: '0 !important', marginLeft: '0 !important' }
+            : {}
+        }
       >
         {item.map((card) => (
           <Col span={6} key={card.key}>

@@ -67,7 +67,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ scrollY }) => {
         onBack={() => console.log('back')}
         right={<HeaderRight />}
       >
-        KDONG
+        <span onClick={() => router.push(ROUTE_ROOT)}>KDONG</span>
       </NavBar>
     </StyledMobileHeader>
   );
