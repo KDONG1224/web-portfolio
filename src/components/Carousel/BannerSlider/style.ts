@@ -55,9 +55,9 @@ export const StyledBannerSwiperSlider = styled.div<StyledBannerSwiperSliderProps
       text-align: center;
       color: #fff;
       width: 90%;
-      border-radius: 5px;
+      border-radius: 100px;
       z-index: 2;
-      padding: 5px 0;
+      padding: 8px 0;
     }
 
     &.desc1 {
@@ -74,6 +74,7 @@ export const StyledBannerSwiperSlider = styled.div<StyledBannerSwiperSliderProps
     }
     &.desc5 {
       background-color: #f0f0f0;
+      color: #000;
     }
     &.desc6 {
       background-color: #cc4d58;
