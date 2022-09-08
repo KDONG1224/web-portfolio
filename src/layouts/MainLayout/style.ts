@@ -6,6 +6,7 @@ import { menuIcons } from 'const';
 
 interface StyledMainLayoutProps {
   isMobile: boolean;
+  isHide: boolean;
 }
 
 export const StyledMainLayout = styled.div`
@@ -246,12 +247,25 @@ export const StyledMobileLayout = styled.div<StyledMainLayoutProps>`
   height: 100vh;
 
   .ant-layout-header {
+    width: 100%;
     height: 50px;
     padding: 0;
+    top: 0px;
+    /* transition: transform 0.7s ease-in-out;
+    transform: translateY(0%); */
+    &.hide {
+      position: absolute;
+      top: -50px;
+      width: 100%;
+      height: 50px;
+      z-index: 2;
+      /* transform: translateY(-100%); */
+    }
   }
 
   .ant-layout-content {
-    height: calc(100vh - 100px);
+    height: ${(props) =>
+      props.isHide ? 'calc(100vh - 50px)' : 'calc(100vh - 100px)'};
     overflow-y: scroll;
     /* padding: 20px; */
     background: #ddd;

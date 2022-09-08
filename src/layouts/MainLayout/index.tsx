@@ -34,6 +34,7 @@ import { useMedia, useScroll } from 'hooks';
 
 // components
 import { MobileFooter, MobileHeader } from 'components';
+import { SafeArea } from 'antd-mobile';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -43,8 +44,6 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   ...props
 }) => {
-  const { scrollY } = useScroll();
-
   const [_, setCollapsed] = useState(false);
 
   /*
@@ -61,6 +60,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   const dispatch = useAppDispatch();
 
   const { isMobile, isPc, isTablet } = useMedia();
+  const { scrollY } = useScroll();
+
+  console.log('==== scrollY ==== : ', scrollY);
 
   const items: MenuItem[] = [
     getMenuItem('홈', ROUTE_ROOT, <div className="home-icon navi-icon" />),
@@ -232,15 +234,22 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         </Layout>
       )}
       {isMobile && (
-        <StyledMobileLayout isMobile={isMobile}>
+        <StyledMobileLayout
+          isMobile={isMobile}
+          isHide={scrollY < 50 ? true : false}
+        >
           <Layout>
-            <Header>
-              <MobileHeader scrollY={scrollY} />
+            <SafeArea position="top" />
+            <Header
+              className={`mobile-layout-header ${scrollY < 50 && 'hide'}`}
+            >
+              <MobileHeader />
             </Header>
             <Content>{children}</Content>
             <Footer>
               <MobileFooter />
             </Footer>
+            <SafeArea position="bottom" />
           </Layout>
         </StyledMobileLayout>
       )}

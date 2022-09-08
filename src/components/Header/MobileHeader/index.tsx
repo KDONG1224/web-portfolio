@@ -11,9 +11,7 @@ import { useRouter } from 'next/router';
 import { ROUTE_ROOT } from 'const/route';
 import { useScroll } from 'hooks';
 
-interface MobileHeaderProps {
-  scrollY: number;
-}
+interface MobileHeaderProps {}
 
 const HeaderRight = () => {
   const onClick = () => {
@@ -49,18 +47,12 @@ const HeaderRight = () => {
   );
 };
 
-export const MobileHeader: React.FC<MobileHeaderProps> = ({ scrollY }) => {
+export const MobileHeader: React.FC<MobileHeaderProps> = ({}) => {
   const router = useRouter();
   const pathname = router.pathname === ROUTE_ROOT ? false : true;
 
-  console.log(scrollY);
-
   return (
-    <StyledMobileHeader
-      className={`mainLayout-header-bottom-searchbar ${
-        scrollY > 100 && 'hide'
-      }`}
-    >
+    <StyledMobileHeader>
       <NavBar
         // back="返回"
         backArrow={pathname}
