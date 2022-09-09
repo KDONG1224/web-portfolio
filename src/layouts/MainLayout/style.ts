@@ -264,13 +264,21 @@ export const StyledMobileLayout = styled.div<StyledMainLayoutProps>`
   .ant-layout-content {
     width: 100%;
     height: ${(props) =>
-      props.isHide ? 'calc(100vh - 80px)' : 'calc(100vh - 130px)'};
+      props.isHide
+        ? props.isRoot
+          ? 'calc(100vh - 80px)'
+          : 'calc(100vh - 130px)'
+        : 'calc(100vh - 80px)'};
     overflow-y: scroll;
-    margin-top: ${(props) => (props.isHide ? '0' : '50px')};
+    margin-top: ${(props) => (props.isRoot ? '0' : '50px')};
   }
 
   .ant-layout-footer {
+    width: 100%;
     height: 80px;
     padding: 0;
+    bottom: 0px;
+    position: fixed;
+    z-index: 3;
   }
 `;
