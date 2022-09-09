@@ -1,7 +1,51 @@
 import styled from 'styled-components';
 
-export const StyledMainCardItem = styled.div`
+interface StyledMainCardItemProps {
+  isMobile: boolean;
+}
+
+export const StyledMainCardItem = styled.div<StyledMainCardItemProps>`
   /* width: 250px; */
+
+  ${(props) =>
+    props.isMobile &&
+    `
+    .card-wrapper {
+      width: 100%;
+      height: 100% !important;
+
+      &-top {
+        height: 160px !important;
+
+        img {
+          height: 160px !important;
+        }
+      }
+
+      &-bottom {
+        margin-top: 10px !important;
+
+        &-title {
+          font-size: 16px !important;
+          display: -webkit-box;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          word-break: break-all;
+          white-space: break-spaces !important;
+          text-align: center;
+        }
+
+        &-desc {
+          margin-top: 5px !important;
+          font-size: 12px;
+          text-align: center;
+        }
+      }
+    }
+  `}
+
   .card-wrapper {
     height: 340px;
 
@@ -75,3 +119,5 @@ export const StyledMainCardItem = styled.div`
     }
   }
 `;
+
+export const StyledMainCardItemMobile = styled.div``;

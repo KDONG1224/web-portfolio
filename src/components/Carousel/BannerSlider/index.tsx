@@ -101,7 +101,7 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
               <SwiperSlide key={idx}>
                 <StyledBannerSwiperSlider
                   className="banner-swiper-slide"
-                  height={height || 500}
+                  height={height || 250}
                   url={!height ? undefined : item.url}
                 >
                   <img src={item.url || ''} alt={`배너 ${idx}`} />

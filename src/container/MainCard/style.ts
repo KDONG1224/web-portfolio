@@ -12,22 +12,18 @@ export const StyledMainCard = styled.div<StyledMainCardProps>`
   ${(props) =>
     props.isMobile &&
     `
+    padding: 0 10px 50px;
+
     .ant-row {
       width: 100%;
       margin: 0 !impotant;
+      margin-left: 0px !important;
+      margin-right: 0px !important;
     }
 
-    .card-wrapper {
-      height: 150px;
-    }
-    
-    .card-wrapper-top {
-      height: 60px;
-    }
-    
-    .card-wrapper-bottom-title {
-      font-size: 0.8rem;
-      text-align: center;
+    .ant-col {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
     }
   `}
 `;

@@ -3,8 +3,22 @@ import styled from 'styled-components';
 
 export const StyledMobileHeader = styled.div`
   height: 100%;
+  background: #fff;
+  border-bottom: 1px solid #afafaf;
   .adm-nav-bar {
     height: 100%;
+
+    .adm-nav-bar-title {
+      height: 100%;
+
+      > span {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+    }
 
     .adm-nav-bar-right {
       display: flex;

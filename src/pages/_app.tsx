@@ -6,6 +6,7 @@ import { NextComponentType } from 'next';
 
 // libraries
 import NProgress from 'nprogress';
+import { SafeArea } from 'antd-mobile';
 
 // store
 import wrapper from 'modules/store';
@@ -73,7 +74,9 @@ export const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
       <Head>
         {/* <meta name="viewport" content="width=750,user-scalable=no" /> */}
       </Head>
+      <SafeArea position="top" />
       <Component {...pageProps} />
+      <SafeArea position="bottom" />
       {/* </SessionProvider> */}
     </>
   );
