@@ -34,7 +34,6 @@ import { useMedia, useScroll } from 'hooks';
 
 // components
 import { MobileFooter, MobileHeader } from 'components';
-import { SafeArea } from 'antd-mobile';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -57,12 +56,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
 
   const router = useRouter();
   const pathname = router.pathname;
+  const isRoot = pathname === ROUTE_ROOT
   const dispatch = useAppDispatch();
 
   const { isMobile, isPc, isTablet } = useMedia();
   const { scrollY } = useScroll();
-
-  console.log('==== scrollY ==== : ', scrollY);
 
   const items: MenuItem[] = [
     getMenuItem('홈', ROUTE_ROOT, <div className="home-icon navi-icon" />),
@@ -139,6 +137,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     handleOpen();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, isSideMenuCollapsed]);
+
+  console.log(isRoot)
 
   return (
     <StyledMainLayout>
@@ -222,7 +222,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
               style={{
                 marginLeft: '2rem',
                 paddingTop: '36px',
-                paddingRight: '36px'
+                paddingRight: '36px',
+                background: '#ddd'
               }}
             >
               {children}
@@ -236,12 +237,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       {isMobile && (
         <StyledMobileLayout
           isMobile={isMobile}
-          isHide={scrollY < 50 ? true : false}
+          isRoot={isRoot}
+          isHide={isRoot && scrollY < 200 ? true : false}
         >
           <Layout>
-            <SafeArea position="top" />
             <Header
-              className={`mobile-layout-header ${scrollY < 50 && 'hide'}`}
+              className={`mobile-layout-header ${isRoot && scrollY < 200 && 'hide'}`}
             >
               <MobileHeader />
             </Header>
@@ -249,7 +250,6 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             <Footer>
               <MobileFooter />
             </Footer>
-            <SafeArea position="bottom" />
           </Layout>
         </StyledMobileLayout>
       )}
