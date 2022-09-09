@@ -43,8 +43,6 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   ...props
 }) => {
-  const { scrollY } = useScroll();
-
   const [_, setCollapsed] = useState(false);
 
   /*
@@ -58,9 +56,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
 
   const router = useRouter();
   const pathname = router.pathname;
+  const isRoot = pathname === ROUTE_ROOT
   const dispatch = useAppDispatch();
 
   const { isMobile, isPc, isTablet } = useMedia();
+  const { scrollY } = useScroll();
 
   const items: MenuItem[] = [
     getMenuItem('홈', ROUTE_ROOT, <div className="home-icon navi-icon" />),
@@ -137,6 +137,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     handleOpen();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, isSideMenuCollapsed]);
+
+  console.log(isRoot)
 
   return (
     <StyledMainLayout>
@@ -220,7 +222,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
               style={{
                 marginLeft: '2rem',
                 paddingTop: '36px',
-                paddingRight: '36px'
+                paddingRight: '36px',
+                background: '#ddd'
               }}
             >
               {children}
@@ -232,10 +235,16 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         </Layout>
       )}
       {isMobile && (
-        <StyledMobileLayout isMobile={isMobile}>
+        <StyledMobileLayout
+          isMobile={isMobile}
+          isRoot={isRoot}
+          isHide={isRoot && scrollY < 200 ? true : false}
+        >
           <Layout>
-            <Header>
-              <MobileHeader scrollY={scrollY} />
+            <Header
+              className={`mobile-layout-header ${isRoot && scrollY < 200 && 'hide'}`}
+            >
+              <MobileHeader />
             </Header>
             <Content>{children}</Content>
             <Footer>

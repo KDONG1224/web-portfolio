@@ -29,22 +29,22 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
     {
       key: '/home',
       title: '홈',
-      icon: <CheckCircleOutlined />
+      icon: <div className="home-icon navi-icon" />
     },
     {
       key: '/todo',
       title: '동재',
-      icon: <QuestionCircleOutlined />
+      icon: <div className="about-icon navi-icon" />
     },
     {
       key: '/message',
       title: '코딩',
-      icon: <PlusCircleOutlined />
+      icon: <div className="html-icon navi-icon" />
     },
     {
       key: '/me',
       title: '프론트',
-      icon: <ExclamationCircleOutlined />
+      icon: <div className="alchol-icon navi-icon" />
     }
   ];
 

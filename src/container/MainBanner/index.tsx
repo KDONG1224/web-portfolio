@@ -55,6 +55,16 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
     console.log('banner Click');
   };
 
+  const onClickSocial = (type: string) => {
+    if (type === 'api')
+      return window.open('https://kdong-server.herokuapp.com/api/v1/kdong');
+    if (type === 'github') return window.open('https://github.com/KDONG1224');
+    if (type === 'tistory')
+      return window.open('https://kdong1224.tistory.com/');
+    if (type === 'instagram')
+      return window.open('https://www.instagram.com/noyclah_jdk/');
+  };
+
   return (
     <>
       {!isMobile && (
@@ -74,11 +84,23 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
       )}
       {isMobile && (
         <StyledMainBannerMobile>
+          <div className="banner-icons">
+            <div className="banner-icons-wrapper">
+              <div
+                className="banner-icons-wrapper-icon left"
+                onClick={() => onClickSocial('github')}
+              />
+              <div
+                className="banner-icons-wrapper-icon right"
+                onClick={() => onClickSocial('instagram')}
+              />
+            </div>
+          </div>
           <BannerSlider
             banner={bannerUrl}
-            autoplay={{ delay: 10000, disableOnInteraction: false }}
+            autoplay={{ delay: 8000, disableOnInteraction: false }}
             loop={true}
-            height={300}
+            height={250}
             pagination={false}
             isMobile={isMobile}
             onClick={({ realIndex }) => onClick()}
