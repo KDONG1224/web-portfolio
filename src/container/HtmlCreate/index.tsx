@@ -17,6 +17,8 @@ import NoticeEtcTable, {
   ResponseProductNoticeOption
 } from 'components/Table/NoticeEtcTable';
 
+import { browserNameChange } from 'utils'
+
 interface HtmlCreateProps {}
 
 const InputLabel = ({ text, require }: { text: String; require?: boolean }) => (
@@ -29,8 +31,10 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [productNoticeType, setProductNoticeType] = useState<any[]>([]);
   const [productNoticeContent, setProductNoticeContent] = useState<string>('');
+  const [select, setSelect] = useState<any[]>([])
 
   const [form] = useForm();
+
 
   const onChange = (e: ResponseProductNoticeOption[]) => {
     let result: string[] = [];
@@ -47,6 +51,39 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
 
   console.log('==== productNoticeType ====  : ', productNoticeType);
 
+  const onChagneCompatibility = (value: string, browserName: string) => {
+    console.log('==== value ==== : ', value)
+    console.log('==== browserName ==== : ', browserName)
+
+    const info = browserNameChange(browserName)
+
+
+    const data = {
+      browserName: browserName,
+      apply: value,
+      ...info
+    }
+
+    setSelect((prev: any) => {
+      if (prev) {
+
+        const some = prev.some((p) => p.browserName ===  browserName)
+        const filter = prev.filter((p) => p.browserName !==  browserName)
+
+        if (some) {
+          return [...filter, data]
+        }
+        return [...prev, data]
+        
+      }
+
+      return [data]
+    })
+  };
+
+  console.log('==== select ==== : ', select)
+
+
   const onFinish = async (values: any) => {
     const formData = new FormData();
     const {
@@ -58,6 +95,9 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
       accessibility,
       compatibility
     } = values;
+
+    if (select.length !== 12) return alert('호환성 체크를 확인해주세요!')
+
 
     let result: string[] = [];
     let _result: string[] = [];
@@ -72,10 +112,16 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
 
     console.log('result : ', result);
 
+    const sort = select.sort((a, b) => {
+      if (a < b) return -1;
+      return 0;
+    })
+
     const _values = {
       ...values,
       definition: result,
-      accessibility: _result
+      accessibility: _result,
+      compatibility: sort || select
     };
 
     console.log('values : ', values);
@@ -231,7 +277,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon chrom-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'chrome')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -246,7 +292,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon firefox-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'firefox')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -261,7 +307,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon safari-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'safari')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -276,7 +322,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon opera-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'opera')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -291,7 +337,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon whale-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'whale')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -306,7 +352,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon explorer8-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'explorer8')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -321,7 +367,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon explorer9-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'explorer9')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -336,7 +382,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon explorer10-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'explorer10')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -351,7 +397,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon explorer11-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'explorer11')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -366,7 +412,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon edge-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'edge')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -381,7 +427,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon android-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'android')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
@@ -396,7 +442,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                           >
                             <p className="html-icon apple-icon" />
                             <p className="icon-select">
-                              <Select>
+                              <Select onChange={(value) => onChagneCompatibility(value, 'apple')}>
                                 <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
