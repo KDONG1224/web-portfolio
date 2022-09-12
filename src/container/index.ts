@@ -5,6 +5,7 @@ export * from './MainCard';
 // html
 export * from './Html';
 export * from './HtmlDetails';
+export * from './HtmlCreate';
 
 // css
 export * from './Css';
