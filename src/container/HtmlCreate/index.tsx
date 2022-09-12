@@ -49,16 +49,24 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
 
   const onFinish = async (values: any) => {
     const formData = new FormData();
-    const { type, title, name, phone, definition, accessibility, compatibility } = values;
+    const {
+      type,
+      title,
+      name,
+      phone,
+      definition,
+      accessibility,
+      compatibility
+    } = values;
 
     let result: string[] = [];
     let _result: string[] = [];
 
-    definition.forEach(({ text }) => {
+    definition.forEach(({ text }: any) => {
       result.push(text);
     });
 
-    accessibility.forEach(({ text }) => {
+    accessibility.forEach(({ text }: any) => {
       _result.push(text);
     });
 
@@ -224,7 +232,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                             <p className="html-icon chrom-icon" />
                             <p className="icon-select">
                               <Select>
-                              <Select.Option value="o">o</Select.Option>
+                                <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
                             </p>
@@ -239,7 +247,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                             <p className="html-icon firefox-icon" />
                             <p className="icon-select">
                               <Select>
-                              <Select.Option value="o">o</Select.Option>
+                                <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
                             </p>
@@ -254,7 +262,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                             <p className="html-icon safari-icon" />
                             <p className="icon-select">
                               <Select>
-                              <Select.Option value="o">o</Select.Option>
+                                <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
                             </p>
@@ -269,7 +277,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                             <p className="html-icon opera-icon" />
                             <p className="icon-select">
                               <Select>
-                              <Select.Option value="o">o</Select.Option>
+                                <Select.Option value="o">o</Select.Option>
                                 <Select.Option value="x">x</Select.Option>
                               </Select>
                             </p>
