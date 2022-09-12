@@ -1,6 +1,7 @@
 const EX_PATH = '/images/ex';
 const ICON_PATH = '/images/icons';
 const BANNER_PATH = '/images/main';
+const BROWSER_PATH = '/images/browser';
 
 // example
 export const EX_NUM_01 = `${EX_PATH}/ex01.jpg`;
@@ -81,3 +82,32 @@ export const mainBanner = {
   BANNER_06,
   NOT_IMAGE
 };
+
+// browser
+export const CHROME_ICON = `${BROWSER_PATH}/chrome.png`;
+export const FIREFOX_ICON = `${BROWSER_PATH}/firefox.png`;
+export const SAFARI_ICON = `${BROWSER_PATH}/safari.png`;
+export const OPERA_ICON = `${BROWSER_PATH}/opera.png`;
+export const WHALE_ICON = `${BROWSER_PATH}/whale.png`;
+export const EXPLORER8_ICON = `${BROWSER_PATH}/explorer8.png`;
+export const EXPLORER9_ICON = `${BROWSER_PATH}/explorer9.png`;
+export const EXPLORER10_ICON = `${BROWSER_PATH}/explorer10.png`;
+export const EXPLORER11_ICON = `${BROWSER_PATH}/explorer11.png`;
+export const EDGE_ICON = `${BROWSER_PATH}/edge.png`;
+export const ANDROID_ICON = `${BROWSER_PATH}/android.png`;
+export const APPLE_ICON = `${BROWSER_PATH}/apple.png`;
+
+export const browserIcons = {
+  CHROME_ICON,
+  FIREFOX_ICON,
+  SAFARI_ICON,
+  OPERA_ICON,
+  WHALE_ICON,
+  EXPLORER8_ICON,
+  EXPLORER9_ICON,
+  EXPLORER10_ICON,
+  EXPLORER11_ICON,
+  EDGE_ICON,
+  ANDROID_ICON,
+  APPLE_ICON
+}

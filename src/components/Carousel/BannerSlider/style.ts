@@ -58,6 +58,7 @@ export const StyledBannerSwiperSlider = styled.div<StyledBannerSwiperSliderProps
       border-radius: 100px;
       z-index: 2;
       padding: 8px 0;
+      /* filter: blur(-10px); */
     }
 
     &.desc1 {
