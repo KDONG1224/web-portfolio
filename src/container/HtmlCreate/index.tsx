@@ -67,8 +67,8 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
     setSelect((prev: any) => {
       if (prev) {
 
-        const some = prev.some((p) => p.browserName ===  browserName)
-        const filter = prev.filter((p) => p.browserName !==  browserName)
+        const some = prev.some((p: any) => p.browserName ===  browserName)
+        const filter = prev.filter((p: any) => p.browserName !==  browserName)
 
         if (some) {
           return [...filter, data]
@@ -112,8 +112,8 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
 
     console.log('result : ', result);
 
-    const sort = select.sort((a, b) => {
-      if (a < b) return -1;
+    const sort = select.sort((a: any, b: any) => {
+      if (a.key < b.key) return -1;
       return 0;
     })
 
