@@ -56,7 +56,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
 
   const router = useRouter();
   const pathname = router.pathname;
-  const isRoot = pathname === ROUTE_ROOT
+  const isRoot = pathname === ROUTE_ROOT;
   const dispatch = useAppDispatch();
 
   const { isMobile, isPc, isTablet } = useMedia();
@@ -137,8 +137,6 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     handleOpen();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, isSideMenuCollapsed]);
-
-  console.log(isRoot)
 
   return (
     <StyledMainLayout>
@@ -222,8 +220,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
               style={{
                 marginLeft: '2rem',
                 paddingTop: '36px',
-                paddingRight: '36px',
-                background: '#ddd'
+                paddingRight: '36px'
               }}
             >
               {children}
@@ -242,11 +239,13 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         >
           <Layout>
             <Header
-              className={`mobile-layout-header ${isRoot && scrollY < 200 && 'hide'}`}
+              className={`mobile-layout-header ${
+                isRoot && scrollY < 200 && 'hide'
+              }`}
             >
               <MobileHeader />
             </Header>
-            <Content>{children}</Content>
+            <Content style={{ background: '#ddd' }}>{children}</Content>
             <Footer>
               <MobileFooter />
             </Footer>
