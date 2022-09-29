@@ -42,8 +42,15 @@ export const StyledMainLayout = styled.div`
 
       &-text {
         width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        white-space: nowrap;
 
         span {
+          width: 100%;
           margin-left: 36px;
         }
       }

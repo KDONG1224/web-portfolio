@@ -190,15 +190,15 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
                   className="header-wrapper-text"
                   style={isTablet ? { display: 'none' } : { display: 'block' }}
                 >
-                  <span>
-                    밥 ----- 값하는 개발자 강동재의 포트폴리오에 오신걸
-                    환영합니다.
-                  </span>
-                  <span
+                  {/* <span> */}밥 ----- 값하는 개발자 강동재의 포트폴리오에
+                  오신걸 환영합니다. &nbsp;&nbsp;&nbsp;&nbsp;
+                  {`지금 PC버전: ${isPc} / 태블릿버전: ${isTablet} / 모바일버젼: ${isMobile}`}
+                  {/* </span> */}
+                  {/* <span
                     style={{
                       marginLeft: '30px'
                     }}
-                  >{`지금 PC버전: ${isPc} / 태블릿버전: ${isTablet} / 모바일버젼: ${isMobile}`}</span>
+                  >{`지금 PC버전: ${isPc} / 태블릿버전: ${isTablet} / 모바일버젼: ${isMobile}`}</span> */}
                 </div>
                 <div className="header-wrapper-social">
                   <span onClick={() => onClickSocial('api')}>

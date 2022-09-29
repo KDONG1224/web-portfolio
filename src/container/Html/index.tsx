@@ -38,6 +38,7 @@ export const Html = () => {
 
   const getHtmlDatas = () => {
     console.log('html');
+    console.log('htmltltltmtlmhlhmltmhltmhltm');
   };
 
   const { data } = useSWR([SWR_REFERENCE_KEY], () => getHtmlDatas());

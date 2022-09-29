@@ -20,7 +20,7 @@ export const StyledHtmlCreate = styled.div`
   }
 
   .ant-input:placeholder-shown {
-    font-size: 10px;
+    font-size: 1rem;
   }
 
   .form-add-btn {
@@ -45,6 +45,22 @@ export const StyledHtmlCreate = styled.div`
   .dynamic-delete-button[disabled] {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+
+  .def-wrapper {
+    position: relative;
+  }
+  .btn-add-wrapper {
+    position: absolute;
+    top: 0;
+    left: 50px;
+  }
+  .ant-form-item-control-input {
+    min-height: auto;
+  }
+  .add-btn {
+    height: auto;
+    padding: 0 10px;
   }
 
   .html-icon {
