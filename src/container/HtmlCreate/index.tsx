@@ -1,34 +1,21 @@
 /* eslint-disable react/no-children-prop */
 // base
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 // style
-import { StyledHtmlCreate, PrefixStyled, StyledInputSearch } from './style';
+import { StyledHtmlCreate, PrefixStyled } from './style';
 
 // libraries
-import {
-  Row,
-  Col,
-  Space,
-  Button,
-  Form,
-  Radio,
-  Select,
-  Input,
-  Slider,
-  Rate
-} from 'antd';
+import { Row, Col, Space, Button, Form, Radio, Rate, Checkbox } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 // components
-import { MetaCard, CompatibilityTable } from 'components';
+import { MetaCard } from 'components';
 import { MetaInputString } from 'components/Input';
-import NoticeEtcTable, {
-  ResponseProductNoticeOption
-} from 'components/Table/NoticeEtcTable';
 
-import { browserNameChange } from 'utils';
+// const
+import { browsers } from 'const';
 
 interface HtmlCreateProps {}
 
@@ -38,97 +25,85 @@ const InputLabel = ({ text, require }: { text: String; require?: boolean }) => (
   </PrefixStyled>
 );
 
+const referenceOptions = [
+  { label: 'MDN', value: 'MDN' },
+  { label: 'w3', value: 'w3' }
+];
+
 export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
   const [edit, setEdit] = useState<boolean>(false);
-  const [productNoticeType, setProductNoticeType] = useState<any[]>([]);
-  const [productNoticeContent, setProductNoticeContent] = useState<string>('');
-  const [select, setSelect] = useState<any[]>([]);
-
-  // inputBox
-  const [defintionList, setDefinitionList] = useState<
-    {
-      key: number;
-      desc: string;
-    }[]
-  >([{ key: 0, desc: '' }]);
+  const [browers, setBrowers] = useState<any[]>([]);
+  const [referSite, setReferSite] = useState<{ title: string; url: string }[]>(
+    []
+  );
 
   const [form] = useForm();
 
-  const onChange = (e: ResponseProductNoticeOption[]) => {
-    let result: string[] = [];
+  const onChecked = (e: CheckboxChangeEvent) => {
+    const { id, checked } = e.target;
+    const title = form.getFieldValue('title');
 
-    e.forEach(({ text }) => {
-      result.push(text);
-    });
+    const result =
+      id === 'MDN'
+        ? {
+            title: id,
+            url: `https://developer.mozilla.org/en-US/docs/Web/HTML/Element/${title}`
+          }
+        : {
+            title: id,
+            url: `https://www.w3.org/TR/html52/textlevel-semantics.html#the-${title}-element`
+          };
 
-    setProductNoticeType(result);
-    // form.setFieldsValue({
-    //   productNotice: e,
-    // });
-  };
+    if (checked) {
+      return setReferSite((refer) => {
+        if (refer) {
+          const check = refer.filter((r) => r.title !== result.title);
 
-  const onChagneCompatibility = (value: string, browserName: string) => {
-    console.log('==== value ==== : ', value);
-    console.log('==== browserName ==== : ', browserName);
-
-    const info = browserNameChange(browserName);
-
-    const data = {
-      browserName: browserName,
-      apply: value,
-      ...info
-    };
-
-    setSelect((prev: any) => {
-      if (prev) {
-        const some = prev.some((p: any) => p.browserName === browserName);
-        const filter = prev.filter((p: any) => p.browserName !== browserName);
-
-        if (some) {
-          return [...filter, data];
+          return [...check, result] as { title: string; url: string }[];
         }
-        return [...prev, data];
-      }
+        return [result] as { title: string; url: string }[];
+      });
+    }
 
-      return [data];
-    });
+    if (!checked) {
+      return setReferSite((refer) => {
+        if (refer) {
+          const check = refer.filter((r) => r.title !== result.title);
+          return [...check];
+        }
+        return [];
+      });
+    }
   };
 
-  /*
-    정의 input 추가하기
-  */
-  const definitionAdded = () => {
-    console.log('ADD');
+  const onChagneCompatibility = (e: CheckboxChangeEvent) => {
+    const { id, checked } = e.target;
 
-    let lastKey = defintionList[defintionList.length - 1].key;
-
-    const add = {
-      key: lastKey + 1,
-      desc: ''
+    const result = {
+      name: id,
+      isUse: checked
     };
 
-    setDefinitionList((prev) => {
-      return [...prev, add];
-    });
-  };
+    if (checked) {
+      return setBrowers((brower) => {
+        if (brower) {
+          const check = brower.filter((b) => b.name !== result.name);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    idx: number
-  ) => {
-    const { value } = e.currentTarget;
-    console.log('=== value === : ', value);
-    console.log('=== idx === : ', idx);
+          return [...check, result] as { name: string; checked: boolean }[];
+        }
+        return [result] as { name: string; checked: boolean }[];
+      });
+    }
 
-    const list = [...defintionList];
-    list[idx]['desc'] = value;
-    setDefinitionList(list);
-  };
-
-  const handleRemoveClick = (index: number) => {
-    const list = [...defintionList];
-    list.splice(index, 1);
-    setDefinitionList(list);
+    if (!checked) {
+      return setBrowers((brower) => {
+        if (brower) {
+          const check = brower.filter((b) => b.name !== result.name);
+          return [...check];
+        }
+        return [];
+      });
+    }
   };
 
   const onFinish = async (values: any) => {
@@ -143,18 +118,21 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
     //   compatibility
     // } = values;
 
-    console.log('=== values === : ', values);
-  };
+    const _values = {
+      ...values,
+      reference: referSite,
+      compatibility: browers
+    };
 
-  // useEffect(() => {
-  //   adde();
-  // }, []);
+    console.log('=== _values === : ', _values);
+  };
 
   return (
     <StyledHtmlCreate>
       <Form form={form} onFinish={onFinish}>
         <Row gutter={[24, 24]}>
           <Col span={24}>
+            {/* 기본 설정 */}
             <div style={{ marginBottom: '2.5rem' }}>
               <MetaCard
                 title="HTML 데이터 생성하기"
@@ -284,7 +262,12 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                                                 }
                                               ]}
                                             >
-                                              <MetaInputString />
+                                              <MetaInputString
+                                                style={{
+                                                  maxWidth: '400px',
+                                                  width: '100%'
+                                                }}
+                                              />
                                             </Form.Item>
                                             {key !== 0 && (
                                               <Form.Item>
@@ -334,6 +317,26 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                                   블록 (Block)
                                 </Radio>
                               </Radio.Group>
+                            </Form.Item>
+                          </Space>
+
+                          {/* 레퍼런스 */}
+                          <Space style={{ height: '4.6rem' }}>
+                            <InputLabel text="레퍼런스" />
+                            <Form.Item name="reference">
+                              <Form.Item>
+                                {referenceOptions.map(({ label, value }) => (
+                                  <React.Fragment key={value}>
+                                    <Checkbox
+                                      onChange={(e) => onChecked(e)}
+                                      id={value}
+                                    />
+                                    <label className={`label-title ${label}`}>
+                                      {label}
+                                    </label>
+                                  </React.Fragment>
+                                ))}
+                              </Form.Item>
                             </Form.Item>
                           </Space>
 
@@ -439,261 +442,66 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
 
             {/* 브라우저 호환성 */}
             <div style={{ marginBottom: '2.5rem' }}>
-              <MetaCard children={<></>} />
-            </div>
-            {/* <div style={{ marginBottom: '2.5rem' }}>
               <MetaCard
+                title="브라우저 호환성"
                 children={
                   <>
-                    <div>호환성 - Compatibility</div>
-                    <CompatibilityTable />
-                    <Form.Item
-                      name="compatibility"
-                      // rules={[
-                      //   {
-                      //     required: true,
-                      //     message: '호환성을 입력해주세요.'
-                      //   }
-                      // ]}
+                    <Row
+                      justify="space-between"
+                      gutter={24}
+                      style={{ marginTop: '2rem' }}
                     >
-                      <Row gutter={[48, 48]}>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon chrom-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'chrome')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon firefox-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'firefox')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon safari-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'safari')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon opera-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'opera')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon whale-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'whale')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon explorer8-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'explorer8')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon explorer9-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'explorer9')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon explorer10-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'explorer10')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon explorer11-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'explorer11')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon edge-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'edge')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon android-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'android')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                        <Col span={2}>
-                          <Space
-                            direction="vertical"
-                            size="middle"
-                            style={{ display: 'flex' }}
-                          >
-                            <p className="html-icon apple-icon" />
-                            <p className="icon-select">
-                              <Select
-                                onChange={(value) =>
-                                  onChagneCompatibility(value, 'apple')
-                                }
-                              >
-                                <Select.Option value="o">o</Select.Option>
-                                <Select.Option value="x">x</Select.Option>
-                              </Select>
-                            </p>
-                          </Space>
-                        </Col>
-                      </Row>
-                    </Form.Item>
+                      <Col span={24}>
+                        <Form.Item name="compatibility">
+                          <div className="browers-wrapper">
+                            {browsers.map((item) => {
+                              const checked = browers.filter(
+                                (b) => b.name === item
+                              );
+
+                              return (
+                                <div
+                                  id={item}
+                                  className={`icons-wrapper ${item}-wrapper`}
+                                  key={item}
+                                  onClick={(e) =>
+                                    console.log(e.currentTarget.id)
+                                  }
+                                >
+                                  <Checkbox
+                                    id={item}
+                                    className="brower-checkbox"
+                                    checked={
+                                      checked.length > 0 && checked[0].isUse
+                                    }
+                                    onChange={(e) => onChagneCompatibility(e)}
+                                  />
+                                  <div className={`html-icon ${item}-icon`} />
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </Form.Item>
+                      </Col>
+                    </Row>
                   </>
                 }
               />
-            </div> */}
+            </div>
           </Col>
         </Row>
-        <Button htmlType="submit">저장</Button>
+
+        <div
+          style={{
+            marginBottom: '2.5rem',
+            width: '100%',
+            position: 'relative'
+          }}
+        >
+          <Button className="submit-btn" htmlType="submit">
+            저장
+          </Button>
+        </div>
       </Form>
     </StyledHtmlCreate>
   );

@@ -37,7 +37,7 @@ export const Css = () => {
 
   console.log('cssData : ', data);
 
-  if (!data) return <></>;
+  // if (!data) return <></>;
 
   const columns: ColumnsType<TableDataType> = [
     {

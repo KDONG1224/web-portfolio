@@ -72,7 +72,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     getMenuItem('HTML', 'html', <div className="html-icon navi-icon" />, [
       getMenuItem('HTML 설명', ROUTE_HTML)
     ]),
-    getMenuItem('CSS', ROUTE_CSS, <div className="css-icon navi-icon" />),
+    getMenuItem('CSS', 'css', <div className="css-icon navi-icon" />, [
+      getMenuItem('CSS 설명', ROUTE_CSS)
+    ]),
     getMenuItem(
       '자바스크립트',
       ROUTE_JS,
