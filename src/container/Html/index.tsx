@@ -1,16 +1,16 @@
 // base
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 // style
 import { StyledHtml } from './style';
 
 // components
-import { PaginationTable } from 'components';
+import { ItemList, PaginationTable } from 'components';
 
 // library
 import useSWR from 'swr';
-import { Button, Space, Tag } from 'antd';
+import { Button, Col, Row, Space, Tag } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 
 // modules
@@ -28,7 +28,15 @@ interface TableDataType {
   tag: string;
 }
 
+const datas = Array.from({ length: 23 }).map((_, i) => ({
+  href: 'https://ant.design',
+  title: `ant design part ${i}`,
+  content:
+    'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure)'
+}));
+
 export const Html = () => {
+  const [changeList, setChangeList] = useState('table');
   const router = useRouter();
 
   const handleMove = (record: any) => {
@@ -38,6 +46,7 @@ export const Html = () => {
 
   const getHtmlDatas = () => {
     console.log('html');
+    console.log('htmltltltmtlmhlhmltmhltmhltm');
   };
 
   const { data } = useSWR([SWR_REFERENCE_KEY], () => getHtmlDatas());
@@ -85,18 +94,58 @@ export const Html = () => {
     }
   ];
 
+  const onChange = (type: string) => {
+    if (type === 'table') return setChangeList('table');
+    if (type === 'list') return setChangeList('list');
+    if (type === 'box') return setChangeList('box');
+  };
+
   return (
     <StyledHtml>
       <div className="html-head">HTML 태그 설명</div>
-      <PaginationTable
-        columns={columns}
-        dataSource={data || []}
-        rowKey="id"
-        showRowSelection={false}
-        showPageSize={false}
-        noAsync
-        sort
-      />
+      <div className="html-body">
+        <div className="html-body-button">
+          <Button onClick={() => onChange('table')}>테이블</Button>
+          <Button onClick={() => onChange('box')}>박스</Button>
+          <Button onClick={() => onChange('list')}>리스트</Button>
+        </div>
+        <div className="html-body-contents">
+          {changeList === 'table' && (
+            <PaginationTable
+              columns={columns}
+              dataSource={data || []}
+              rowKey="id"
+              showRowSelection={false}
+              showPageSize={false}
+              noAsync
+              sort
+              style={{
+                marginTop: '1.4rem'
+              }}
+            />
+          )}
+
+          {changeList === 'list' && <ItemList />}
+          {changeList === 'box' && (
+            <div>
+              <Row gutter={[24, 24]}>
+                {datas.map((item, idx) => {
+                  return (
+                    <Col
+                      key={idx}
+                      className="item-box"
+                      span={6}
+                      style={{ width: '150px', height: '150px' }}
+                    >
+                      {item.title}
+                    </Col>
+                  );
+                })}
+              </Row>
+            </div>
+          )}
+        </div>
+      </div>
     </StyledHtml>
   );
 };

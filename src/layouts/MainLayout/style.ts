@@ -42,8 +42,15 @@ export const StyledMainLayout = styled.div`
 
       &-text {
         width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        white-space: nowrap;
 
         span {
+          width: 100%;
           margin-left: 36px;
         }
       }
@@ -93,6 +100,11 @@ export const StyledMainLayout = styled.div`
   /* .ant-menu-submenu-selected {
     background-color: yellow;
   } */
+
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected,
+  .ant-menu-submenu-selected {
+    background-color: #fff2e6;
+  }
 
   .ant-menu.ant-menu-inline-collapsed
     > .ant-menu-submenu
@@ -159,7 +171,8 @@ export const StyledMainLayout = styled.div`
   }
 
   // css icons
-  .ant-menu-item .css-icon {
+  .ant-menu-item .css-icon,
+  .ant-menu-submenu-title .css-icon {
     background-image: url(${menuIcons.CSS_ICON});
   }
 
@@ -167,10 +180,10 @@ export const StyledMainLayout = styled.div`
     background-image: url(${menuIcons.CSS_ICON});
   }
 
-  /* .ant-menu-submenu-open .css-icon,
+  .ant-menu-submenu-open .css-icon,
   .ant-menu-submenu-vertical.ant-menu-submenu-active .css-icon {
     background-image: url(${menuIcons.CSS_ICON});
-  } */
+  }
 
   // javscript icons
   .ant-menu-item .javascript-icon {
