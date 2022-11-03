@@ -12,6 +12,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@reduxjs/toolkit": "^1.8.2",
+    "@tabler/core": "^1.0.0-beta15",
+    "@tabler/icons": "^1.109.0",
     "@types/nprogress": "^0.2.0",
     "@types/react-burger-menu": "^2.8.3",
     "@types/react-redux": "^7.1.24",

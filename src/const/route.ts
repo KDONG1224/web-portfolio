@@ -9,8 +9,7 @@ export const ROUTE_ABOUT_INFO = `${ROUTE_ABOUT}/info`;
 export const ROUTE_HTML = '/html';
 export const ROUTE_HTML_INFO = `${ROUTE_HTML}/info`;
 export const ROUTE_HTML_DETAIL = `${ROUTE_HTML}/:id`;
-export const ROUTE_HTML_DETAIL_WITH_ID = (id: string) =>
-  `${ROUTE_HTML}/${id}`;
+export const ROUTE_HTML_DETAIL_WITH_ID = (id: string) => `${ROUTE_HTML}/${id}`;
 
 // css
 export const ROUTE_CSS = '/css';
@@ -25,10 +24,9 @@ export const ROUTE_JS_INFO = `${ROUTE_JS}/info`;
 
 // algorithm
 export const ROUTE_ALGORITHM = '/algorithm';
-export const ROUTE_ALGORITHM_INFO = `${ROUTE_ALGORITHM}/info`;
-export const ROUTE_ALGORITHM_DETAIL = `${ROUTE_ALGORITHM_INFO}/:id`;
+export const ROUTE_ALGORITHM_DETAIL = `${ROUTE_ALGORITHM}/detail`;
 export const ROUTE_ALGORITHM_DETAIL_WITH_ID = (id: string) =>
-  `${ROUTE_ALGORITHM_INFO}/${id}`;
+  `${ROUTE_ALGORITHM_DETAIL}/${id}`;
 
 // react
 export const ROUTE_REACT = '/react';

@@ -27,9 +27,9 @@ export const Algorithm: React.FC = () => {
   const router = useRouter();
 
   const onClick = (id: string) => {
-    // const key = id.split('-')[1];
+    const key = id.split('-')[1];
 
-    router.push(ROUTE_ALGORITHM_DETAIL_WITH_ID(id));
+    router.push(ROUTE_ALGORITHM_DETAIL_WITH_ID(key));
   };
 
   return (
@@ -54,11 +54,15 @@ export const Algorithm: React.FC = () => {
         }}
       >
         {algorithmInfo.map((algorithm) => (
-          <Col span={6} key={algorithm.key} style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
+          <Col
+            span={6}
+            key={algorithm.key}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
             <CommonCard
               id={algorithm.key}
               title={algorithm.title}
