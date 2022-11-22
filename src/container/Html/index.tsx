@@ -1,5 +1,5 @@
 // base
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // style
@@ -18,6 +18,7 @@ import { ColumnsType } from 'antd/lib/table';
 // const
 import { SWR_REFERENCE_KEY } from 'const';
 import { ROUTE_HTML_DETAIL_WITH_ID } from 'const/route';
+import { ReferApi } from 'modules';
 
 // routes
 
@@ -39,17 +40,21 @@ export const Html = () => {
   const [changeList, setChangeList] = useState('table');
   const router = useRouter();
 
+  // api
+  const referenceApi = useMemo(() => {
+    return new ReferApi();
+  }, []);
+
   const handleMove = (record: any) => {
-    console.log('record : ', record);
     return router.push(ROUTE_HTML_DETAIL_WITH_ID(record.id));
   };
 
-  const getHtmlDatas = () => {
-    console.log('html');
-    console.log('htmltltltmtlmhlhmltmhltmhltm');
+  const getAllDatas = async () => {
+    return await referenceApi.getAllReference();
   };
 
-  const { data } = useSWR([SWR_REFERENCE_KEY], () => getHtmlDatas());
+  // swr
+  const { data } = useSWR([SWR_REFERENCE_KEY], () => getAllDatas());
 
   console.log('htmlData : ', data);
 
@@ -149,3 +154,5 @@ export const Html = () => {
     </StyledHtml>
   );
 };
+// http://localhost:4444/reference/all
+// http://localhost:4444/reference/create

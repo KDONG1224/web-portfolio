@@ -13,7 +13,7 @@ interface AlgorithmCardProps {
   id: string;
 }
 
-export const BasicCard: React.FC<AlgorithmCardProps> = ({ id }) => {
+export const AlgorithmCard: React.FC<AlgorithmCardProps> = ({ id }) => {
   const tagName = 'Programmers' || 'No TagName';
 
   return (
@@ -23,7 +23,7 @@ export const BasicCard: React.FC<AlgorithmCardProps> = ({ id }) => {
           <Image
             src={exImg.EX_NUM_05}
             alt=""
-            width={400}
+            width={5000}
             height={200}
             objectFit="cover"
           />

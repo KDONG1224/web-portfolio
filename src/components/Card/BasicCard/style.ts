@@ -14,6 +14,7 @@ export const StyledAlgorithmCard = styled.div`
       width: 100%;
       max-height: 200px;
       height: 100%;
+      border-radius: 10px 10px 0 0;
 
       img {
         border-radius: 10px 10px 0 0;

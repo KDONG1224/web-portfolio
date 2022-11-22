@@ -1,12 +1,22 @@
 /* eslint-disable react/no-children-prop */
 // base
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 // style
 import { StyledHtmlCreate, PrefixStyled } from './style';
 
 // libraries
-import { Row, Col, Space, Button, Form, Radio, Rate, Checkbox } from 'antd';
+import {
+  Row,
+  Col,
+  Space,
+  Button,
+  Form,
+  Radio,
+  Rate,
+  Checkbox,
+  Upload
+} from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
@@ -15,7 +25,10 @@ import { MetaCard } from 'components';
 import { MetaInputString } from 'components/Input';
 
 // const
-import { browsers } from 'const';
+import { browsers, SWR_REFERENCE_KEY } from 'const';
+import { CreateReference, ReferApi } from 'modules';
+import { RcFile } from 'antd/lib/upload';
+import useSWR from 'swr';
 
 interface HtmlCreateProps {}
 
@@ -31,13 +44,17 @@ const referenceOptions = [
 ];
 
 export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
+  const [form] = useForm();
+
   const [edit, setEdit] = useState<boolean>(false);
   const [browers, setBrowers] = useState<any[]>([]);
   const [referSite, setReferSite] = useState<{ title: string; url: string }[]>(
     []
   );
 
-  const [form] = useForm();
+  const referenceApi = useMemo(() => {
+    return new ReferApi();
+  }, []);
 
   const onChecked = (e: CheckboxChangeEvent) => {
     const { id, checked } = e.target;
@@ -106,25 +123,95 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
     }
   };
 
-  const onFinish = async (values: any) => {
-    const formData = new FormData();
-    // const {
-    //   type,
-    //   title,
-    //   name,
-    //   phone,
-    //   definition,
-    //   accessibility,
-    //   compatibility
-    // } = values;
+  const handleUpload = (file: RcFile) => {
+    if (file.size > 20000000) {
+      alert('20MB를 초과했습니다.');
+      return Promise.reject();
+    }
+
+    return false;
+  };
+
+  const createReference = (data: CreateReference) => {
+    return referenceApi.createReference(data);
+  };
+
+  // const { data, mutate } = useSWR([SWR_REFERENCE_KEY], () => createReference())
+
+  const onFinish = (values: CreateReference) => {
+    // const formData = new FormData();
+
+    const {
+      accessibility,
+      compatibility,
+      definition,
+      description,
+      element,
+      reference,
+      summary,
+      tag,
+      title,
+      type,
+      use,
+      files
+    } = values;
+
+    // formData.append('accessibility', JSON.stringify(accessibility));
+    // formData.append('compatibility', JSON.stringify(compatibility));
+    // formData.append('definition', JSON.stringify(definition));
+    // formData.append('description', description);
+    // formData.append('element', element);
+    // formData.append('reference', JSON.stringify(reference));
+    // formData.append('summary', summary);
+    // formData.append('tag', tag);
+    // formData.append('title', title);
+    // formData.append('type', type);
+    // formData.append('use', String(use));
+
+    const _files: any[] = [];
+
+    console.log(files.file);
+    console.log(JSON.stringify(files.file));
+
+    // if (files && files.fileList) {
+    //   files.fileList.forEach((file: any) => {
+    //     const uid = file.uid;
+    //     const obj = file.originFileObj;
+    //     console.log('AW : ', obj);
+    //     console.log('AW : ', JSON.stringify(obj));
+    //     console.log(
+    //       'AA : ',
+    //       JSON.stringify({
+    //         uid: JSON.stringify(obj)
+    //       })
+    //     );
+
+    //     _files.push(
+    //       JSON.stringify({
+    //         uid: JSON.stringify(obj)
+    //       })
+    //     );
+    //   });
+    // }
+
+    console.log(_files);
 
     const _values = {
       ...values,
-      reference: referSite,
-      compatibility: browers
+      files: files.file,
+      reference: JSON.stringify(referSite),
+      compatibility: JSON.stringify(browers),
+      use: String(use),
+      definition: JSON.stringify(definition),
+      accessibility: JSON.stringify(accessibility)
     };
 
+    // delete _values.files;
+
     console.log('=== _values === : ', _values);
+
+    createReference(_values);
+    // form.resetFields();
   };
 
   return (
@@ -166,6 +253,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                               <Radio.Group size="large">
                                 <Radio value="html">HTML</Radio>
                                 <Radio value="css">CSS</Radio>
+                                <Radio value="javascript">JS</Radio>
                               </Radio.Group>
                             </Form.Item>
                           </Space>
@@ -438,6 +526,40 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                   </>
                 }
               />
+
+              <div style={{ marginTop: '2.5rem' }} />
+
+              <MetaCard
+                title="썸네일 올리기"
+                children={
+                  <>
+                    <Form.Item name="files" valuePropName="files">
+                      <Upload
+                        accept=".png, .jpg, .jpeg"
+                        listType="picture"
+                        maxCount={1}
+                        beforeUpload={handleUpload}
+                      >
+                        <Row className="img-upload">
+                          <div
+                            className="img-upload-plus"
+                            style={{
+                              width: 50,
+                              height: 50,
+                              border: '1px solid black',
+                              textAlign: 'center',
+                              alignItems: 'center',
+                              lineHeight: '50px'
+                            }}
+                          >
+                            +
+                          </div>
+                        </Row>
+                      </Upload>
+                    </Form.Item>
+                  </>
+                }
+              />
             </div>
 
             {/* 브라우저 호환성 */}
@@ -474,6 +596,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
                                     checked={
                                       checked.length > 0 && checked[0].isUse
                                     }
+                                    defaultChecked={true}
                                     onChange={(e) => onChagneCompatibility(e)}
                                   />
                                   <div className={`html-icon ${item}-icon`} />

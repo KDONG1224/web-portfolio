@@ -24,3 +24,27 @@ export interface ReferDatas {
 export interface ReferenceProps {
   data: ReferDatas;
 }
+
+interface CompatibilityProps {
+  name: string;
+  isUse: boolean;
+}
+
+interface ReferenceSiteProps {
+  title: string;
+  url: string;
+}
+export interface CreateReference {
+  accessibility: string[] | string;
+  compatibility: CompatibilityProps[] | string;
+  definition: string[] | string;
+  description: string;
+  element: string;
+  reference: ReferenceSiteProps[] | string;
+  summary: string;
+  tag: string;
+  title: string;
+  type: 'html' | 'css' | 'javascript';
+  use: number | string;
+  files: any;
+}
