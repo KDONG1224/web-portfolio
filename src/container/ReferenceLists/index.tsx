@@ -63,6 +63,11 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
       key: 'description'
     },
     {
+      title: '타입',
+      dataIndex: 'type',
+      key: 'type'
+    },
+    {
       title: '태그',
       key: 'tag',
       dataIndex: 'tag',
