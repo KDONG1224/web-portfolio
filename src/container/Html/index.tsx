@@ -1,5 +1,5 @@
 // base
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // style
@@ -9,18 +9,18 @@ import { StyledHtml } from './style';
 import { ItemList, PaginationTable } from 'components';
 
 // library
-import useSWR from 'swr';
-import { Button, Col, Row, Space, Tag } from 'antd';
+import { Button, Col, Row, Tag } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 
 // modules
+import { ReferApi } from 'modules';
 
 // const
-import { SWR_REFERENCE_KEY } from 'const';
+import { QUERY_REFERENCE_GET_ALL } from 'const';
 import { ROUTE_HTML_DETAIL_WITH_ID } from 'const/route';
 
-// routes
-
+// react-query
+import { useQuery } from '@tanstack/react-query';
 interface TableDataType {
   id: number;
   title: string;
@@ -39,19 +39,25 @@ export const Html = () => {
   const [changeList, setChangeList] = useState('table');
   const router = useRouter();
 
+  const referenceApi = useMemo(() => {
+    return new ReferApi();
+  }, []);
+
+  const getHtmlDatas = async () => {
+    return await referenceApi.getAllReference();
+  };
+
+  const { data: allHtmlDatas } = useQuery<any, unknown, any[]>(
+    [QUERY_REFERENCE_GET_ALL],
+    () => getHtmlDatas(),
+    {
+      select: (data) => data
+    }
+  );
+
   const handleMove = (record: any) => {
-    console.log('record : ', record);
     return router.push(ROUTE_HTML_DETAIL_WITH_ID(record.id));
   };
-
-  const getHtmlDatas = () => {
-    console.log('html');
-    console.log('htmltltltmtlmhlhmltmhltmhltm');
-  };
-
-  const { data } = useSWR([SWR_REFERENCE_KEY], () => getHtmlDatas());
-
-  console.log('htmlData : ', data);
 
   const columns: ColumnsType<TableDataType> = [
     {
@@ -62,8 +68,8 @@ export const Html = () => {
     },
     {
       title: '설명',
-      dataIndex: 'desc2',
-      key: 'desc2'
+      dataIndex: 'description',
+      key: 'description'
     },
     {
       title: '태그',
@@ -94,26 +100,26 @@ export const Html = () => {
     }
   ];
 
-  const onChange = (type: string) => {
-    if (type === 'table') return setChangeList('table');
-    if (type === 'list') return setChangeList('list');
-    if (type === 'box') return setChangeList('box');
-  };
+  // const onChange = (type: string) => {
+  //   if (type === 'table') return setChangeList('table');
+  //   if (type === 'list') return setChangeList('list');
+  //   if (type === 'box') return setChangeList('box');
+  // };
 
   return (
     <StyledHtml>
       <div className="html-head">HTML 태그 설명</div>
       <div className="html-body">
-        <div className="html-body-button">
+        {/* <div className="html-body-button">
           <Button onClick={() => onChange('table')}>테이블</Button>
           <Button onClick={() => onChange('box')}>박스</Button>
           <Button onClick={() => onChange('list')}>리스트</Button>
-        </div>
+        </div> */}
         <div className="html-body-contents">
           {changeList === 'table' && (
             <PaginationTable
               columns={columns}
-              dataSource={data || []}
+              dataSource={allHtmlDatas || []}
               rowKey="id"
               showRowSelection={false}
               showPageSize={false}

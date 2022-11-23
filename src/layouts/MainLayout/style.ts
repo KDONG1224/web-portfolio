@@ -1,78 +1,30 @@
-// styled
+import { menuIcons } from 'const';
 import styled from 'styled-components';
 
-// const
-import { menuIcons } from 'const';
-
-interface StyledMainLayoutProps {
-  isMobile: boolean;
-  isHide: boolean;
-  isRoot: boolean;
-}
-
 export const StyledMainLayout = styled.div`
-  color: #000;
-
-  .layout-sider-thumb {
-    padding: 16px;
+  .ant-layout-sider {
+    height: calc(100vh - 80px) !important;
+    margin-top: 80px;
   }
 
-  .layout-sider-thumb-box {
-    margin-bottom: 16px;
+  .ant-layout-sider-trigger {
+    background: #fff;
 
-    img {
-      width: 100%;
-      border-radius: 50%;
+    > span {
+      color: #000 !important;
     }
   }
 
-  .layout-sider-title {
-    &.active {
-      /* display: none; */
-    }
+  .ant-layout-content {
+    padding-top: 116px !important;
+    overflow: hidden;
   }
 
-  .site-layout-header {
-    .header-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      height: 100%;
-
-      &-text {
-        width: 80%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        white-space: nowrap;
-
-        span {
-          width: 100%;
-          margin-left: 36px;
-        }
-      }
-
-      &-social {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 18%;
-        margin-right: 36px;
-
-        span {
-          display: flex;
-          cursor: pointer;
-
-          img {
-            width: 40px;
-            height: 40px;
-          }
-        }
-      }
-    }
+  .ant-menu-vertical > .ant-menu-item,
+  .ant-menu-inline > .ant-menu-item,
+  .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title {
+    height: 50px;
+    line-height: 50px;
   }
 
   .ant-menu.ant-menu-inline-collapsed
@@ -82,38 +34,9 @@ export const StyledMainLayout = styled.div`
     padding: 0 calc(50% - 30px / 2);
   }
 
-  .ant-menu.ant-menu-inline-collapsed
-    > .ant-menu-submenu
-    > .ant-menu-submenu-title {
-    /* padding-top: 8px; */
+  .ant-menu-vertical .ant-menu-submenu-title .ant-menu-item-icon {
+    height: 48px;
   }
-
-  .ant-layout-content {
-    overflow-y: scroll;
-  }
-
-  .ant-layout-sider-trigger {
-    background: #fff;
-    color: #000;
-  }
-
-  /* .ant-menu-submenu-selected {
-    background-color: yellow;
-  } */
-
-  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected,
-  .ant-menu-submenu-selected {
-    background-color: #fff2e6;
-  }
-
-  .ant-menu.ant-menu-inline-collapsed
-    > .ant-menu-submenu
-    > .ant-menu-submenu-title
-    .ant-menu-item-icon,
-  .ant-menu.ant-menu-inline-collapsed > .ant-menu-item .ant-menu-item-icon {
-    margin-top: 5px;
-  }
-
   // sidebar icons
   .ant-menu-submenu-title,
   .ant-menu-item {
@@ -254,44 +177,4 @@ export const StyledMainLayout = styled.div`
   .ant-menu-submenu-vertical.ant-menu-submenu-active .alchol-icon {
     background-image: url(${menuIcons.ALCHOL_ICON});
   } */
-`;
-
-export const StyledMobileLayout = styled.div<StyledMainLayoutProps>`
-  position: relative;
-  height: 100vh;
-
-  .ant-layout-header {
-    width: 100%;
-    height: 50px;
-    padding: 0;
-    top: 0px;
-    position: fixed;
-    z-index: 3;
-    transition: transform 0.57s cubic-bezier(0.86, 0, 0.07, 1);
-
-    &.hide {
-      transform: translateY(-100%);
-    }
-  }
-
-  .ant-layout-content {
-    width: 100%;
-    height: ${(props) =>
-      props.isHide
-        ? props.isRoot
-          ? 'calc(100vh - 80px)'
-          : 'calc(100vh - 130px)'
-        : 'calc(100vh - 80px)'};
-    overflow-y: scroll;
-    margin-top: ${(props) => (props.isRoot ? '0' : '50px')};
-  }
-
-  .ant-layout-footer {
-    width: 100%;
-    height: 80px;
-    padding: 0;
-    bottom: 0px;
-    position: fixed;
-    z-index: 3;
-  }
 `;
