@@ -4,15 +4,12 @@ import React from 'react';
 // layouts
 import { MainLayout } from 'layouts';
 
-// container
-import { Css } from 'container';
-
-const CssPage = () => {
+const ReferenceEditPage = () => {
   return (
     <MainLayout>
-      <Css />
+      <div>Edit Page</div>
     </MainLayout>
   );
 };
 
-export default CssPage;
+export default ReferenceEditPage;

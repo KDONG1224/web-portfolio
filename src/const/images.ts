@@ -110,4 +110,11 @@ export const browserIcons = {
   EDGE_ICON,
   ANDROID_ICON,
   APPLE_ICON
-}
+};
+
+// icons
+export const RIGHT_TOP_ARROW_ICON = `${ICON_PATH}/icon-right-top-arrow.png`;
+
+export const arrowIcons = {
+  RIGHT_TOP_ARROW_ICON
+};

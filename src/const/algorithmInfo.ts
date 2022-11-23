@@ -2,7 +2,7 @@ import { exImg } from 'const';
 
 export const algorithmInfo = [
   {
-    key: 'algorithm-01',
+    key: '01',
     title: '최솟값 구하기',
     url: exImg.EX_NUM_01,
     data: {
@@ -30,7 +30,7 @@ export const algorithmInfo = [
     }
   },
   {
-    key: 'algorithm-02',
+    key: '02',
     title: '최솟값 구하기02',
     url: exImg.EX_NUM_02,
     data: {
@@ -58,7 +58,7 @@ export const algorithmInfo = [
     }
   },
   {
-    key: 'algorithm-03',
+    key: '03',
     title: '최솟값 구하기03',
     url: exImg.EX_NUM_03,
     data: {
@@ -86,7 +86,7 @@ export const algorithmInfo = [
     }
   },
   {
-    key: 'algorithm-04',
+    key: '04',
     title: '최솟값 구하기04',
     url: exImg.EX_NUM_04,
     data: {
@@ -114,7 +114,7 @@ export const algorithmInfo = [
     }
   },
   {
-    key: 'algorithm-05',
+    key: '05',
     title: '최솟값 구하기05',
     url: exImg.EX_NUM_05,
     data: {
@@ -142,7 +142,7 @@ export const algorithmInfo = [
     }
   },
   {
-    key: 'algorithm-06',
+    key: '06',
     title: '최솟값 구하기06',
     url: exImg.EX_NUM_06,
     data: {
@@ -170,7 +170,7 @@ export const algorithmInfo = [
     }
   },
   {
-    key: 'algorithm-07',
+    key: '07',
     title: '최솟값 구하기07',
     url: exImg.EX_NUM_07,
     data: {
@@ -198,7 +198,7 @@ export const algorithmInfo = [
     }
   },
   {
-    key: 'algorithm-08',
+    key: '08',
     title: '최솟값 구하기08',
     url: exImg.EX_NUM_08,
     data: {
