@@ -152,8 +152,7 @@ export const HtmlCreate: React.FC<HtmlCreateProps> = ({}) => {
       tag,
       title,
       type,
-      use,
-      files
+      use
     } = values;
 
     // formData.append('accessibility', JSON.stringify(accessibility));

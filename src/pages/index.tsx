@@ -5,16 +5,18 @@ import type { NextPage } from 'next';
 import { Row, Col } from 'antd';
 
 // layouts
-
-import { MainBanner, MainBoard, MainCard } from 'container';
 import { MainLayout } from 'layouts';
-import { DefaulLayout } from 'layouts/DefaulLayout';
+
+// containers
+import { MainBanner, MainBoard } from 'container';
+
+// components
 import { BasicCard } from 'components';
 
 interface HomePageProps {}
 
 const HomePage: NextPage<HomePageProps> = () => {
-  const array = [...Array(20)].map((dummy, idx) => {
+  const array = [...Array(20)].map((_, idx) => {
     return {
       id: idx + 1,
       title: 'card ' + (idx + 1),
@@ -23,13 +25,7 @@ const HomePage: NextPage<HomePageProps> = () => {
   });
 
   return (
-    // <MainLayout>
-    //   <StyledHomePage>
-    //     <MainBanner />
-    //     <MainCard />
-    //   </StyledHomePage>
-    // </MainLayout>
-    <DefaulLayout>
+    <MainLayout>
       <Row gutter={24}>
         <Col span={16}>
           <div
@@ -64,7 +60,7 @@ const HomePage: NextPage<HomePageProps> = () => {
           <MainBoard />
         </Col>
       </Row>
-    </DefaulLayout>
+    </MainLayout>
   );
 };
 

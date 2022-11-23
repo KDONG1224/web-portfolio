@@ -46,5 +46,4 @@ export interface CreateReference {
   title: string;
   type: 'html' | 'css' | 'javascript';
   use: number | string;
-  files: any;
 }

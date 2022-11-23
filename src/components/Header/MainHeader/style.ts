@@ -22,6 +22,7 @@ export const StyledMainHeader = styled(Layout.Header)`
       &-title {
         display: flex;
         align-items: center;
+        cursor: pointer;
 
         &-name {
           margin-left: 10px;

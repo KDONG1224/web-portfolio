@@ -24,6 +24,9 @@ import 'swiper/css/effect-fade';
 import 'antd-mobile/bundle/css-vars-patch.css';
 // import '../../node_modules/@tabler/icons/iconfont/tabler-icons.scss';
 
+// react-query
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 export interface InitialProps {}
 
 NProgress.configure({
@@ -69,8 +72,14 @@ export const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
   //   storage.setItem('currentPath', globalThis.location.pathname);
   // }
 
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { staleTime: Infinity }
+    }
+  });
+
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       {/* <SessionProvider session={session}> */}
       <Head>
         {/* <meta name="viewport" content="width=750,user-scalable=no" /> */}
@@ -79,7 +88,7 @@ export const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
       <Component {...pageProps} />
       <SafeArea position="bottom" />
       {/* </SessionProvider> */}
-    </>
+    </QueryClientProvider>
   );
 };
 

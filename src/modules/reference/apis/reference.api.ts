@@ -14,12 +14,12 @@ export class ReferApi {
     return this.Axios.get(`/all`).then((res) => res.data);
   }
 
-  createReference(data: CreateReference) {
+  createReference(data: any) {
     return this.Axios.post(`/create`, data).then((res) => res.data);
   }
 
-  getReferenceLists() {
-    return this.Axios.get<any>('').then((res) => res.data);
+  getReferenceLists(type: string) {
+    return this.Axios.get<any>(`/${type}`).then((res) => res.data);
   }
 
   getReferenceById(id: string) {

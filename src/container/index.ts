@@ -3,6 +3,13 @@ export * from './MainBanner';
 export * from './MainCard';
 export * from './MainBoard';
 
+// reference
+export * from './Reference';
+export * from './ReferenceCreate';
+export * from './ReferenceEdit';
+export * from './ReferenceLists';
+export * from './ReferenceDetail';
+
 // html
 export * from './Html';
 export * from './HtmlDetails';

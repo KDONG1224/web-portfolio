@@ -5,14 +5,14 @@ import React from 'react';
 import { MainLayout } from 'layouts';
 
 // container
-import { Javascript } from 'container';
+import { ReferenceCreate } from 'container';
 
-const JavascriptPage = () => {
+const ReferenceCreatePage = () => {
   return (
     <MainLayout>
-      <Javascript />
+      <ReferenceCreate />
     </MainLayout>
   );
 };
 
-export default JavascriptPage;
+export default ReferenceCreatePage;
