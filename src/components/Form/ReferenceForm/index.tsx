@@ -121,24 +121,40 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
   const handleUpload = (file: RcFile) => {
     if (file.size > 20000000) {
       alert('20MB를 초과했습니다.');
-      return Promise.reject();
+      return Upload.LIST_IGNORE;
     }
 
     return false;
   };
 
   const onFinish = (values: any) => {
+    let thumb: any = {};
+
+    if (values.thumbmnaile) {
+      const { file, fileList } = values.thumbmnaile;
+
+      console.log(file, fileList);
+
+      fileList.forEach((file: any) => {
+        thumb = { imgUrl: file.originFileObj };
+      });
+    }
+
     const data = {
       ...values,
       compatibility: browers,
-      reference: referSite
+      reference: referSite,
+      thumbmnaile: thumb
     };
 
     if (onSubmit) {
-      onSubmit(data);
+      // onSubmit(data);
+      console.log(data);
     }
 
-    form.resetFields();
+    // form.resetFields();
+    // setBrowers([]);
+    // setReferSite([]);
     return;
   };
 
@@ -390,6 +406,37 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
                         </Form.Item>
                       </Space>
 
+                      <Space style={{ height: '4.6rem' }}>
+                        <InputLabel text="썸네일" />
+                        <Form.Item
+                          name="thumbmnaile"
+                          valuePropName="thumbmnaile"
+                        >
+                          <Upload
+                            accept=".png, .jpg, .jpeg"
+                            listType="picture-card"
+                            maxCount={1}
+                            beforeUpload={handleUpload}
+                          >
+                            <Row className="img-upload">
+                              <div
+                                className="img-upload-plus"
+                                style={{
+                                  width: 50,
+                                  height: 50,
+                                  border: '1px solid black',
+                                  textAlign: 'center',
+                                  alignItems: 'center',
+                                  lineHeight: '50px'
+                                }}
+                              >
+                                +
+                              </div>
+                            </Row>
+                          </Upload>
+                        </Form.Item>
+                      </Space>
+
                       {/* 접근성 */}
                       <Space className="def-wrapper">
                         <Form.List name="accessibility">
@@ -452,40 +499,6 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
                 </Row>
               }
             />
-
-            <div style={{ marginTop: '2.5rem' }} />
-            {/* 
-            <MetaCard
-              title="썸네일"
-              children={
-                <>
-                  <Form.Item name="files" valuePropName="files">
-                    <Upload
-                      accept=".png, .jpg, .jpeg"
-                      listType="picture"
-                      maxCount={1}
-                      beforeUpload={handleUpload}
-                    >
-                      <Row className="img-upload">
-                        <div
-                          className="img-upload-plus"
-                          style={{
-                            width: 50,
-                            height: 50,
-                            border: '1px solid black',
-                            textAlign: 'center',
-                            alignItems: 'center',
-                            lineHeight: '50px'
-                          }}
-                        >
-                          +
-                        </div>
-                      </Row>
-                    </Upload>
-                  </Form.Item>
-                </>
-              }
-            /> */}
           </div>
 
           {/* 브라우저 호환성 */}
