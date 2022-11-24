@@ -10,17 +10,6 @@ export * from './ReferenceEdit';
 export * from './ReferenceLists';
 export * from './ReferenceDetail';
 
-// html
-export * from './Html';
-export * from './HtmlDetails';
-export * from './HtmlCreate';
-
-// css
-export * from './Css';
-
-// javascript
-export * from './Javascript';
-
 // algorithm
 export * from './Algorithm';
 export * from './AlgorithmDetails';
