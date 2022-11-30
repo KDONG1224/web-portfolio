@@ -10,24 +10,28 @@ export class ReferApi {
     }).create();
   }
 
-  getAllReference() {
-    return this.Axios.get(`/all`).then((res) => res.data);
+  async getAllReference() {
+    return await this.Axios.get(`/all`).then((res) => res.data);
   }
 
-  createReference(data: any) {
-    return this.Axios.post(`/create`, data).then((res) => res.data);
+  async createReference(data: FormData) {
+    return await this.Axios.post(`/create`, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((res) => res.data);
   }
 
-  getReferenceLists(type: string) {
-    return this.Axios.get<any>(`/${type}`).then((res) => res.data);
+  async getReferenceLists(type: string) {
+    return await this.Axios.get<any>(`/${type}`).then((res) => res.data);
   }
 
-  getReferenceById(id: string) {
-    return this.Axios.get<any>(`/${id}`).then((res) => res.data);
+  async getReferenceById(id: string) {
+    return await this.Axios.get<any>(`/${id}`).then((res) => res.data);
   }
-  // http://localhost:4444/algorithm/all
-  getAlgorithm() {
-    return this.Axios.get<any>('/algorithm/all').then((res) => {
+
+  async getAlgorithm() {
+    return await this.Axios.get<any>('/algorithm/all').then((res) => {
       console.log('res.data : ', res.data);
       return res.data;
     });

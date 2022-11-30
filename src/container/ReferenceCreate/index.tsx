@@ -8,7 +8,7 @@ import { StyledReferenceCreate } from './style';
 import { ReferenceForm } from 'components';
 
 // modules
-import { ReferApi } from 'modules';
+import { CreateReference, ReferApi } from 'modules';
 
 // react-query
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -25,7 +25,7 @@ export const ReferenceCreate: React.FC<ReferenceCreateProps> = ({}) => {
     return new ReferApi();
   }, []);
 
-  const createReference = (values: any) => {
+  const createReference = (values: FormData) => {
     return referenceApi.createReference(values);
   };
 

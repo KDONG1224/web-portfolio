@@ -79,20 +79,20 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     getMenuItem(
       '레퍼런스',
       'reference',
-      <div className="html-icon navi-icon" />,
+      <div className="reference-icon navi-icon" />,
       [
         getMenuItem(
-          'HTML 설명',
+          'HTML',
           ROUTE_REFERNCE_WITH_TYPE('html'),
           <div className="html-icon navi-icon" />
         ),
         getMenuItem(
-          'CSS 설명',
+          'CSS',
           ROUTE_REFERNCE_WITH_TYPE('css'),
           <div className="css-icon navi-icon" />
         ),
         getMenuItem(
-          'JS 설명',
+          'Javascript',
           ROUTE_REFERNCE_WITH_TYPE('js'),
           <div className="javascript-icon navi-icon" />
         )

@@ -12,6 +12,8 @@ interface ReferenceListsPageProps {
 const ReferenceListsPage: React.FC<ReferenceListsPageProps> = ({
   referenceLists
 }) => {
+  console.log('referenceLists : ', referenceLists);
+
   return (
     <MainLayout>
       <ReferenceLists referenceLists={referenceLists} />

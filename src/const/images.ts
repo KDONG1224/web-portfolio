@@ -41,6 +41,7 @@ export const GITHUB_ICON = `${ICON_PATH}/github.png`;
 export const TISTORY_ICON = `${ICON_PATH}/tistory.png`;
 export const INSTAGRAM_ICON = `${ICON_PATH}/instagram.png`;
 export const API_ICON = `${ICON_PATH}/api.png`;
+export const REFERENCE_ICON = `${ICON_PATH}/Reference.png`;
 
 export const menuIcons = {
   HOME_ICON,
@@ -54,7 +55,8 @@ export const menuIcons = {
   ALGORITHM_ICON,
   MAC_ICON,
   NOTION_ICON,
-  ALCHOL_ICON
+  ALCHOL_ICON,
+  REFERENCE_ICON
 };
 
 export const socialIcons = {
