@@ -29,7 +29,7 @@ export const ReferenceCreate: React.FC<ReferenceCreateProps> = ({}) => {
     return referenceApi.createReference(values);
   };
 
-  const { mutate: createRefer } = useMutation<unknown, unknown, any, any>(
+  const { mutate: createRefer } = useMutation<FormData, unknown, any, any>(
     (values) => createReference(values),
     {
       onMutate: async () => {

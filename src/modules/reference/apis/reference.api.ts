@@ -22,6 +22,14 @@ export class ReferApi {
     }).then((res) => res.data);
   }
 
+  async updateReference(id: string, data: FormData) {
+    return await this.Axios.patch<any>(`/update/${id}`, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((res) => res.data);
+  }
+
   async getReferenceLists(type: string) {
     return await this.Axios.get<any>(`/${type}`).then((res) => res.data);
   }
@@ -37,11 +45,11 @@ export class ReferApi {
     });
   }
 
-  updateReference(id: string, formData: FormData) {
-    return this.Axios.post<any>(`/create/${id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((res) => res.data);
-  }
+  // updateReference(id: string, formData: FormData) {
+  //   return this.Axios.post<any>(`/create/${id}`, formData, {
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data'
+  //     }
+  //   }).then((res) => res.data);
+  // }
 }

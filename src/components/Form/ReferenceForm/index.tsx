@@ -1,11 +1,13 @@
 /* eslint-disable react/no-children-prop */
 // base
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
 
 // style
 import { StyledReferenceForm } from './style';
 
 // components
+import { ImgUploader } from 'components';
 import { MetaCard } from 'components/Card';
 import { InputLabel, MetaInputString } from 'components/Input';
 
@@ -17,23 +19,22 @@ import {
   Form,
   message,
   Radio,
-  RadioChangeEvent,
   Rate,
   Row,
-  Space,
-  Upload
+  Space
 } from 'antd';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { useForm } from 'antd/lib/form/Form';
-import { RcFile } from 'antd/lib/upload';
 
 // const
 import { browsers } from 'const';
-import { CreateReference } from 'modules';
-import { ImgUploader } from 'components';
-import Image from 'next/image';
+
+// modules
+import { ResponseReferenceProps } from 'modules';
 
 interface ReferenceFormProps {
+  editing?: boolean;
+  editDatas?: any;
   onSubmit?: (values: FormData) => void;
 }
 
@@ -57,10 +58,13 @@ const browersOption = [
   { name: 'apple', isUse: true }
 ];
 
-export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
+export const ReferenceForm: React.FC<ReferenceFormProps> = ({
+  editing = false,
+  editDatas,
+  onSubmit
+}) => {
   const [form] = useForm();
 
-  const [selcetType, setSelectType] = useState<string | undefined>();
   const [fileList, setFileList] = useState<string[]>([]);
   const [imgList, setImgList] = useState<any>();
   const [browers, setBrowers] =
@@ -69,9 +73,10 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
     []
   );
 
-  const onSelectReferType = (type: string) => {
-    setSelectType(type);
-  };
+  const setInitialValues = useCallback(() => {
+    console.log('editing : ', editing);
+    console.log('editDatas : ', editDatas);
+  }, [editing, editDatas]);
 
   const onChecked = (e: CheckboxChangeEvent) => {
     const { id, checked } = e.target;
@@ -121,32 +126,9 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
     const filter = browers.filter((b) => b.name !== result.name);
 
     setBrowers([...filter, result]);
-    // if (checked) {
-    //   return setBrowers((brower) => {
-    //     if (brower) {
-    //       const check = brower.filter((b) => b.name !== result.name);
-
-    //       return [...check, result];
-    //     }
-    //     return [result];
-    //   });
-    // }
-
-    // if (!checked) {
-    //   return setBrowers((brower) => {
-    //     if (brower) {
-    //       const check = brower.filter((b) => b.name !== result.name);
-    //       return [...check];
-    //     }
-    //     return [];
-    //   });
-    // }
   };
 
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
-
-    // if (e.target.files && keys) {
     if (e.target.files) {
       if (e.target.files.length === 0) {
         return;
@@ -162,52 +144,14 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
         return;
       }
       const blobList: string[] = [];
-      const formData = new FormData();
-
-      // formData.append('key', `${keys}-onton`);
-      formData.append('type', 'oasis');
-      formData.append('group', 'oasis');
-      formData.append('tags', '');
 
       Array.prototype.forEach.call(e.target.files, (file) => {
         const blob = new Blob([file], { type: file.type });
-        console.log('file : ', file);
-        console.log('blob : ', blob);
-        formData.append('blob', file);
         setImgList(file);
         blobList.push(URL.createObjectURL(blob));
       });
 
       setFileList(blobList);
-
-      // dispatch(
-      //   uploadImagebankFileAction.request({
-      //     type: e.target.files.length === 1 ? 'single' : 'multiple',
-      //     data: formData
-      //   })
-      // );
-
-      // export const uploadImagebankFileAction = createAsyncAction(
-      //   UPLOAD_IMAGEBANK_FILE_REQUEST,
-      //   UPLOAD_IMAGEBANK_FILE_SUCCESS,
-      //   UPLOAD_IMAGEBANK_FILE_FAILURE
-      // )<
-      //   {
-      //     type?: 'single' | 'multiple';
-      //     data: FormData;
-      //     dataType?: 'image' | 'video';
-      //   },
-      //   ResponseUploadFile,
-      //   AxiosError
-      // >();
-
-      // export interface ResponseUploadFile {
-      //   max: number;
-      //   current: number;
-      //   bookId?: string;
-      //   location?: ResponseUploadLocation;
-      //   results?: ResponseUploadFileResults[];
-      // }
     }
 
     e.target.value = '';
@@ -218,20 +162,16 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
     form.setFieldsValue({
       thumbmnaile: []
     });
-    // dispatch(resetImagebankFileAction());
   };
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: ResponseReferenceProps) => {
     const {
       accessibility,
-      compatibility,
       definition,
       description,
       element,
-      reference,
       summary,
       tag,
-      thumbmnaile,
       title,
       type,
       use
@@ -240,46 +180,40 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
     const formData = new FormData();
 
     formData.append('accessibility', accessibility || '"');
-    formData.append('compatibility', compatibility);
+    formData.append('compatibility', JSON.stringify(browers));
     formData.append('definition', definition);
     formData.append('description', description);
     formData.append('element', element);
-    formData.append('reference', reference);
+    formData.append('reference', JSON.stringify(referSite));
     formData.append('summary', summary);
     formData.append('tag', tag);
     formData.append('title', title);
     formData.append('type', type);
-    formData.append('use', use || 0);
+    formData.append('use', use || String(0));
 
     if (imgList) {
       formData.append('thumbmnaile', imgList, imgList.name);
-      console.log(imgList, imgList.name);
     }
-    const data = {
-      ...values,
-      compatibility: browers,
-      reference: referSite,
-      use: values.use || 0,
-      accessibility: values.accessibility ? values.accessibility : '"',
-      thumbmnaile: fileList
-    };
 
     if (onSubmit) {
       onSubmit(formData);
-      console.log(data);
-      console.log(formData);
     }
 
-    // form.resetFields();
-    // setBrowers(browersOption);
-    // setReferSite([]);
+    form.resetFields();
+    setBrowers(browersOption);
+    setReferSite([]);
+    onClickImageDelete();
     return;
   };
+
+  useEffect(() => {
+    setInitialValues();
+  }, [editing, setInitialValues]);
 
   return (
     <StyledReferenceForm
       form={form}
-      onFinish={(values) => onFinish(values as CreateReference)}
+      onFinish={(values) => onFinish(values as ResponseReferenceProps)}
     >
       <Row gutter={[24, 24]}>
         <Col span={24}>
@@ -313,10 +247,7 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
                             }
                           ]}
                         >
-                          <Radio.Group
-                            size="large"
-                            onChange={(e) => onSelectReferType(e.target.value)}
-                          >
+                          <Radio.Group size="large">
                             <Radio value="html">HTML</Radio>
                             <Radio value="css">CSS</Radio>
                             <Radio value="javascript">JS</Radio>
