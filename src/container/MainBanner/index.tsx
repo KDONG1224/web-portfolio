@@ -5,7 +5,7 @@ import React from 'react';
 import { BannerSlider } from 'components';
 
 // const
-import { mainBanner } from 'const';
+import { mainBanner } from 'consts';
 
 // style
 import { StyledMainBanner, StyledMainBannerMobile } from './style';

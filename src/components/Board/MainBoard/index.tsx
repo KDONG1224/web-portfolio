@@ -1,4 +1,4 @@
-import { exImg } from 'const';
+import { exImg } from 'consts';
 import React from 'react';
 import { StyledHomeBoard } from './style';
 import Image from 'next/image';

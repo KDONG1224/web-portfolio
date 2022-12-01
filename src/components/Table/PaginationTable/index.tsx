@@ -1,43 +1,22 @@
-// base
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 
-// style
-import { StyledPaginationTable } from './style';
-
-// library
-import {
-  Col,
-  PaginationProps,
-  Row,
-  Select,
-  Space,
-  Table,
-  TableProps
-} from 'antd';
-import { ColumnsType } from 'antd/lib/table';
-import DoubleScrollbar from 'react-shadowed-double-scrollbar';
-import { useEffect } from 'react';
-
-// defines
-const DEFAULT_PAGE_SIZE = 100;
-const pageSizeRange = [10, 20, 50, 100];
+import { Table, Button, Select, Row, Col, Space } from 'antd';
+import { TableProps, ColumnsType } from 'antd/lib/table';
+import { PaginationProps } from 'antd/lib/pagination';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SELCET, DEFAULT_PAGE_SIZE } from 'consts';
 
 interface PaginationTableProps<T> extends TableProps<T> {
   noAsync?: boolean;
   noIndex?: boolean;
   columns: ColumnsType<T>;
+  dataSource: T[];
   customLeft?: React.ReactNode;
   customRight?: React.ReactNode;
   showPageSize?: boolean;
+  showReference?: boolean;
   showRowSelection?: boolean;
-  showPagination?: boolean;
-  onChangePageSize?: (page: number, pageSize: number) => void;
+  onChangePageSize?: (v: { page: number; pageSize: number }) => void;
   onChangeExpose?: (value: boolean) => void;
-  isNotWrapMarginTop?: boolean;
-  headerInfoMessage?: string | React.ReactNode;
-  noPadding?: boolean;
-  noSearchResult?: boolean;
-  sort?: boolean;
 }
 
 interface Pagination extends PaginationProps {
@@ -47,17 +26,9 @@ interface Pagination extends PaginationProps {
   showSizeChanger: boolean;
 }
 
-const doubleScroll = ({ ...restProps }) => {
-  if (typeof window !== 'object') return <div />
-  
-  return (
-    <DoubleScrollbar>
-      <table {...restProps}></table>
-    </DoubleScrollbar>
-  );
-};
-
-export const PaginationTable = (props: PaginationTableProps<any>) => {
+export const PaginationTable = <T extends {}>(
+  props: PaginationTableProps<T>
+) => {
   const {
     noAsync = false,
     noIndex = false,
@@ -66,20 +37,14 @@ export const PaginationTable = (props: PaginationTableProps<any>) => {
     customLeft,
     customRight,
     showPageSize = true,
+    showReference = true,
     showRowSelection = true,
-    showPagination = true,
     onChangePageSize,
     onChangeExpose,
-    isNotWrapMarginTop = false,
-    headerInfoMessage,
-    noPadding,
-    noSearchResult = false,
-    sort = false,
     ...tableOptions
   } = props;
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState<string[] | any>([]);
-  const [isLength, setIsLength] = useState(0);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 
   const hasSelected = useMemo(() => {
     return selectedRowKeys.length > 0;
@@ -91,7 +56,6 @@ export const PaginationTable = (props: PaginationTableProps<any>) => {
       current: 1,
       pageSize: DEFAULT_PAGE_SIZE,
       showSizeChanger: false,
-      showPagination: true,
       ...tableOptions.pagination
     };
   }, [tableOptions.pagination]);
@@ -99,11 +63,9 @@ export const PaginationTable = (props: PaginationTableProps<any>) => {
   const rowSelection = useMemo(() => {
     if (showRowSelection) {
       return {
-        preserveSelectedRowKeys: true,
         selectedRowKeys,
         onChange: (value: React.ReactText[]) => {
-          if (!value) return null;
-          setSelectedRowKeys(value);
+          setSelectedRowKeys(value as string[]);
         },
         ...tableOptions.rowSelection
       };
@@ -113,114 +75,125 @@ export const PaginationTable = (props: PaginationTableProps<any>) => {
   }, [tableOptions.rowSelection, selectedRowKeys, showRowSelection]);
 
   const handleChangePageSize = (pageSize: number) => {
-    if (pagination.onChange) {
-      pagination.onChange(1, pageSize);
+    if (onChangePageSize) {
+      const chang = {
+        page: DEFAULT_PAGE,
+        pageSize
+      };
+      onChangePageSize(chang);
     }
   };
 
-  const handleLength = () => {
-    if (!dataSource) return null;
-    setIsLength(dataSource?.length);
-  };
+  const dataSourceRef = useRef(dataSource);
 
   useEffect(() => {
-    handleLength();
+    if (dataSourceRef.current.length === dataSource.length) {
+      return;
+    }
+
+    if (pagination.total && dataSource.length === 0) {
+      if (pagination.onChange) {
+        pagination.onChange(
+          pagination.current > 1 ? pagination.current - 1 : 1,
+          pagination.pageSize
+        );
+      }
+    }
+  }, [pagination, dataSource]);
+
+  useEffect(() => {
+    dataSourceRef.current = dataSource;
   }, [dataSource]);
 
   return (
-    <StyledPaginationTable
-      isNotWrapMarginTop={isNotWrapMarginTop}
-      noPadding={noPadding}
-    >
-      <Row className='table-header' justify='space-between'>
-        {pagination.total !== null && (
-          <Col>
-            <Space>
-              <div className='totalCount-txt'>
-                <span>
-                  {noSearchResult
-                    ? `총 ${pagination.total || dataSource?.length || 0} 건`
-                    : `총 ${pagination.total || dataSource?.length || 0} 건`}
-                </span>
-              </div>
-            </Space>
-          </Col>
-        )}
+    <>
+      {pagination.total !== null && (
+        <div
+          style={{
+            borderBottom: '1px solid #666',
+            margin: '15px 0 10px 0'
+          }}
+        >
+          <span>검색결과 총 {pagination.total} 건</span>
+        </div>
+      )}
+      <Row style={{ marginBottom: 10 }} justify="space-between">
         <Col>
-          {showPageSize && (
-            <Select
-              className='option-36'
-              style={{ width: '15rem', marginLeft: '0.5rem' }}
-              defaultValue={DEFAULT_PAGE_SIZE}
-              value={pagination.pageSize ? pagination.pageSize : undefined}
-              onChange={handleChangePageSize}
-            >
-              {pageSizeRange.map(size => (
-                <Select.Option key={size} value={size}>
-                  {size}개씩 보기
-                </Select.Option>
-              ))}
-            </Select>
-          )}
+          <Space size={5}>
+            {onChangeExpose && (
+              <>
+                <Button
+                  onClick={() => onChangeExpose(true)}
+                  type="primary"
+                  disabled={!hasSelected}
+                >
+                  선택 공개
+                </Button>
+                <Button
+                  type="primary"
+                  onClick={() => onChangeExpose(false)}
+                  danger
+                  disabled={!hasSelected}
+                >
+                  선택 비공개
+                </Button>
+              </>
+            )}
+            {customLeft}
+          </Space>
+        </Col>
+        <Col>
+          <Space size={5}>
+            {customRight}
+            {showPageSize && (
+              <Select
+                style={{ width: 150, marginLeft: 5 }}
+                defaultValue={DEFAULT_PAGE_SIZE}
+                value={pagination.pageSize ? pagination.pageSize : undefined}
+                onChange={handleChangePageSize}
+              >
+                {DEFAULT_PAGE_SELCET.map((size) => (
+                  <Select.Option key={size} value={size}>
+                    {size}개씩 보기
+                  </Select.Option>
+                ))}
+              </Select>
+            )}
+          </Space>
         </Col>
       </Row>
       <Table
         {...tableOptions}
-        pagination={showPagination ? pagination : false}
+        pagination={pagination}
         rowSelection={rowSelection}
         columns={
           noIndex
             ? columns
-            : sort
-            ? [
-                {
-                  title: 'No',
-                  dataIndex: 'index',
-                  key: 'index',
-                  sorter: (a: any, b: any) => {
-                    return b.id - a.id;
-                  },
-                  render: (_, record, index) => {
-                    if (!noAsync) {
-                      return (
-                        pagination.total -
-                        index -
-                        (pagination.current * pagination.pageSize -
-                          pagination.pageSize)
-                      );
-                    } else {
-                      return isLength + index - isLength + 1;
-                    }
-                  }
-                },
-                ...columns
-              ]
             : [
                 {
                   title: 'No',
                   dataIndex: 'index',
-                  key: 'index',
-                  render: (_, record, index) => {
-                    if (!noAsync) {
-                      return (
-                        pagination.total -
-                        index -
-                        (pagination.current * pagination.pageSize -
-                          pagination.pageSize)
-                      );
-                    } else {
-                      return pagination.total - index;
-                    }
-                  }
+                  key: 'index'
                 },
                 ...columns
               ]
         }
-        size='small'
-        // dataSource={(dataSource || []).slice(0, pagination.pageSize)}
-        dataSource={dataSource}
-        components={{ table: doubleScroll }}
+        dataSource={
+          !noAsync && dataSource.length
+            ? dataSource.map((item, i) => ({
+                ...item,
+                index: i + 1
+                // pagination.total -
+                // i -
+                // (pagination.current * pagination.pageSize -
+                //   pagination.pageSize)
+              }))
+            : dataSource.map((item, i) => ({
+                ...item,
+                index: pagination.total - i
+              }))
+        }
       />
-    </StyledPaginationTable>
+    </>
   );
 };

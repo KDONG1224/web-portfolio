@@ -1,7 +1,7 @@
 // base
 import { Tag } from 'antd';
-import { exImg } from 'const';
-import { ROUTE_ALGORITHM_DETAIL_WITH_ID } from 'const/route';
+import { exImg } from 'consts';
+import { ROUTE_ALGORITHM_DETAIL_WITH_ID } from 'consts/route';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';

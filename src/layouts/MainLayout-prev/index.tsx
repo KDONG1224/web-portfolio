@@ -22,8 +22,8 @@ import {
   ROUTE_FIGMA,
   ROUTE_NOTION,
   ROUTE_ALCHOL_CUP
-} from 'const/route';
-import { socialIcons } from 'const';
+} from 'consts/route';
+import { socialIcons } from 'consts';
 
 // modules
 import { useAppDispatch, useAppSelector } from 'modules/hooks';

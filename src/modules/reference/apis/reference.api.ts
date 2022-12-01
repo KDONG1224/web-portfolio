@@ -30,8 +30,10 @@ export class ReferApi {
     }).then((res) => res.data);
   }
 
-  async getReferenceLists(type: string) {
-    return await this.Axios.get<any>(`/${type}`).then((res) => res.data);
+  async getReferenceLists(filter: any) {
+    return await this.Axios.get<any>(`/${JSON.stringify(filter)}`).then(
+      (res) => res.data
+    );
   }
 
   async getReferenceById(id: string) {

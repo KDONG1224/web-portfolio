@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { StyledAlgorithmDetails } from './style';
 
 // const
-import { algorithmInfo } from 'const';
+import { algorithmInfo } from 'consts';
 
 // components
 import { AlgorithmQuestion1 } from './AlgorithmQuestions';

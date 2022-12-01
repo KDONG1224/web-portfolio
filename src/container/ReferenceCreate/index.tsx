@@ -14,7 +14,7 @@ import { CreateReference, ReferApi } from 'modules';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // const
-import { QUERY_REFERENCE_CREATE } from 'const';
+import { QUERY_REFERENCE_CREATE } from 'consts';
 
 interface ReferenceCreateProps {}
 

@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { useInterval } from 'hooks';
 
 // const
-import { mainBanner } from 'const';
+import { mainBanner } from 'consts';
 
 const ErrorPage: NextPage = () => {
   const router = useRouter();

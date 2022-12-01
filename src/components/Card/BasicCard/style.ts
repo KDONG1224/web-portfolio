@@ -1,4 +1,4 @@
-import { arrowIcons } from 'const';
+import { arrowIcons } from 'consts';
 import styled from 'styled-components';
 
 export const StyledAlgorithmCard = styled.div`

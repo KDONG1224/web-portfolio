@@ -9,11 +9,11 @@ import { Col, Row } from 'antd';
 import { StyledAlcholCup } from './style';
 
 // const
-import { alcholcupData, exImg } from 'const';
+import { alcholcupData, exImg } from 'consts';
 
 // components
 import { WordCupList } from 'components';
-import { ROUTE_ALCHOL_CUP_DETAIL_WITH_ID } from 'const/route';
+import { ROUTE_ALCHOL_CUP_DETAIL_WITH_ID } from 'consts/route';
 
 export const AlcholCup = () => {
   const router = useRouter();

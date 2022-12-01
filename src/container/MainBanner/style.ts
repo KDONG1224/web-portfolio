@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { socialIcons } from 'const';
+import { socialIcons } from 'consts';
 
 interface StyledMainBannerProps {
   isMobile: boolean;

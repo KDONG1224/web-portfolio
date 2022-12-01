@@ -31,8 +31,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   try {
+    const filter = {
+      where: {
+        type
+      }
+    };
     const referApi = new ReferApi();
-    const getReferenceLists = await referApi.getReferenceLists(type);
+    const getReferenceLists = await referApi.getReferenceLists({ ...filter });
 
     return {
       props: {

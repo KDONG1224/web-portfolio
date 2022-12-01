@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 
 // const
-import { mainBanner } from 'const';
+import { mainBanner } from 'consts';
 
 const NotFoundPage: NextPage = () => {
   return (

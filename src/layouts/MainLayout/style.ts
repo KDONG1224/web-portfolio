@@ -1,4 +1,4 @@
-import { menuIcons } from 'const';
+import { menuIcons } from 'consts';
 import styled from 'styled-components';
 
 export const StyledMainLayout = styled.div`

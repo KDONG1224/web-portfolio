@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 // const
-import { menuIcons } from 'const';
+import { menuIcons } from 'consts';
 
 export const StyledMainIcon = styled.div`
   /* .ant-menu-submenu-selected {

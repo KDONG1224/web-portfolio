@@ -1,15 +1,20 @@
+import { browserIcons } from 'consts';
 import styled from 'styled-components';
 
 export const StyledReferenceDetail = styled.div`
   color: #000;
   background: #fff;
   padding: 15px 36px;
+
+  .ant-rate {
+    padding-left: 0 !important;
+  }
+
   .sampleView a {
     color: #5c43f5;
   }
 
   #explanation {
-    font-family: 'NexonLv1Gothic';
     color: #fff;
     word-break: keep-all;
   }
@@ -34,7 +39,6 @@ export const StyledReferenceDetail = styled.div`
     margin-top: 0;
   }
   #explanation p code {
-    font-family: 'NexonLv1Gothic';
     font-size: 0.9em;
     background: #433992;
     color: #fff;
@@ -50,7 +54,6 @@ export const StyledReferenceDetail = styled.div`
     opacity: 0.3;
   }
   #explanation .detail {
-    font-family: 'NexonLv1Gothic';
     color: #9a92dd;
     text-decoration: underline;
     font-weight: 500;
@@ -383,5 +386,52 @@ export const StyledReferenceDetail = styled.div`
     line-height: 20px;
     font-weight: bold;
     text-align: center;
+  }
+
+  .compatibility-icons {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+
+  .chrome-icon {
+    background-image: url(${browserIcons.CHROME_ICON});
+  }
+  .firefox-icon {
+    background-image: url(${browserIcons.FIREFOX_ICON});
+  }
+  .safari-icon {
+    background-image: url(${browserIcons.SAFARI_ICON});
+  }
+  .opera-icon {
+    background-image: url(${browserIcons.OPERA_ICON});
+  }
+  .whale-icon {
+    background-image: url(${browserIcons.WHALE_ICON});
+  }
+  .explorer8-icon {
+    background-image: url(${browserIcons.EXPLORER8_ICON});
+  }
+  .explorer9-icon {
+    background-image: url(${browserIcons.EXPLORER9_ICON});
+  }
+  .explorer10-icon {
+    background-image: url(${browserIcons.EXPLORER10_ICON});
+  }
+  .explorer11-icon {
+    background-image: url(${browserIcons.EXPLORER11_ICON});
+  }
+  .edge-icon {
+    background-image: url(${browserIcons.EDGE_ICON});
+  }
+  .android-icon {
+    background-size: contain;
+    background-image: url(${browserIcons.ANDROID_ICON});
+  }
+  .apple-icon {
+    background-size: contain;
+    background-image: url(${browserIcons.APPLE_ICON});
   }
 `;

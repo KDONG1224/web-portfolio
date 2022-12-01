@@ -27,7 +27,7 @@ import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { useForm } from 'antd/lib/form/Form';
 
 // const
-import { browsers } from 'const';
+import { browsers } from 'consts';
 
 // modules
 import { ResponseReferenceProps } from 'modules';

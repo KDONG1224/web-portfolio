@@ -7,7 +7,7 @@ import { StyledMainBoard } from './style';
 
 // libraries
 import moment from 'moment';
-import { exImg } from 'const';
+import { exImg } from 'consts';
 
 export const MainBoard = () => {
   const today = moment(new Date()).format('YYYY-MM-DD, A HH-MM-ss');

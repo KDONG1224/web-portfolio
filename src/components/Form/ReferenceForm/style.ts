@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Form } from 'antd';
 
 // const
-import { browserIcons } from 'const';
+import { browserIcons } from 'consts';
 
 export const StyledReferenceForm = styled(Form)`
   width: 100%;

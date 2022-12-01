@@ -1,5 +1,5 @@
 // base
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // style
@@ -7,13 +7,23 @@ import { StyledReferenceLists } from './style';
 
 // libraries
 import { ColumnsType } from 'antd/lib/table';
-import { Button, Tag } from 'antd';
+import { Button, Select, Tag } from 'antd';
 
 // components
 import { PaginationTable } from 'components';
 
 // const
-import { ROUTE_REFERNCE_DETAIL_WITH_ID } from 'const/route';
+import { ROUTE_REFERNCE_DETAIL_WITH_ID } from 'consts/route';
+import { usePagination } from 'hooks';
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SELCET,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_REFERENCE_SELCET,
+  QUERY_REFERENCE_GET
+} from 'consts';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { ReferApi } from 'modules';
 
 interface TableDataType {
   id: number;
@@ -29,26 +39,62 @@ interface ReferenceListsProps {
 export const ReferenceLists: React.FC<ReferenceListsProps> = ({
   referenceLists
 }) => {
+  const queryClient = useQueryClient();
+
+  const [tableList, setTableList] = useState<any[]>([]);
+  const [selectType, setSelectType] = useState<string>('전체보기');
+  const [updateFilter, setUpdateFilter] = useState<any>({
+    page: DEFAULT_PAGE,
+    pageSize: DEFAULT_PAGE_SIZE
+  });
+
   const router = useRouter();
 
-  // const referenceApi = useMemo(() => {
-  //   return new ReferApi();
-  // }, []);
+  const referenceApi = useMemo(() => {
+    return new ReferApi();
+  }, []);
 
-  // const getHtmlDatas = async () => {
-  //   return await referenceApi.getAllReference();
-  // };
+  const pagination = usePagination(
+    setUpdateFilter,
+    tableList.length,
+    updateFilter.page,
+    updateFilter.pageSize
+  );
 
-  // const { data: allHtmlDatas } = useQuery<any, unknown, any[]>(
-  //   [QUERY_REFERENCE_GET_ALL],
-  //   () => getHtmlDatas(),
-  //   {
-  //     select: (data) => data
-  //   }
-  // );
+  const getReference = (filter: any) => {
+    return referenceApi.getReferenceLists({ ...filter });
+  };
 
   const onClickDetail = (id: string) => {
     router.push(ROUTE_REFERNCE_DETAIL_WITH_ID(String(id)));
+  };
+
+  const { mutate: getReferneceLists, isLoading } = useMutation<
+    any,
+    any,
+    any,
+    any
+  >((filter) => getReference(filter), {
+    onMutate: async () => {
+      await queryClient.cancelQueries([QUERY_REFERENCE_GET]);
+    },
+    onSuccess: (datas) => {
+      queryClient.invalidateQueries([QUERY_REFERENCE_GET]);
+      setTableList(datas);
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData([QUERY_REFERENCE_GET], context.prev);
+    }
+  });
+
+  const handleSelect = (value: string) => {
+    setSelectType(value);
+
+    const filter = {
+      type: value
+    };
+
+    getReferneceLists(value === 'all' ? '' : filter);
   };
 
   const columns: ColumnsType<TableDataType> = [
@@ -96,6 +142,10 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
     }
   ];
 
+  useEffect(() => {
+    setTableList(referenceLists);
+  }, [referenceLists]);
+
   return (
     <StyledReferenceLists>
       <div className="refer-head">레퍼런스</div>
@@ -107,16 +157,38 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
         </div> */}
         <div className="refer-body-contents">
           <PaginationTable
-            columns={columns}
-            dataSource={referenceLists || []}
             rowKey="id"
+            loading={isLoading}
+            columns={columns}
+            dataSource={tableList}
             showRowSelection={false}
-            showPageSize={false}
-            noAsync
-            sort
+            showPageSize={true}
+            pagination={{
+              ...pagination,
+              showSizeChanger: false,
+              current: pagination.current,
+              pageSize: pagination.pageSize
+            }}
+            onChangePageSize={setUpdateFilter}
             style={{
               marginTop: '1.4rem'
             }}
+            customRight={
+              <>
+                <Select
+                  style={{ width: 150, marginLeft: 5 }}
+                  defaultValue={selectType}
+                  value={selectType}
+                  onChange={handleSelect}
+                >
+                  {DEFAULT_REFERENCE_SELCET.map(({ key, value }) => (
+                    <Select.Option key={key} value={key}>
+                      {value}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </>
+            }
           />
         </div>
       </div>

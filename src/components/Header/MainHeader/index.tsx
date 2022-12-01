@@ -1,7 +1,7 @@
 // base
 import { Input } from 'antd';
-import { exImg } from 'const';
-import { ROUTE_ROOT } from 'const/route';
+import { exImg } from 'consts';
+import { ROUTE_ROOT } from 'consts/route';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';

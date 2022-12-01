@@ -14,10 +14,10 @@ import { Col, Row } from 'antd';
 import { AlgorithmCard, CommonCard } from 'components';
 
 // const
-import { algorithmInfo } from 'const';
+import { algorithmInfo } from 'consts';
 import { useAppSelector } from 'modules/hooks';
 
-import { ROUTE_ALGORITHM_DETAIL_WITH_ID } from 'const/route';
+import { ROUTE_ALGORITHM_DETAIL_WITH_ID } from 'consts/route';
 
 // routes
 
