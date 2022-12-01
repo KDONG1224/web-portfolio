@@ -28,7 +28,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const referApi = new ReferApi();
-    // const getReferenceLists = await referApi.getReferenceLists(id);
+    const getReferenceLists = await referApi.getReferenceLists(id);
+
+    console.log(getReferenceLists);
 
     return {
       props: {

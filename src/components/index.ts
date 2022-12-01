@@ -4,6 +4,8 @@ export * from './Card';
 
 export * from './Loader';
 
+export * from './Upload';
+
 // slider
 export * from './Carousel';
 
