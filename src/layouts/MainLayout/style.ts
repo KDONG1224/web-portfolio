@@ -1,4 +1,4 @@
-import { menuIcons } from 'const';
+import { menuIcons } from 'consts';
 import styled from 'styled-components';
 
 export const StyledMainLayout = styled.div`
@@ -77,6 +77,21 @@ export const StyledMainLayout = styled.div`
   .ant-menu-submenu-vertical.ant-menu-submenu-active .about-icon {
     background-image: url(../../assets/icon/store_active.svg);
   } */
+
+  // reference icons
+  .ant-menu-item .reference-icon,
+  .ant-menu-submenu-title .reference-icon {
+    background-image: url(${menuIcons.REFERENCE_ICON});
+  }
+
+  .ant-menu-item-selected .reference-icon {
+    background-image: url(${menuIcons.REFERENCE_ICON});
+  }
+
+  .ant-menu-submenu-open .reference-icon,
+  .ant-menu-submenu-vertical.ant-menu-submenu-active .reference-icon {
+    background-image: url(${menuIcons.REFERENCE_ICON});
+  }
 
   // html icons
   .ant-menu-item .html-icon,

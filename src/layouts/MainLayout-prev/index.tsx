@@ -15,15 +15,12 @@ import { getMenuItem, MenuItem } from 'utils';
 import {
   ROUTE_ROOT,
   ROUTE_ABOUT,
-  ROUTE_HTML,
-  ROUTE_CSS,
-  ROUTE_JS,
   ROUTE_ALGORITHM,
   ROUTE_FIGMA,
   ROUTE_NOTION,
   ROUTE_ALCHOL_CUP
-} from 'const/route';
-import { socialIcons } from 'const';
+} from 'consts/route';
+import { socialIcons } from 'consts';
 
 // modules
 import { useAppDispatch, useAppSelector } from 'modules/hooks';
@@ -68,17 +65,6 @@ export const MainLayoutPrev: React.FC<MainLayoutProps> = ({
       '어바웃',
       ROUTE_ABOUT,
       <div className="about-icon navi-icon" />
-    ),
-    getMenuItem('HTML', 'html', <div className="html-icon navi-icon" />, [
-      getMenuItem('HTML 설명', ROUTE_HTML)
-    ]),
-    getMenuItem('CSS', 'css', <div className="css-icon navi-icon" />, [
-      getMenuItem('CSS 설명', ROUTE_CSS)
-    ]),
-    getMenuItem(
-      '자바스크립트',
-      ROUTE_JS,
-      <div className="javascript-icon navi-icon" />
     ),
     getMenuItem(
       '알고리즘',

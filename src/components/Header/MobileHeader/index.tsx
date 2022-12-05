@@ -8,7 +8,7 @@ import { StyledMobileHeader, StyledHeaderRight } from './style';
 import { NavBar } from 'antd-mobile';
 import { stack as Menu } from 'react-burger-menu';
 import { useRouter } from 'next/router';
-import { ROUTE_ROOT } from 'const/route';
+import { ROUTE_ROOT } from 'consts/route';
 import { useScroll } from 'hooks';
 
 interface MobileHeaderProps {}

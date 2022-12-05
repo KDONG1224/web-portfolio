@@ -1,12 +1,11 @@
-import { arrowIcons } from 'const';
+import { arrowIcons } from 'consts';
 import styled from 'styled-components';
 
-export const StyledAlgorithmCard = styled.div`
+export const StyledBasicCard = styled.div`
   .algo-wrapper {
     /* max-width: 350px; */
     max-height: 430px;
     width: 100%;
-    height: 100%;
     background-color: #fff;
     border-radius: 10px;
 

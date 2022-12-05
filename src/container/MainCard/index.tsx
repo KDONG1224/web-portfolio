@@ -13,7 +13,7 @@ import { MainCardItem } from 'components';
 import { Col, Row } from 'antd';
 
 // images
-import { exImg } from 'const/images';
+import { exImg } from 'consts/images';
 
 // hooks
 import { useMedia } from 'hooks';

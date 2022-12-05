@@ -46,4 +46,19 @@ export interface CreateReference {
   title: string;
   type: 'html' | 'css' | 'javascript';
   use: number | string;
+  thumbmnaile: string;
+}
+export interface ResponseReferenceProps {
+  accessibility: string;
+  compatibility: string;
+  definition: string;
+  description: string;
+  element: string;
+  reference: string;
+  summary: string;
+  tag: string;
+  title: string;
+  type: 'html' | 'css' | 'javascript';
+  use: string;
+  thumbmnaile: string;
 }

@@ -1,5 +1,5 @@
 // base
-import { exImg } from 'const';
+import { exImg } from 'consts';
 import React from 'react';
 
 // style
@@ -24,10 +24,10 @@ export const CommonCard: React.FC<CommonCardProps> = ({
 
   return (
     <StyledCommonCard onClick={onClickCard}>
-      <div className='card-wrapper'>
-        <div className='card-wrapper-top'>
+      <div className="card-wrapper">
+        <div className="card-wrapper-top">
           <img src={url || exImg.EX_NUM_03} alt={title || '백준 알고리즘'} />
-          <span className='card-wrapper-top-desc'>
+          <span className="card-wrapper-top-desc">
             <strong>{title || '백준 알고리즘'}</strong>
             <span>자세히 보기</span>
           </span>

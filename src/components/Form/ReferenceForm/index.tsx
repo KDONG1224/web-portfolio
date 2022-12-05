@@ -1,11 +1,13 @@
 /* eslint-disable react/no-children-prop */
 // base
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
 
 // style
 import { StyledReferenceForm } from './style';
 
 // components
+import { ImgUploader } from 'components';
 import { MetaCard } from 'components/Card';
 import { InputLabel, MetaInputString } from 'components/Input';
 
@@ -15,22 +17,25 @@ import {
   Checkbox,
   Col,
   Form,
+  message,
   Radio,
-  RadioChangeEvent,
   Rate,
   Row,
-  Space,
-  Upload
+  Space
 } from 'antd';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { useForm } from 'antd/lib/form/Form';
-import { RcFile } from 'antd/lib/upload';
 
 // const
-import { browsers } from 'const';
+import { browsers } from 'consts';
+
+// modules
+import { ResponseReferenceProps } from 'modules';
 
 interface ReferenceFormProps {
-  onSubmit?: (values: any) => void;
+  editing?: boolean;
+  editDatas?: any;
+  onSubmit?: (values: FormData) => void;
 }
 
 const referenceOptions = [
@@ -38,18 +43,50 @@ const referenceOptions = [
   { label: 'w3', value: 'w3' }
 ];
 
-export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
+const browersOption = [
+  { name: 'firefox', isUse: true },
+  { name: 'chrome', isUse: true },
+  { name: 'safari', isUse: true },
+  { name: 'whale', isUse: true },
+  { name: 'opera', isUse: true },
+  { name: 'explorer8', isUse: true },
+  { name: 'explorer9', isUse: true },
+  { name: 'explorer10', isUse: true },
+  { name: 'explorer11', isUse: true },
+  { name: 'edge', isUse: true },
+  { name: 'android', isUse: true },
+  { name: 'apple', isUse: true }
+];
+
+export const ReferenceForm: React.FC<ReferenceFormProps> = ({
+  editing = false,
+  editDatas,
+  onSubmit
+}) => {
   const [form] = useForm();
 
-  const [selcetType, setSelectType] = useState<string | undefined>();
-  const [browers, setBrowers] = useState<any[]>([]);
+  const [fileList, setFileList] = useState<string[]>([]);
+  const [imgList, setImgList] = useState<any>();
+  const [imgUrl, setImgUrl] = useState<string>('');
+  const [browers, setBrowers] =
+    useState<{ name: string; isUse: boolean }[]>(browersOption);
   const [referSite, setReferSite] = useState<{ title: string; url: string }[]>(
     []
   );
 
-  const onSelectReferType = (type: string) => {
-    setSelectType(type);
-  };
+  const setInitialValues = useCallback(() => {
+    if (!editing || !editDatas) return;
+
+    const { reference, compatibility, thumbmnaile } = editDatas;
+
+    if (thumbmnaile) {
+      setImgUrl(thumbmnaile);
+    }
+
+    form.setFieldsValue({ ...editDatas });
+    setReferSite(reference);
+    setBrowers(compatibility);
+  }, [editing, editDatas, form]);
 
   const onChecked = (e: CheckboxChangeEvent) => {
     const { id, checked } = e.target;
@@ -92,80 +129,116 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
     const { id, checked } = e.target;
 
     const result = {
-      name: id,
+      name: id as string,
       isUse: checked
     };
 
-    if (checked) {
-      return setBrowers((brower) => {
-        if (brower) {
-          const check = brower.filter((b) => b.name !== result.name);
+    const filter = browers.filter((b) => b.name !== result.name);
 
-          return [...check, result] as { name: string; checked: boolean }[];
-        }
-        return [result];
-      });
-    }
-
-    if (!checked) {
-      return setBrowers((brower) => {
-        if (brower) {
-          const check = brower.filter((b) => b.name !== result.name);
-          return [...check];
-        }
-        return [];
-      });
-    }
+    setBrowers([...filter, result]);
   };
 
-  const handleUpload = (file: RcFile) => {
-    if (file.size > 20000000) {
-      alert('20MB를 초과했습니다.');
-      return Upload.LIST_IGNORE;
+  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (imgList) {
+      return;
     }
 
-    return false;
+    if (e.target.files) {
+      if (e.target.files.length === 0) {
+        return;
+      }
+      if (e.target.files.length > 1) {
+        message.error({
+          content: '1개의 이미지를 업로드 할 수 있습니다. ',
+          style: {
+            marginTop: '5.5vh',
+            fontSize: '24px'
+          }
+        });
+        return;
+      }
+      const blobList: string[] = [];
+
+      Array.prototype.forEach.call(e.target.files, (file) => {
+        const blob = new Blob([file], { type: file.type });
+        setImgList(file);
+        blobList.push(URL.createObjectURL(blob));
+      });
+
+      setFileList(blobList);
+    }
+
+    e.target.value = '';
   };
 
-  const onFinish = (values: any) => {
-    let thumb: any = {};
+  const onClickImageDelete = () => {
+    setFileList([]);
+    form.setFieldsValue({
+      thumbmnaile: []
+    });
+  };
 
-    if (values.thumbmnaile) {
-      const { file, fileList } = values.thumbmnaile;
+  const onFinish = (values: ResponseReferenceProps) => {
+    const {
+      accessibility,
+      definition,
+      description,
+      element,
+      summary,
+      tag,
+      title,
+      type,
+      use
+    } = values;
 
-      console.log(file, fileList);
+    const formData = new FormData();
 
-      fileList.forEach((file: any) => {
-        thumb = { imgUrl: file.originFileObj };
-      });
+    formData.append('accessibility', accessibility || '"');
+    formData.append('compatibility', JSON.stringify(browers));
+    formData.append('definition', definition);
+    formData.append('description', description);
+    formData.append('element', element);
+    formData.append('reference', JSON.stringify(referSite));
+    formData.append('summary', summary);
+    formData.append('tag', tag);
+    formData.append('title', title);
+    formData.append('type', type);
+    formData.append('use', use || String(0));
+
+    if (!editDatas.thumbmnaile || imgUrl === '') {
+      formData.append('thumbmnaile', imgList, imgList.name);
     }
-
-    const data = {
-      ...values,
-      compatibility: browers,
-      reference: referSite,
-      thumbmnaile: thumb
-    };
 
     if (onSubmit) {
-      // onSubmit(data);
-      console.log(data);
+      onSubmit(formData);
     }
 
-    // form.resetFields();
-    // setBrowers([]);
-    // setReferSite([]);
+    form.resetFields();
+    setBrowers(browersOption);
+    setReferSite([]);
+    onClickImageDelete();
     return;
   };
 
+  useEffect(() => {
+    setInitialValues();
+  }, [editing, setInitialValues]);
+
   return (
-    <StyledReferenceForm form={form} onFinish={onFinish}>
+    <StyledReferenceForm
+      form={form}
+      onFinish={(values) => onFinish(values as ResponseReferenceProps)}
+    >
       <Row gutter={[24, 24]}>
         <Col span={24}>
           {/* 기본 설정 */}
           <div style={{ marginBottom: '2.5rem' }}>
             <MetaCard
-              title="Reference 데이터 생성하기"
+              title={
+                editing
+                  ? 'Reference 데이터 수정하기'
+                  : 'Reference 데이터 생성하기'
+              }
               children={
                 <Row
                   justify="space-between"
@@ -192,10 +265,7 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
                             }
                           ]}
                         >
-                          <Radio.Group
-                            size="large"
-                            onChange={(e) => onSelectReferType(e.target.value)}
-                          >
+                          <Radio.Group size="large">
                             <Radio value="html">HTML</Radio>
                             <Radio value="css">CSS</Radio>
                             <Radio value="javascript">JS</Radio>
@@ -220,37 +290,35 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
                         </Form.Item>
                       </Space>
 
-                      {/* 사용법 */}
+                      {/* 요약설명 */}
                       <Space style={{ height: '4.6rem' }}>
-                        <InputLabel text="태그사용법" require />
+                        <InputLabel text="요약설명" require />
                         <Form.Item
-                          className="create-wrapper-title"
-                          name="tag"
+                          name="summary"
                           rules={[
                             {
                               required: true,
-                              message: '태그사용법을 입력해주세요.'
+                              message: '요약설명을 입력해주세요.'
                             }
                           ]}
                         >
-                          <MetaInputString placeholder="태그사용법을 입력해주세요." />
+                          <MetaInputString placeholder="요약설명을 입력해주세요." />
                         </Form.Item>
                       </Space>
 
-                      {/* 사용성 */}
+                      {/* 한줄설명 */}
                       <Space style={{ height: '4.6rem' }}>
-                        <InputLabel text="사용성" require />
+                        <InputLabel text="한줄설명" require />
                         <Form.Item
-                          className="create-wrapper-title"
-                          name="use"
+                          name="description"
                           rules={[
                             {
                               required: true,
-                              message: '사용성을 입력해주세요.'
+                              message: '한줄설명을 입력해주세요.'
                             }
                           ]}
                         >
-                          <Rate />
+                          <MetaInputString placeholder="한 줄 설명을 입력해주세요." />
                         </Form.Item>
                       </Space>
 
@@ -327,82 +395,92 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
                       size={20}
                     >
                       {/* 구조 */}
-                      {selcetType === 'html' && (
-                        <>
-                          <Space style={{ height: '4.6rem' }}>
-                            <InputLabel text="구조" require />
-                            <Form.Item
-                              className="create-wrapper-title"
-                              name="element"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: '구조를 선택해주세요.'
-                                }
-                              ]}
-                            >
-                              <Radio.Group size="large">
-                                <Radio value="인라인 구조(Inline Element)">
-                                  인라인 (Inline)
-                                </Radio>
-                                <Radio value="블록 구조(Block Element)">
-                                  블록 (Block)
-                                </Radio>
-                              </Radio.Group>
-                            </Form.Item>
-                          </Space>
-
-                          {/* 레퍼런스 */}
-                          <Space style={{ height: '4.6rem' }}>
-                            <InputLabel text="레퍼런스" />
-                            <Form.Item name="reference">
-                              <Form.Item>
-                                {referenceOptions.map(({ label, value }) => (
-                                  <React.Fragment key={value}>
-                                    <Checkbox
-                                      onChange={(e) => onChecked(e)}
-                                      id={value}
-                                    />
-                                    <label className={`label-title ${label}`}>
-                                      {label}
-                                    </label>
-                                  </React.Fragment>
-                                ))}
-                              </Form.Item>
-                            </Form.Item>
-                          </Space>
-                        </>
-                      )}
-
-                      {/* 요약설명 */}
                       <Space style={{ height: '4.6rem' }}>
-                        <InputLabel text="요약설명" require />
+                        <InputLabel text="구조" require />
                         <Form.Item
-                          name="summary"
+                          className="create-wrapper-title"
+                          name="element"
                           rules={[
                             {
                               required: true,
-                              message: '요약설명을 입력해주세요.'
+                              message: '구조를 선택해주세요.'
                             }
                           ]}
                         >
-                          <MetaInputString placeholder="요약설명을 입력해주세요." />
+                          <Radio.Group size="large">
+                            <Radio value="-">없음</Radio>
+                            <Radio value="인라인 구조(Inline Element)">
+                              인라인 (Inline)
+                            </Radio>
+                            <Radio value="블록 구조(Block Element)">
+                              블록 (Block)
+                            </Radio>
+                          </Radio.Group>
                         </Form.Item>
                       </Space>
 
-                      {/* 한줄설명 */}
+                      {/* 사용법 */}
                       <Space style={{ height: '4.6rem' }}>
-                        <InputLabel text="한줄설명" require />
+                        <InputLabel text="태그사용법" require />
                         <Form.Item
-                          name="description"
+                          className="create-wrapper-title"
+                          name="tag"
                           rules={[
                             {
                               required: true,
-                              message: '한줄설명을 입력해주세요.'
+                              message: '태그사용법을 입력해주세요.'
                             }
                           ]}
                         >
-                          <MetaInputString placeholder="한 줄 설명을 입력해주세요." />
+                          <MetaInputString placeholder="태그사용법을 입력해주세요." />
+                        </Form.Item>
+                      </Space>
+
+                      {/* 사용성 */}
+                      <Space style={{ height: '4.6rem' }}>
+                        <InputLabel text="사용성" />
+                        <Form.Item
+                          className="create-wrapper-title"
+                          name="use"
+                          // rules={[
+                          //   {
+                          //     required: true,
+                          //     message: '사용성을 입력해주세요.'
+                          //   }
+                          // ]}
+                        >
+                          <Rate />
+                        </Form.Item>
+                      </Space>
+
+                      {/* 레퍼런스 */}
+                      <Space style={{ height: '4.6rem' }}>
+                        <InputLabel text="레퍼런스" />
+                        <Form.Item name="reference">
+                          <Form.Item>
+                            {referenceOptions.map(({ label, value }) => {
+                              const _default =
+                                editing &&
+                                referSite.filter((r) => r.title === label)
+                                  .length > 0
+                                  ? true
+                                  : false;
+
+                              return (
+                                <React.Fragment key={value}>
+                                  <Checkbox
+                                    id={value}
+                                    defaultChecked={_default}
+                                    checked={_default}
+                                    onChange={(e) => onChecked(e)}
+                                  />
+                                  <label className={`label-title ${label}`}>
+                                    {label}
+                                  </label>
+                                </React.Fragment>
+                              );
+                            })}
+                          </Form.Item>
                         </Form.Item>
                       </Space>
 
@@ -411,29 +489,60 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
                         <Form.Item
                           name="thumbmnaile"
                           valuePropName="thumbmnaile"
+                          className="thumbmnaile"
                         >
-                          <Upload
-                            accept=".png, .jpg, .jpeg"
-                            listType="picture-card"
-                            maxCount={1}
-                            beforeUpload={handleUpload}
-                          >
-                            <Row className="img-upload">
+                          <ImgUploader onChangeFile={onChangeFile} />
+                          {fileList?.map((file, idx) => {
+                            return (
                               <div
-                                className="img-upload-plus"
+                                key={idx}
                                 style={{
-                                  width: 50,
-                                  height: 50,
-                                  border: '1px solid black',
-                                  textAlign: 'center',
-                                  alignItems: 'center',
-                                  lineHeight: '50px'
+                                  float: 'left',
+                                  marginTop: '8px',
+                                  marginLeft: '20px'
                                 }}
                               >
-                                +
+                                <div
+                                  style={{
+                                    position: 'absolute',
+                                    width: '24px',
+                                    height: '24px',
+                                    background: '#ff4c01',
+                                    fontWeight: 600,
+                                    textAlign: 'center',
+                                    lineHeight: '24px',
+                                    marginLeft: '56px',
+                                    color: '#fff',
+                                    cursor: 'pointer',
+                                    zIndex: 99
+                                  }}
+                                  onClick={onClickImageDelete}
+                                >
+                                  X
+                                </div>
+                                <Image
+                                  src={file || ''}
+                                  alt=""
+                                  width={80}
+                                  height={80}
+                                />
                               </div>
-                            </Row>
-                          </Upload>
+                            );
+                          })}
+                          {editing && editDatas.thumbmnaile && imgUrl !== '' && (
+                            <span
+                              style={{
+                                marginLeft: 20
+                              }}
+                            >
+                              <Image
+                                src={imgUrl}
+                                alt={editDatas.title}
+                                width={80}
+                                height={80}
+                              />
+                            </span>
+                          )}
                         </Form.Item>
                       </Space>
 
@@ -559,7 +668,7 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({ onSubmit }) => {
         }}
       >
         <Button className="submit-btn" htmlType="submit">
-          저장
+          {editing ? '수정' : '저장'}
         </Button>
       </div>
     </StyledReferenceForm>

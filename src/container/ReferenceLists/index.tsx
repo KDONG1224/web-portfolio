@@ -1,5 +1,5 @@
 // base
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // style
@@ -7,19 +7,37 @@ import { StyledReferenceLists } from './style';
 
 // libraries
 import { ColumnsType } from 'antd/lib/table';
-import { Button, Tag } from 'antd';
+import { Button, Select, Tag } from 'antd';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // components
-import { PaginationTable } from 'components';
+import { BlurImage, PaginationTable } from 'components';
+
+// momdules
+import { ReferApi } from 'modules';
+
+// hooks
+import { usePagination } from 'hooks';
 
 // const
-import { ROUTE_REFERNCE_DETAIL_WITH_ID } from 'const/route';
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_REFERENCE_SELCET,
+  QUERY_REFERENCE_GET
+} from 'consts';
+import {
+  ROUTE_REFERNCE_DETAIL_WITH_ID,
+  ROUTE_REFERNCE_EDIT_WITH_ID
+} from 'consts/route';
+import Image from 'next/image';
 
 interface TableDataType {
   id: number;
   title: string;
   description: string;
   tag: string;
+  thumbmnaile?: string;
 }
 
 interface ReferenceListsProps {
@@ -29,29 +47,92 @@ interface ReferenceListsProps {
 export const ReferenceLists: React.FC<ReferenceListsProps> = ({
   referenceLists
 }) => {
+  const queryClient = useQueryClient();
+
+  const [tableList, setTableList] = useState<any[]>([]);
+  const [selectType, setSelectType] = useState<string>('전체보기');
+  const [updateFilter, setUpdateFilter] = useState<any>({
+    page: DEFAULT_PAGE,
+    pageSize: DEFAULT_PAGE_SIZE
+  });
+
   const router = useRouter();
 
-  // const referenceApi = useMemo(() => {
-  //   return new ReferApi();
-  // }, []);
+  const referenceApi = useMemo(() => {
+    return new ReferApi();
+  }, []);
 
-  // const getHtmlDatas = async () => {
-  //   return await referenceApi.getAllReference();
-  // };
+  const pagination = usePagination(
+    setUpdateFilter,
+    tableList.length,
+    updateFilter.page,
+    updateFilter.pageSize
+  );
 
-  // const { data: allHtmlDatas } = useQuery<any, unknown, any[]>(
-  //   [QUERY_REFERENCE_GET_ALL],
-  //   () => getHtmlDatas(),
-  //   {
-  //     select: (data) => data
-  //   }
-  // );
+  const getReference = (filter: any) => {
+    return referenceApi.getReferenceLists({ ...filter });
+  };
 
-  const onClickDetail = (id: string) => {
+  const onClickDetail = (id: string, type?: string) => {
+    if (type === 'edit') {
+      router.push(ROUTE_REFERNCE_EDIT_WITH_ID(String(id)));
+      return;
+    }
     router.push(ROUTE_REFERNCE_DETAIL_WITH_ID(String(id)));
   };
 
+  const { mutate: getReferneceLists, isLoading } = useMutation<
+    any,
+    any,
+    any,
+    any
+  >((filter) => getReference(filter), {
+    onMutate: async () => {
+      await queryClient.cancelQueries([QUERY_REFERENCE_GET]);
+    },
+    onSuccess: (datas) => {
+      queryClient.invalidateQueries([QUERY_REFERENCE_GET]);
+      setTableList(datas);
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData([QUERY_REFERENCE_GET], context.prev);
+    }
+  });
+
+  const handleSelect = (value: string) => {
+    setSelectType(value);
+
+    const filter = {
+      type: value
+    };
+
+    getReferneceLists(value === 'all' ? '' : filter);
+  };
+
   const columns: ColumnsType<TableDataType> = [
+    {
+      title: '썸네일',
+      dataIndex: 'thumbnaile',
+      key: 'thumbnaile',
+      render: (_, record) => {
+        if (!record.thumbmnaile) return;
+        return (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          >
+            <BlurImage
+              src={record.thumbmnaile}
+              alt="썸네일 이미지"
+              width={120}
+              height={120}
+            />
+          </div>
+        );
+      }
+    },
     {
       title: '태그 이름',
       dataIndex: 'title',
@@ -93,8 +174,34 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
           </Button>
         </>
       )
+    },
+    {
+      title: '수정',
+      align: 'center',
+      render: (_, record) => (
+        <>
+          <Button
+            className="btn-28 btn-primary color-white"
+            type="primary"
+            disabled
+            onClick={() => {
+              onClickDetail(String(record.id), 'edit');
+            }}
+          >
+            수정
+          </Button>
+        </>
+      )
     }
   ];
+
+  useEffect(() => {
+    setTableList(referenceLists);
+  }, [referenceLists]);
+
+  useEffect(() => {
+    document.querySelector('.ant-layout-content')?.scrollTo(0, 0);
+  }, [updateFilter]);
 
   return (
     <StyledReferenceLists>
@@ -107,16 +214,38 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
         </div> */}
         <div className="refer-body-contents">
           <PaginationTable
-            columns={columns}
-            dataSource={referenceLists || []}
             rowKey="id"
+            loading={isLoading}
+            columns={columns}
+            dataSource={tableList}
             showRowSelection={false}
-            showPageSize={false}
-            noAsync
-            sort
+            showPageSize={true}
+            pagination={{
+              ...pagination,
+              showSizeChanger: false,
+              current: pagination.current,
+              pageSize: pagination.pageSize
+            }}
+            onChangePageSize={setUpdateFilter}
             style={{
               marginTop: '1.4rem'
             }}
+            customRight={
+              <>
+                <Select
+                  style={{ width: 150, marginLeft: 5 }}
+                  defaultValue={selectType}
+                  value={selectType}
+                  onChange={handleSelect}
+                >
+                  {DEFAULT_REFERENCE_SELCET.map(({ key, value }) => (
+                    <Select.Option key={key} value={key}>
+                      {value}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </>
+            }
           />
         </div>
       </div>

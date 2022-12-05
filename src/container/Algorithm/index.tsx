@@ -11,13 +11,13 @@ import { Col, Row } from 'antd';
 // modules
 
 // components
-import { AlgorithmCard, CommonCard } from 'components';
+import { CommonCard } from 'components';
 
 // const
-import { algorithmInfo } from 'const';
+import { algorithmInfo } from 'consts';
 import { useAppSelector } from 'modules/hooks';
 
-import { ROUTE_ALGORITHM_DETAIL_WITH_ID } from 'const/route';
+import { ROUTE_ALGORITHM_DETAIL_WITH_ID } from 'consts/route';
 
 // routes
 
@@ -70,7 +70,7 @@ export const Algorithm: React.FC = () => {
               url={algorithm.url}
               onClick={onClick}
             /> */}
-            <AlgorithmCard id={algorithm.key} />
+            {/* <AlgorithmCard id={algorithm.key} /> */}
           </Col>
         ))}
       </Row>

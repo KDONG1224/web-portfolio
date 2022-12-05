@@ -26,12 +26,34 @@ export const StyledMainForm = styled(Form)`
           padding: 30px;
         }
       }
+
+      &-top {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        padding: 10px;
+
+        > .ant-form-item {
+          margin: 0;
+        }
+        .ant-input {
+          height: 30px !important;
+        }
+      }
     }
 
     &-bottom {
       padding: 10px 20px 10px 0;
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: space-between;
+
+      .guest-images {
+        .ant-form-item-control-input-content {
+          display: flex;
+          align-items: center;
+        }
+      }
 
       > button {
         background-color: #377dff;

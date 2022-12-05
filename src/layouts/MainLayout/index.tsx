@@ -19,8 +19,8 @@ import {
   ROUTE_FIGMA,
   ROUTE_NOTION,
   ROUTE_ALCHOL_CUP,
-  ROUTE_REFERNCE_WITH_TYPE
-} from 'const/route';
+  ROUTE_REFERNCE
+} from 'consts/route';
 
 // modules
 import { useAppDispatch, useAppSelector } from 'modules/hooks';
@@ -79,23 +79,28 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     getMenuItem(
       '레퍼런스',
       'reference',
-      <div className="html-icon navi-icon" />,
+      <div className="reference-icon navi-icon" />,
       [
         getMenuItem(
-          'HTML 설명',
-          ROUTE_REFERNCE_WITH_TYPE('html'),
+          '레퍼런스 목록',
+          ROUTE_REFERNCE,
           <div className="html-icon navi-icon" />
-        ),
-        getMenuItem(
-          'CSS 설명',
-          ROUTE_REFERNCE_WITH_TYPE('css'),
-          <div className="css-icon navi-icon" />
-        ),
-        getMenuItem(
-          'JS 설명',
-          ROUTE_REFERNCE_WITH_TYPE('js'),
-          <div className="javascript-icon navi-icon" />
         )
+        // getMenuItem(
+        //   'HTML',
+        //   ROUTE_REFERNCE('html'),
+        //   <div className="html-icon navi-icon" />
+        // ),
+        // getMenuItem(
+        //   'CSS',
+        //   ROUTE_REFERNCE('css'),
+        //   <div className="css-icon navi-icon" />
+        // ),
+        // getMenuItem(
+        //   'Javascript',
+        //   ROUTE_REFERNCE('js'),
+        //   <div className="javascript-icon navi-icon" />
+        // )
       ]
     ),
     getMenuItem(
