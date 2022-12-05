@@ -67,6 +67,7 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
 
   const [fileList, setFileList] = useState<string[]>([]);
   const [imgList, setImgList] = useState<any>();
+  const [imgUrl, setImgUrl] = useState<string>('');
   const [browers, setBrowers] =
     useState<{ name: string; isUse: boolean }[]>(browersOption);
   const [referSite, setReferSite] = useState<{ title: string; url: string }[]>(
@@ -74,9 +75,18 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
   );
 
   const setInitialValues = useCallback(() => {
-    console.log('editing : ', editing);
-    console.log('editDatas : ', editDatas);
-  }, [editing, editDatas]);
+    if (!editing || !editDatas) return;
+
+    const { reference, compatibility, thumbmnaile } = editDatas;
+
+    if (thumbmnaile) {
+      setImgUrl(thumbmnaile);
+    }
+
+    form.setFieldsValue({ ...editDatas });
+    setReferSite(reference);
+    setBrowers(compatibility);
+  }, [editing, editDatas, form]);
 
   const onChecked = (e: CheckboxChangeEvent) => {
     const { id, checked } = e.target;
@@ -129,6 +139,10 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
   };
 
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (imgList) {
+      return;
+    }
+
     if (e.target.files) {
       if (e.target.files.length === 0) {
         return;
@@ -191,7 +205,7 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
     formData.append('type', type);
     formData.append('use', use || String(0));
 
-    if (imgList) {
+    if (!editDatas.thumbmnaile || imgUrl === '') {
       formData.append('thumbmnaile', imgList, imgList.name);
     }
 
@@ -220,7 +234,11 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
           {/* 기본 설정 */}
           <div style={{ marginBottom: '2.5rem' }}>
             <MetaCard
-              title="Reference 데이터 생성하기"
+              title={
+                editing
+                  ? 'Reference 데이터 수정하기'
+                  : 'Reference 데이터 생성하기'
+              }
               children={
                 <Row
                   justify="space-between"
@@ -440,17 +458,28 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
                         <InputLabel text="레퍼런스" />
                         <Form.Item name="reference">
                           <Form.Item>
-                            {referenceOptions.map(({ label, value }) => (
-                              <React.Fragment key={value}>
-                                <Checkbox
-                                  onChange={(e) => onChecked(e)}
-                                  id={value}
-                                />
-                                <label className={`label-title ${label}`}>
-                                  {label}
-                                </label>
-                              </React.Fragment>
-                            ))}
+                            {referenceOptions.map(({ label, value }) => {
+                              const _default =
+                                editing &&
+                                referSite.filter((r) => r.title === label)
+                                  .length > 0
+                                  ? true
+                                  : false;
+
+                              return (
+                                <React.Fragment key={value}>
+                                  <Checkbox
+                                    id={value}
+                                    defaultChecked={_default}
+                                    checked={_default}
+                                    onChange={(e) => onChecked(e)}
+                                  />
+                                  <label className={`label-title ${label}`}>
+                                    {label}
+                                  </label>
+                                </React.Fragment>
+                              );
+                            })}
                           </Form.Item>
                         </Form.Item>
                       </Space>
@@ -460,6 +489,7 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
                         <Form.Item
                           name="thumbmnaile"
                           valuePropName="thumbmnaile"
+                          className="thumbmnaile"
                         >
                           <ImgUploader onChangeFile={onChangeFile} />
                           {fileList?.map((file, idx) => {
@@ -468,7 +498,6 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
                                 key={idx}
                                 style={{
                                   float: 'left',
-                                  // marginRight: '8px',
                                   marginTop: '8px',
                                   marginLeft: '20px'
                                 }}
@@ -492,7 +521,7 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
                                   X
                                 </div>
                                 <Image
-                                  src={file}
+                                  src={file || ''}
                                   alt=""
                                   width={80}
                                   height={80}
@@ -500,28 +529,20 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
                               </div>
                             );
                           })}
-                          {/* <Upload
-                            accept=".png, .jpg, .jpeg"
-                            listType="picture-card"
-                            maxCount={1}
-                            beforeUpload={handleUpload}
-                          >
-                            <Row className="img-upload">
-                              <div
-                                className="img-upload-plus"
-                                style={{
-                                  width: 50,
-                                  height: 50,
-                                  border: '1px solid black',
-                                  textAlign: 'center',
-                                  alignItems: 'center',
-                                  lineHeight: '50px'
-                                }}
-                              >
-                                +
-                              </div>
-                            </Row>
-                          </Upload> */}
+                          {editing && editDatas.thumbmnaile && imgUrl !== '' && (
+                            <span
+                              style={{
+                                marginLeft: 20
+                              }}
+                            >
+                              <Image
+                                src={imgUrl}
+                                alt={editDatas.title}
+                                width={80}
+                                height={80}
+                              />
+                            </span>
+                          )}
                         </Form.Item>
                       </Space>
 
@@ -647,7 +668,7 @@ export const ReferenceForm: React.FC<ReferenceFormProps> = ({
         }}
       >
         <Button className="submit-btn" htmlType="submit">
-          저장
+          {editing ? '수정' : '저장'}
         </Button>
       </div>
     </StyledReferenceForm>

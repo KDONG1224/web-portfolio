@@ -8,28 +8,36 @@ import { StyledReferenceLists } from './style';
 // libraries
 import { ColumnsType } from 'antd/lib/table';
 import { Button, Select, Tag } from 'antd';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // components
-import { PaginationTable } from 'components';
+import { BlurImage, PaginationTable } from 'components';
+
+// momdules
+import { ReferApi } from 'modules';
+
+// hooks
+import { usePagination } from 'hooks';
 
 // const
-import { ROUTE_REFERNCE_DETAIL_WITH_ID } from 'consts/route';
-import { usePagination } from 'hooks';
 import {
   DEFAULT_PAGE,
-  DEFAULT_PAGE_SELCET,
   DEFAULT_PAGE_SIZE,
   DEFAULT_REFERENCE_SELCET,
   QUERY_REFERENCE_GET
 } from 'consts';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ReferApi } from 'modules';
+import {
+  ROUTE_REFERNCE_DETAIL_WITH_ID,
+  ROUTE_REFERNCE_EDIT_WITH_ID
+} from 'consts/route';
+import Image from 'next/image';
 
 interface TableDataType {
   id: number;
   title: string;
   description: string;
   tag: string;
+  thumbmnaile?: string;
 }
 
 interface ReferenceListsProps {
@@ -65,7 +73,11 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
     return referenceApi.getReferenceLists({ ...filter });
   };
 
-  const onClickDetail = (id: string) => {
+  const onClickDetail = (id: string, type?: string) => {
+    if (type === 'edit') {
+      router.push(ROUTE_REFERNCE_EDIT_WITH_ID(String(id)));
+      return;
+    }
     router.push(ROUTE_REFERNCE_DETAIL_WITH_ID(String(id)));
   };
 
@@ -98,6 +110,29 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
   };
 
   const columns: ColumnsType<TableDataType> = [
+    {
+      title: '썸네일',
+      dataIndex: 'thumbnaile',
+      key: 'thumbnaile',
+      render: (_, record) => {
+        if (!record.thumbmnaile) return;
+        return (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          >
+            <BlurImage
+              src={record.thumbmnaile}
+              alt="썸네일 이미지"
+              width={120}
+              height={120}
+            />
+          </div>
+        );
+      }
+    },
     {
       title: '태그 이름',
       dataIndex: 'title',
@@ -139,12 +174,34 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
           </Button>
         </>
       )
+    },
+    {
+      title: '수정',
+      align: 'center',
+      render: (_, record) => (
+        <>
+          <Button
+            className="btn-28 btn-primary color-white"
+            type="primary"
+            disabled
+            onClick={() => {
+              onClickDetail(String(record.id), 'edit');
+            }}
+          >
+            수정
+          </Button>
+        </>
+      )
     }
   ];
 
   useEffect(() => {
     setTableList(referenceLists);
   }, [referenceLists]);
+
+  useEffect(() => {
+    document.querySelector('.ant-layout-content')?.scrollTo(0, 0);
+  }, [updateFilter]);
 
   return (
     <StyledReferenceLists>

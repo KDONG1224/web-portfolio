@@ -13,6 +13,7 @@ interface ReferenceDetailProps {
 
 export const ReferenceDetail: React.FC<ReferenceDetailProps> = ({ data }) => {
   const {
+    id,
     title,
     type,
     tag,
@@ -22,7 +23,8 @@ export const ReferenceDetail: React.FC<ReferenceDetailProps> = ({ data }) => {
     summary,
     description,
     reference,
-    compatibility
+    compatibility,
+    thumbmnaile
   } = data;
 
   return (
@@ -30,8 +32,22 @@ export const ReferenceDetail: React.FC<ReferenceDetailProps> = ({ data }) => {
       <main id="main">
         <section id="explanation">
           <div className="container">
-            <h2>{`[${type.toUpperCase()}] ${title}`}</h2>
-            <p>{description}</p>
+            <div className="title-wrapper">
+              <div className="title-image">
+                <Image
+                  src={thumbmnaile}
+                  alt={title}
+                  width={200}
+                  height={200}
+                  placeholder="blur"
+                  blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+                />
+              </div>
+              <div className="title-header">
+                <h2>{`[${type.toUpperCase()}] ${title}`}</h2>
+                <p>{description}</p>
+              </div>
+            </div>
 
             <hr />
 
@@ -97,9 +113,7 @@ export const ReferenceDetail: React.FC<ReferenceDetailProps> = ({ data }) => {
               </li>
             </ul> */}
 
-            <h4>
-              <a href="http://webzz.tistory.com/227">호환성(Compatibility)</a>
-            </h4>
+            <h4>호환성(Compatibility)</h4>
             <div className="table">
               <table className="compatibility">
                 <colgroup>
@@ -138,18 +152,26 @@ export const ReferenceDetail: React.FC<ReferenceDetailProps> = ({ data }) => {
               </table>
             </div>
 
-            <h4 className="pt30">참고 사이트(Reference)</h4>
-            <ul>
-              {reference.map(
-                ({ title, url }: { title: string; url: string }) => (
-                  <>
-                    <li>
-                      <Link href={url}>{title}</Link>
-                    </li>
-                  </>
-                )
-              )}
-            </ul>
+            {reference && (
+              <>
+                <h4 className="pt30">참고 사이트(Reference)</h4>
+                <ul>
+                  {reference.map(
+                    ({ title, url }: { title: string; url: string }) => {
+                      if (!title || !url) return;
+
+                      return (
+                        <React.Fragment key={`${id}-${title}`}>
+                          <li>
+                            <Link href={url as string}>{title}</Link>
+                          </li>
+                        </React.Fragment>
+                      );
+                    }
+                  )}
+                </ul>
+              </>
+            )}
 
             <hr />
           </div>

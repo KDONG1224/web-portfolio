@@ -8,7 +8,7 @@ import { StyledReferenceCreate } from './style';
 import { ReferenceForm } from 'components';
 
 // modules
-import { CreateReference, ReferApi } from 'modules';
+import { ReferApi } from 'modules';
 
 // react-query
 import { useMutation, useQueryClient } from '@tanstack/react-query';

@@ -3,39 +3,30 @@ import React from 'react';
 import { StyledHomeBoard } from './style';
 import Image from 'next/image';
 import moment from 'moment';
+import { BlurImage } from 'components/Images';
 
 interface HomeBoardProps {
-  writer: string;
-  created: string;
-  profileImage: string;
-  imageUrl: string;
-  contents: string;
+  data: any;
 }
 
-export const HomeBoard: React.FC<HomeBoardProps> = ({
-  writer,
-  created,
-  profileImage,
-  imageUrl,
-  contents
-}) => {
+export const HomeBoard: React.FC<HomeBoardProps> = ({ data }) => {
+  const { name, content, images, createdAt } = data;
+
   return (
     <StyledHomeBoard>
       <div className="board-wrapper">
         <div className="board-wrapper-top">
           <div className="board-wrapper-top-left">
-            <Image
-              src={profileImage || exImg.EX_NUM_07}
-              alt="s"
+            <BlurImage
+              src={images}
+              alt={name}
               width={50}
               height={50}
               style={{ borderRadius: '50%' }}
             />
             <div className="board-wrapper-top-left-title">
-              <p>{writer || 'KDONG'}</p>
-              <p>
-                {created || moment(new Date()).format('YYYY-MM-DD, A HH-MM-ss')}
-              </p>
+              <p>{name}</p>
+              <p>{moment(createdAt).format('YYYY-MM-DD, A HH-MM-ss')}</p>
             </div>
           </div>
           <div className="board-wrapper-top-right">
@@ -45,18 +36,14 @@ export const HomeBoard: React.FC<HomeBoardProps> = ({
           </div>
         </div>
         <div className="board-wrapper-middle">
-          {imageUrl && (
-            <Image
-              src={exImg.EX_NUM_04}
-              alt="ss"
-              width={600}
-              height={600}
-              objectFit="cover"
-            />
-          )}
-          <p className="board-wrapper-middle-contents">
-            {contents || '안녕하세용!'}
-          </p>
+          <Image
+            src={images}
+            alt={name}
+            width={600}
+            height={600}
+            objectFit="contain"
+          />
+          <p className="board-wrapper-middle-contents">{content}</p>
         </div>
         <div className="board-wrapper-bottom"></div>
       </div>

@@ -19,7 +19,7 @@ import {
   ROUTE_FIGMA,
   ROUTE_NOTION,
   ROUTE_ALCHOL_CUP,
-  ROUTE_REFERNCE_WITH_TYPE
+  ROUTE_REFERNCE
 } from 'consts/route';
 
 // modules
@@ -83,22 +83,22 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       [
         getMenuItem(
           '레퍼런스 목록',
-          ROUTE_REFERNCE_WITH_TYPE(''),
+          ROUTE_REFERNCE,
           <div className="html-icon navi-icon" />
         )
         // getMenuItem(
         //   'HTML',
-        //   ROUTE_REFERNCE_WITH_TYPE('html'),
+        //   ROUTE_REFERNCE('html'),
         //   <div className="html-icon navi-icon" />
         // ),
         // getMenuItem(
         //   'CSS',
-        //   ROUTE_REFERNCE_WITH_TYPE('css'),
+        //   ROUTE_REFERNCE('css'),
         //   <div className="css-icon navi-icon" />
         // ),
         // getMenuItem(
         //   'Javascript',
-        //   ROUTE_REFERNCE_WITH_TYPE('js'),
+        //   ROUTE_REFERNCE('js'),
         //   <div className="javascript-icon navi-icon" />
         // )
       ]

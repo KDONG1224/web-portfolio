@@ -11,7 +11,7 @@ import { Col, Row } from 'antd';
 // modules
 
 // components
-import { AlgorithmCard, CommonCard } from 'components';
+import { CommonCard } from 'components';
 
 // const
 import { algorithmInfo } from 'consts';
@@ -70,7 +70,7 @@ export const Algorithm: React.FC = () => {
               url={algorithm.url}
               onClick={onClick}
             /> */}
-            <AlgorithmCard id={algorithm.key} />
+            {/* <AlgorithmCard id={algorithm.key} /> */}
           </Col>
         ))}
       </Row>

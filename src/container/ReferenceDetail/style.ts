@@ -6,6 +6,12 @@ export const StyledReferenceDetail = styled.div`
   background: #fff;
   padding: 15px 36px;
 
+  .title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+
   .ant-rate {
     padding-left: 0 !important;
   }

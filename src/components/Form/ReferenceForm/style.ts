@@ -55,6 +55,13 @@ export const StyledReferenceForm = styled(Form)`
     top: 0;
     left: 50px;
   }
+
+  .thumbmnaile {
+    .ant-form-item-control-input-content {
+      display: flex;
+      align-items: center;
+    }
+  }
   .ant-form-item-control-input {
     min-height: auto;
   }
