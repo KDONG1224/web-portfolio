@@ -1,4 +1,4 @@
-import { exImg } from 'const';
+import { exImg } from 'consts';
 
 export const algorithmInfo = [
   {

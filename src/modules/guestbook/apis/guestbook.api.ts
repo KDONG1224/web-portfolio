@@ -1,20 +1,20 @@
 import { AxiosInstance } from 'axios';
 import { CreateReference } from 'modules';
 import AxiosServerInstanceCreator from 'services/reqeust-server';
-export class ReferApi {
+export class GuestbookApi {
   Axios: AxiosInstance;
 
   constructor() {
     this.Axios = new AxiosServerInstanceCreator({
-      baseURL: process.env.KDONG_API_URL + '/reference'
+      baseURL: process.env.KDONG_API_URL + '/guestbook'
     }).create();
   }
 
-  async getAllReference() {
+  async getAllGuestbook() {
     return await this.Axios.get(`/all`).then((res) => res.data);
   }
 
-  async createReference(data: FormData) {
+  async createGuestbook(data: FormData) {
     return await this.Axios.post(`/create`, data, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -22,7 +22,7 @@ export class ReferApi {
     }).then((res) => res.data);
   }
 
-  async updateReference(id: string, data: FormData) {
+  async updateGuestbook(id: string, data: FormData) {
     return await this.Axios.patch<any>(`/update/${id}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -30,28 +30,13 @@ export class ReferApi {
     }).then((res) => res.data);
   }
 
-  async getReferenceLists(filter: any) {
+  async getGuestbookLists(filter: any) {
     return await this.Axios.get<any>(`/${JSON.stringify(filter)}`).then(
       (res) => res.data
     );
   }
 
-  async getReferenceById(id: string) {
+  async getGuestbookById(id: string) {
     return await this.Axios.get<any>(`/${id}`).then((res) => res.data);
   }
-
-  async getAlgorithm() {
-    return await this.Axios.get<any>('/algorithm/all').then((res) => {
-      console.log('res.data : ', res.data);
-      return res.data;
-    });
-  }
-
-  // updateReference(id: string, formData: FormData) {
-  //   return this.Axios.post<any>(`/create/${id}`, formData, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data'
-  //     }
-  //   }).then((res) => res.data);
-  // }
 }

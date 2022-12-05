@@ -5,16 +5,39 @@ import React from 'react';
 import { MainLayout } from 'layouts';
 
 // container
-import { Reference } from 'container';
+import { ReferenceLists } from 'container';
+import { GetServerSideProps } from 'next';
+import { ReferApi } from 'modules';
 
-interface ReferencePageProps {}
+interface ReferencePageProps {
+  referenceLists: any;
+}
 
-const ReferencePage: React.FC<ReferencePageProps> = ({}) => {
+const ReferencePage: React.FC<ReferencePageProps> = ({ referenceLists }) => {
   return (
     <MainLayout>
-      <Reference />
+      <ReferenceLists referenceLists={referenceLists} />
     </MainLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  try {
+    const referApi = new ReferApi();
+    const allReferenceLists = await referApi.getAllReference();
+
+    return {
+      props: {
+        referenceLists: allReferenceLists
+      }
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      notFound: true
+    };
+  }
 };
 
 export default ReferencePage;

@@ -13,6 +13,7 @@ const nextConfig = {
     disableStaticImages: true,
     domains: [
       's3.ap-northeast-2.amazonaws.com',
+      'kdong-portfolio.s3.amazonaws.com',
       'oasis-1302397712.cos.ap-seoul.myqcloud.com',
       'gw.alipayobjects.com'
     ]

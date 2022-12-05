@@ -7,12 +7,16 @@ import { GetServerSideProps } from 'next';
 import { ReferApi } from 'modules';
 import { ReferenceDetail } from 'container';
 
-interface ReferenceDetailPageProps {}
+interface ReferenceDetailPageProps {
+  reference: any;
+}
 
-const ReferenceDetailPage: React.FC<ReferenceDetailPageProps> = ({}) => {
+const ReferenceDetailPage: React.FC<ReferenceDetailPageProps> = ({
+  reference
+}) => {
   return (
     <MainLayout>
-      <ReferenceDetail />
+      <ReferenceDetail data={reference} />
     </MainLayout>
   );
 };
@@ -28,11 +32,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const referApi = new ReferApi();
-    // const getReferenceLists = await referApi.getReferenceLists(id);
+    const getReferenceLists = await referApi.getReferenceLists({ _id: id });
 
     return {
       props: {
-        referenceLists: []
+        reference: getReferenceLists[0]
       }
     };
   } catch (error) {

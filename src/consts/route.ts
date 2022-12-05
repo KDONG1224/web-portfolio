@@ -8,10 +8,11 @@ export const ROUTE_ABOUT_INFO = `${ROUTE_ABOUT}/info`;
 // reference
 export const ROUTE_REFERNCE = '/reference';
 export const ROUTE_REFERNCE_DETAIL = `${ROUTE_REFERNCE}/detail`;
-export const ROUTE_REFERNCE_WITH_TYPE = (type: string) =>
-  `${ROUTE_REFERNCE}/${type}`;
+export const ROUTE_REFERNCE_EDIT = `${ROUTE_REFERNCE}/edit`;
 export const ROUTE_REFERNCE_DETAIL_WITH_ID = (id: string) =>
   `${ROUTE_REFERNCE_DETAIL}/${id}`;
+export const ROUTE_REFERNCE_EDIT_WITH_ID = (id: string) =>
+  `${ROUTE_REFERNCE_EDIT}/${id}`;
 
 // algorithm
 export const ROUTE_ALGORITHM = '/algorithm';

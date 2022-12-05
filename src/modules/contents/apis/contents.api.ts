@@ -6,7 +6,7 @@ export class ContentsApi {
 
   constructor() {
     this.Axios = new AxiosInstanceCreator({
-      baseURL: 'http://localhost:4444' + '/contents'
+      baseURL: process.env.KDONG_API_URL + '/contents'
     }).create();
   }
 

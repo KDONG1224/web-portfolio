@@ -14,7 +14,7 @@ import { ReferApi } from 'modules';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // const
-import { QUERY_REFERENCE_CREATE } from 'const';
+import { QUERY_REFERENCE_CREATE } from 'consts';
 
 interface ReferenceCreateProps {}
 
@@ -25,11 +25,11 @@ export const ReferenceCreate: React.FC<ReferenceCreateProps> = ({}) => {
     return new ReferApi();
   }, []);
 
-  const createReference = (values: any) => {
+  const createReference = (values: FormData) => {
     return referenceApi.createReference(values);
   };
 
-  const { mutate: createRefer } = useMutation<unknown, unknown, any, any>(
+  const { mutate: createRefer } = useMutation<FormData, unknown, any, any>(
     (values) => createReference(values),
     {
       onMutate: async () => {

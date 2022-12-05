@@ -1,5 +1,5 @@
 // base
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 
 // libraries
 import { Row, Col } from 'antd';
@@ -12,18 +12,18 @@ import { MainBanner, MainBoard } from 'container';
 
 // components
 import { BasicCard } from 'components';
+import { ReferApi } from 'modules';
+import { GuestbookApi } from 'modules/guestbook';
 
-interface HomePageProps {}
+interface HomePageProps {
+  referenceLists: any[];
+  guestbookLists: any[];
+}
 
-const HomePage: NextPage<HomePageProps> = () => {
-  const array = [...Array(20)].map((_, idx) => {
-    return {
-      id: idx + 1,
-      title: 'card ' + (idx + 1),
-      summary: 'test code'
-    };
-  });
-
+const HomePage: NextPage<HomePageProps> = ({
+  referenceLists,
+  guestbookLists
+}) => {
   return (
     <MainLayout>
       <Row gutter={24}>
@@ -36,15 +36,15 @@ const HomePage: NextPage<HomePageProps> = () => {
           >
             <MainBanner />
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-              {array.map(({ id }) => (
+              {referenceLists.map((reference) => (
                 <Col
                   className="gutter-row"
                   span={8}
-                  key={id}
+                  key={reference.id}
                   style={{ marginBottom: 60 }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <BasicCard id={String(id)} />
+                    <BasicCard data={reference} />
                   </div>
                 </Col>
               ))}
@@ -57,11 +57,46 @@ const HomePage: NextPage<HomePageProps> = () => {
             paddingRight: 20
           }}
         >
-          <MainBoard />
+          <MainBoard datas={guestbookLists} />
         </Col>
       </Row>
     </MainLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  try {
+    const referApi = new ReferApi();
+    const guestbookApi = new GuestbookApi();
+
+    const allReferenceLists = await referApi.getAllReference();
+    const allGuestbookLists = await guestbookApi
+      .getAllGuestbook()
+      .then((res) => {
+        const _res = res.sort((a: any, b: any) => {
+          if (a.createdAt - b.createdAt) return -1;
+        });
+
+        return _res;
+      });
+
+    return {
+      props: {
+        referenceLists: allReferenceLists
+          .slice(0, 21)
+          .sort((a: any, b: any) => {
+            if (a.updatedAt - b.updatedAt) return -1;
+          }),
+        guestbookLists: allGuestbookLists
+      }
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      notFound: true
+    };
+  }
 };
 
 export default HomePage;

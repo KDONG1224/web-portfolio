@@ -1,4 +1,4 @@
-import { Html, ReferenceLists } from 'container';
+import { ReferenceLists } from 'container';
 import { MainLayout } from 'layouts';
 import { ReferApi } from 'modules';
 import { GetServerSideProps } from 'next';
@@ -12,6 +12,8 @@ interface ReferenceListsPageProps {
 const ReferenceListsPage: React.FC<ReferenceListsPageProps> = ({
   referenceLists
 }) => {
+  console.log('referenceLists : ', referenceLists);
+
   return (
     <MainLayout>
       <ReferenceLists referenceLists={referenceLists} />
@@ -29,8 +31,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   try {
+    const filter = {
+      where: {
+        type
+      }
+    };
     const referApi = new ReferApi();
-    const getReferenceLists = await referApi.getReferenceLists(type);
+    const getReferenceLists = await referApi.getReferenceLists({ ...filter });
 
     return {
       props: {

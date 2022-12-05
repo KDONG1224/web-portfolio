@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Form } from 'antd';
 
 // const
-import { browserIcons } from 'const';
+import { browserIcons } from 'consts';
 
 export const StyledReferenceForm = styled(Form)`
   width: 100%;
@@ -54,6 +54,13 @@ export const StyledReferenceForm = styled(Form)`
     position: absolute;
     top: 0;
     left: 50px;
+  }
+
+  .thumbmnaile {
+    .ant-form-item-control-input-content {
+      display: flex;
+      align-items: center;
+    }
   }
   .ant-form-item-control-input {
     min-height: auto;
