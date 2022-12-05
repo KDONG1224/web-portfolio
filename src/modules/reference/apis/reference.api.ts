@@ -6,7 +6,7 @@ export class ReferApi {
 
   constructor() {
     this.Axios = new AxiosServerInstanceCreator({
-      baseURL: 'http://localhost:4444' + '/reference'
+      baseURL: process.env.KDONG_API_URL + '/reference'
     }).create();
   }
 

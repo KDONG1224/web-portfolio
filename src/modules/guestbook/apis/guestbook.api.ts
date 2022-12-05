@@ -6,7 +6,7 @@ export class GuestbookApi {
 
   constructor() {
     this.Axios = new AxiosServerInstanceCreator({
-      baseURL: 'http://localhost:4444' + '/guestbook'
+      baseURL: process.env.KDONG_API_URL + '/guestbook'
     }).create();
   }
 
