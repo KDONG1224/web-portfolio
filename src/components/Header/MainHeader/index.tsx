@@ -42,7 +42,9 @@ export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
           </div>
         </div>
         <div className="header-wrapper-right">
-          <span className="header-wrapper-right-name">KDONG</span>
+          <span className="header-wrapper-right-name">
+            Apis 바로가기 (kdong1224 / 1224)
+          </span>
           <Image src={exImg.EX_NUM_02} alt="메인로고" width={30} height={30} />
         </div>
       </div>
