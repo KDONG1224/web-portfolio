@@ -1,5 +1,6 @@
 // base
-import type { GetServerSideProps, NextPage } from 'next';
+import type { NextPage } from 'next';
+import type { GetServerSideProps } from 'next';
 
 // libraries
 import { Row, Col } from 'antd';

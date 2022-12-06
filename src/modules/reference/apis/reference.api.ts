@@ -3,10 +3,15 @@ import { CreateReference } from 'modules';
 import AxiosServerInstanceCreator from 'services/reqeust-server';
 export class ReferApi {
   Axios: AxiosInstance;
+  AxiosClient: AxiosInstance;
 
   constructor() {
     this.Axios = new AxiosServerInstanceCreator({
       baseURL: process.env.KDONG_API_URL + '/reference'
+    }).create();
+
+    this.AxiosClient = new AxiosServerInstanceCreator({
+      baseURL: process.env.NEXT_PUBLIC_KDONG_API_URL + '/reference'
     }).create();
   }
 
@@ -15,7 +20,7 @@ export class ReferApi {
   }
 
   async createReference(data: FormData) {
-    return await this.Axios.post(`/create`, data, {
+    return await this.AxiosClient.post(`/create`, data, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -23,7 +28,7 @@ export class ReferApi {
   }
 
   async updateReference(id: string, data: FormData) {
-    return await this.Axios.patch<any>(`/update/${id}`, data, {
+    return await this.AxiosClient.patch<any>(`/update/${id}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

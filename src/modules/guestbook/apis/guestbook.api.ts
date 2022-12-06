@@ -1,12 +1,16 @@
 import { AxiosInstance } from 'axios';
-import { CreateReference } from 'modules';
 import AxiosServerInstanceCreator from 'services/reqeust-server';
 export class GuestbookApi {
   Axios: AxiosInstance;
+  AxiosClient: AxiosInstance;
 
   constructor() {
     this.Axios = new AxiosServerInstanceCreator({
       baseURL: process.env.KDONG_API_URL + '/guestbook'
+    }).create();
+
+    this.AxiosClient = new AxiosServerInstanceCreator({
+      baseURL: process.env.NEXT_PUBLIC_KDONG_API_URL + '/guestbook'
     }).create();
   }
 
@@ -15,7 +19,7 @@ export class GuestbookApi {
   }
 
   async createGuestbook(data: FormData) {
-    return await this.Axios.post(`/create`, data, {
+    return await this.AxiosClient.post(`/create`, data, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -23,7 +27,7 @@ export class GuestbookApi {
   }
 
   async updateGuestbook(id: string, data: FormData) {
-    return await this.Axios.patch<any>(`/update/${id}`, data, {
+    return await this.AxiosClient.patch<any>(`/update/${id}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

@@ -1,6 +1,6 @@
 // base
 import { Input } from 'antd';
-import { exImg } from 'consts';
+import { exImg, socialIcons } from 'consts';
 import { ROUTE_ROOT } from 'consts/route';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -41,11 +41,30 @@ export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
             />
           </div>
         </div>
-        <div className="header-wrapper-right">
-          <span className="header-wrapper-right-name">
+        <div
+          className="header-wrapper-right"
+          onClick={() => router.push('http://kdong-server.kro.kr/api')}
+          style={{
+            cursor: 'pointer'
+          }}
+        >
+          <span
+            className="header-wrapper-right-name"
+            style={{
+              cursor: 'pointer'
+            }}
+          >
             Apis 바로가기 (kdong1224 / 1224)
           </span>
-          <Image src={exImg.EX_NUM_02} alt="메인로고" width={30} height={30} />
+          <Image
+            src={socialIcons.API_ICON}
+            alt="메인로고"
+            width={30}
+            height={30}
+            style={{
+              cursor: 'pointer'
+            }}
+          />
         </div>
       </div>
     </StyledMainHeader>

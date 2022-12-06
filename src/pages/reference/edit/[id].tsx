@@ -1,6 +1,6 @@
 // base
 import React from 'react';
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 
 // layouts
 import { MainLayout } from 'layouts';

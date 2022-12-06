@@ -1,6 +1,6 @@
 // base
 import React from 'react';
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 
 // layouts
 import { MainLayout } from 'layouts';
@@ -16,25 +16,25 @@ const AlgorithmDetailPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { key } = context.query;
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const { key } = context.query;
 
-  if (!key || typeof key !== 'string') {
-    return {
-      notFound: true
-    };
-  }
+//   if (!key || typeof key !== 'string') {
+//     return {
+//       notFound: true
+//     };
+//   }
 
-  try {
-    return {
-      props: {}
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true
-    };
-  }
-};
+//   try {
+//     return {
+//       props: {}
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       notFound: true
+//     };
+//   }
+// };
 
 export default AlgorithmDetailPage;
