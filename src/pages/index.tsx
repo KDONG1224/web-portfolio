@@ -70,24 +70,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const guestbookApi = new GuestbookApi();
 
     const allReferenceLists = await referApi.getAllReference();
-    const allGuestbookLists = await guestbookApi
-      .getAllGuestbook()
-      .then((res) => {
-        const _res = res.sort((a: any, b: any) => {
-          if (a.createdAt - b.createdAt) return -1;
-        });
-
-        return _res;
-      });
+    const allGuestbookLists = await guestbookApi.getAllGuestbook();
 
     return {
       props: {
-        referenceLists: allReferenceLists
-          .slice(0, 21)
-          .sort((a: any, b: any) => {
-            if (a.updatedAt - b.updatedAt) return -1;
-          }),
-        guestbookLists: allGuestbookLists
+        referenceLists: allReferenceLists.slice(0, 21) || [],
+        guestbookLists: allGuestbookLists || []
       }
     };
   } catch (error) {
