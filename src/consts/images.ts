@@ -2,6 +2,7 @@ const EX_PATH = '/images/ex';
 const ICON_PATH = '/images/icons';
 const BANNER_PATH = '/images/main';
 const BROWSER_PATH = '/images/browser';
+const ABOUT_PATH = '/images/about';
 
 // example
 export const EX_NUM_01 = `${EX_PATH}/ex01.jpg`;
@@ -74,6 +75,8 @@ export const BANNER_04 = `${BANNER_PATH}/banner04.png`;
 export const BANNER_05 = `${BANNER_PATH}/banner05.png`;
 export const BANNER_06 = `${BANNER_PATH}/banner06.png`;
 export const NOT_IMAGE = `${BANNER_PATH}/kdong-not.png`;
+export const NOISE_IMAGE = `${BANNER_PATH}/d-noise.png`;
+export const NOISE_IMAGE_1 = `${BANNER_PATH}/noise.png`;
 
 export const mainBanner = {
   BANNER_01,
@@ -82,7 +85,9 @@ export const mainBanner = {
   BANNER_04,
   BANNER_05,
   BANNER_06,
-  NOT_IMAGE
+  NOT_IMAGE,
+  NOISE_IMAGE,
+  NOISE_IMAGE_1
 };
 
 // browser
@@ -119,4 +124,15 @@ export const RIGHT_TOP_ARROW_ICON = `${ICON_PATH}/icon-right-top-arrow.png`;
 
 export const arrowIcons = {
   RIGHT_TOP_ARROW_ICON
+};
+
+// about
+export const ABOUT_IMAGE_ONE = `${ABOUT_PATH}/about01.jpg`;
+export const ABOUT_IMAGE_SECOND = `${ABOUT_PATH}/about02.jpg`;
+export const ABOUT_IMAGE_THIRD = `${ABOUT_PATH}/about03.jpg`;
+
+export const aboutImg = {
+  ABOUT_IMAGE_ONE,
+  ABOUT_IMAGE_SECOND,
+  ABOUT_IMAGE_THIRD
 };

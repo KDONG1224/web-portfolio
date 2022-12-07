@@ -1,12 +1,14 @@
 // base
 import React from 'react';
+import type { GetServerSideProps } from 'next';
 
 // layouts
 import { MainLayout } from 'layouts';
 
 // container
 import { ReferenceLists } from 'container';
-import { GetServerSideProps } from 'next';
+
+// modules
 import { ReferApi } from 'modules';
 
 interface ReferencePageProps {

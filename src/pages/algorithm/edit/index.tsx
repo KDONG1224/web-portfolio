@@ -5,12 +5,13 @@ import React from 'react';
 import { MainLayout } from 'layouts';
 
 // container
-import { AlgorithmEdit } from 'container';
+import { AlgorithmCreate, AlgorithmEdit } from 'container';
 
 const AlgorithmEditPage = () => {
   return (
     <MainLayout>
-      <AlgorithmEdit />
+      {/* <AlgorithmEdit /> */}
+      <AlgorithmCreate />
     </MainLayout>
   );
 };

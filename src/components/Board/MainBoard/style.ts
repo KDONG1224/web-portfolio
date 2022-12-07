@@ -55,7 +55,6 @@ export const StyledHomeBoard = styled.div`
 
     &-middle {
       margin-top: 20px;
-      border-radius: 20px;
       overflow: hidden;
 
       &-contents {

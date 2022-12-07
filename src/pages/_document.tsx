@@ -32,6 +32,10 @@ export default class MyDocument extends Document {
             <meta name="og:title" content="동재의 포트폴리오" />
             <meta name="og:description" content="밥 --- 값하는 개발자 강동재" />
             <meta name="og:type" content="website" />
+            <meta
+              httpEquiv="Content-Security-Policy"
+              content="upgrade-insecure-requests"
+            />
             {/* <meta name="og:url" content={`${process.env.NEXT_PUBLIC_URL}`} /> */}
             <meta
               name="og:image"
