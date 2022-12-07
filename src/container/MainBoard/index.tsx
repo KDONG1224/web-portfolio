@@ -51,9 +51,11 @@ export const MainBoard: React.FC<MainBoardProps> = ({ datas }) => {
           <MainForm onSubmit={createGb} />
         </div>
         <div className="board-wrapper-body">
-          {datas.map((data) => (
-            <HomeBoard key={data.id} data={data.readOnlyData} />
-          ))}
+          {datas
+            .sort((a: any, b: any) => b.index - a.index)
+            .map((data) => (
+              <HomeBoard key={data.id} data={data.readOnlyData} />
+            ))}
         </div>
       </div>
     </StyledMainBoard>

@@ -43,7 +43,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
         </div>
         <div
           className="header-wrapper-right"
-          onClick={() => router.push('http://kdong-server.kro.kr/api')}
+          onClick={() => router.push('http://api.kdong-server.com/api')}
           style={{
             cursor: 'pointer'
           }}

@@ -9,6 +9,8 @@ const withPlugins = require('next-compose-plugins');
 module.exports = withFonts();
 
 const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
   images: {
     disableStaticImages: true,
     domains: [

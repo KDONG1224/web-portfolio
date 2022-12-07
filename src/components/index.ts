@@ -8,6 +8,8 @@ export * from './Upload';
 
 export * from './Images';
 
+export * from './Editor';
+
 // slider
 export * from './Carousel';
 

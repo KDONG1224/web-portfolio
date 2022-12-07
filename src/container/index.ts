@@ -3,6 +3,9 @@ export * from './MainBanner';
 export * from './MainCard';
 export * from './MainBoard';
 
+// about
+export * from './About';
+
 // reference
 export * from './Reference';
 export * from './ReferenceCreate';
@@ -13,6 +16,7 @@ export * from './ReferenceDetail';
 // algorithm
 export * from './Algorithm';
 export * from './AlgorithmDetails';
+export * from './AlgorithmCreate';
 export * from './AlgorithmEdit';
 
 // figma
