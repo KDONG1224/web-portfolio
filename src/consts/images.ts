@@ -74,6 +74,8 @@ export const BANNER_04 = `${BANNER_PATH}/banner04.png`;
 export const BANNER_05 = `${BANNER_PATH}/banner05.png`;
 export const BANNER_06 = `${BANNER_PATH}/banner06.png`;
 export const NOT_IMAGE = `${BANNER_PATH}/kdong-not.png`;
+export const NOISE_IMAGE = `${BANNER_PATH}/d-noise.png`;
+export const NOISE_IMAGE_1 = `${BANNER_PATH}/noise.png`;
 
 export const mainBanner = {
   BANNER_01,
@@ -82,7 +84,9 @@ export const mainBanner = {
   BANNER_04,
   BANNER_05,
   BANNER_06,
-  NOT_IMAGE
+  NOT_IMAGE,
+  NOISE_IMAGE,
+  NOISE_IMAGE_1
 };
 
 // browser

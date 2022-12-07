@@ -13,6 +13,7 @@ export * from './ReferenceDetail';
 // algorithm
 export * from './Algorithm';
 export * from './AlgorithmDetails';
+export * from './AlgorithmCreate';
 export * from './AlgorithmEdit';
 
 // figma
