@@ -2,6 +2,7 @@ const EX_PATH = '/images/ex';
 const ICON_PATH = '/images/icons';
 const BANNER_PATH = '/images/main';
 const BROWSER_PATH = '/images/browser';
+const ABOUT_PATH = '/images/about';
 
 // example
 export const EX_NUM_01 = `${EX_PATH}/ex01.jpg`;
@@ -123,4 +124,15 @@ export const RIGHT_TOP_ARROW_ICON = `${ICON_PATH}/icon-right-top-arrow.png`;
 
 export const arrowIcons = {
   RIGHT_TOP_ARROW_ICON
+};
+
+// about
+export const ABOUT_IMAGE_ONE = `${ABOUT_PATH}/about01.jpg`;
+export const ABOUT_IMAGE_SECOND = `${ABOUT_PATH}/about02.jpg`;
+export const ABOUT_IMAGE_THIRD = `${ABOUT_PATH}/about03.jpg`;
+
+export const aboutImg = {
+  ABOUT_IMAGE_ONE,
+  ABOUT_IMAGE_SECOND,
+  ABOUT_IMAGE_THIRD
 };

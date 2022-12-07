@@ -3,6 +3,9 @@ export * from './MainBanner';
 export * from './MainCard';
 export * from './MainBoard';
 
+// about
+export * from './About';
+
 // reference
 export * from './Reference';
 export * from './ReferenceCreate';
