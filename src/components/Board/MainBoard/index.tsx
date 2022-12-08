@@ -1,9 +1,14 @@
-import { exImg } from 'consts';
+// base
 import React from 'react';
+
+// style
 import { StyledHomeBoard } from './style';
-import Image from 'next/image';
+
+// components
+import { BlurImage } from 'components';
+
+// libraries
 import moment from 'moment';
-import { BlurImage } from 'components/Images';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
@@ -46,7 +51,7 @@ export const HomeBoard: React.FC<HomeBoardProps> = ({ data }) => {
         </div>
         <div className="board-wrapper-middle">
           {images && (
-            <Image
+            <BlurImage
               src={images}
               alt={name}
               width={600}

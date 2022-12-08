@@ -1,13 +1,17 @@
 // base
-import { Input } from 'antd';
-import { exImg, socialIcons } from 'consts';
-import { ROUTE_ROOT } from 'consts/route';
+import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
 
 // style
 import { StyledMainHeader } from './style';
+
+// consts
+import { exImg, socialIcons } from 'consts';
+import { ROUTE_ROOT } from 'consts/route';
+
+// libraries
+import { Input } from 'antd';
 
 interface MainHeaderProps {}
 

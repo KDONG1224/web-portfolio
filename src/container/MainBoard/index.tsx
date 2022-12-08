@@ -1,16 +1,20 @@
 // base
 import React, { useEffect, useMemo, useState } from 'react';
-import { HomeBoard, MainForm } from 'components';
-
 // style
 import { StyledMainBoard } from './style';
 
-// libraries
+// components
+import { HomeBoard, MainForm } from 'components';
+
+// modules
 import { GuestbookApi } from 'modules/guestbook';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+// consts
 import { QUERY_GUESTBOOK_CREATE } from 'consts';
-import { useRouter } from 'next/router';
+
+// libraries
 import nProgress from 'nprogress';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface MainBoardProps {
   datas: any[];

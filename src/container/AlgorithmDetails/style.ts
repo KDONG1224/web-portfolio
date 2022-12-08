@@ -1,9 +1,7 @@
-import { mainBanner } from 'consts';
 import styled from 'styled-components';
 
 export const StyledAlgorithmDetails = styled.div`
-  background: url(${mainBanner.NOISE_IMAGE_1}) black center center / cover
-    no-repeat;
+  background: #fff;
   padding-bottom: 50px;
 
   .algo-wrapper {

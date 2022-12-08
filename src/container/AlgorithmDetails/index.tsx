@@ -50,6 +50,12 @@ export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({}) => {
               <col style={{ width: '30%' }} />
               <col style={{ width: '70%' }} />
             </colgroup>
+            <tbody>
+              <tr>
+                <td>성명</td>
+                <td></td>
+              </tr>
+            </tbody>
           </table>
           <table className="algo-wrapper-info-table" style={{ width: '50%' }}>
             <colgroup>
