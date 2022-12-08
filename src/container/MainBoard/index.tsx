@@ -1,5 +1,5 @@
 // base
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { HomeBoard, MainForm } from 'components';
 
 // style
@@ -7,9 +7,10 @@ import { StyledMainBoard } from './style';
 
 // libraries
 import { GuestbookApi } from 'modules/guestbook';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { QUERY_GUESTBOOK_CREATE } from 'consts';
 import { useRouter } from 'next/router';
+import nProgress from 'nprogress';
 
 interface MainBoardProps {
   datas: any[];
@@ -17,32 +18,46 @@ interface MainBoardProps {
 
 export const MainBoard: React.FC<MainBoardProps> = ({ datas }) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+
+  const [boardLists, setBoardLists] = useState<any[]>(datas);
 
   const guestbookApi = useMemo(() => {
     return new GuestbookApi();
   }, []);
 
+  const getGuestbook = () => {
+    return guestbookApi.getAllGuestbookClient();
+  };
+
   const createGuestbook = (data: FormData) => {
     return guestbookApi.createGuestbook(data);
   };
+
+  const { data } = useQuery([QUERY_GUESTBOOK_CREATE], () => getGuestbook(), {
+    select: (data) => data
+  });
 
   const { mutate: createGb } = useMutation<FormData, unknown, any, any>(
     (values) => createGuestbook(values),
     {
       onMutate: async () => {
         await queryClient.cancelQueries([QUERY_GUESTBOOK_CREATE]);
+        nProgress.start();
       },
       onSuccess: () => {
         queryClient.invalidateQueries([QUERY_GUESTBOOK_CREATE]);
 
-        router.reload();
+        nProgress.done();
       },
       onError: (_, __, context) => {
         queryClient.setQueryData([QUERY_GUESTBOOK_CREATE], context.prev);
       }
     }
   );
+
+  useEffect(() => {
+    setBoardLists(data);
+  }, [data]);
 
   return (
     <StyledMainBoard>
@@ -51,7 +66,7 @@ export const MainBoard: React.FC<MainBoardProps> = ({ datas }) => {
           <MainForm onSubmit={createGb} />
         </div>
         <div className="board-wrapper-body">
-          {datas
+          {boardLists
             .sort((a: any, b: any) => b.index - a.index)
             .map((data) => (
               <HomeBoard key={data.id} data={data.readOnlyData} />

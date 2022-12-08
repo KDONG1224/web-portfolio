@@ -14,8 +14,9 @@ export class GuestbookApi {
     }).create();
   }
 
-  async getAllGuestbook() {
-    return await this.Axios.get(`/all`).then((res) => res.data);
+  // client
+  async getAllGuestbookClient() {
+    return await this.AxiosClient.get(`/all`).then((res) => res.data);
   }
 
   async createGuestbook(data: FormData) {
@@ -24,6 +25,11 @@ export class GuestbookApi {
         'Content-Type': 'multipart/form-data'
       }
     }).then((res) => res.data);
+  }
+
+  // server
+  async getAllGuestbook() {
+    return await this.Axios.get(`/all`).then((res) => res.data);
   }
 
   async updateGuestbook(id: string, data: FormData) {

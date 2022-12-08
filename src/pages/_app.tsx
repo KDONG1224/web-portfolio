@@ -26,6 +26,7 @@ import 'antd-mobile/bundle/css-vars-patch.css';
 
 // react-query
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Suspense } from 'react';
 
 export interface InitialProps {}
 
@@ -85,7 +86,9 @@ export const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
         {/* <meta name="viewport" content="width=750,user-scalable=no" /> */}
       </Head>
       <SafeArea position="top" />
-      <Component {...pageProps} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Component {...pageProps} />
+      </Suspense>
       <SafeArea position="bottom" />
       {/* </SessionProvider> */}
     </QueryClientProvider>

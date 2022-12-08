@@ -111,7 +111,6 @@ export const MainForm: React.FC<MainFormProps> = ({ onSubmit }) => {
         </div>
         <div className="form-wrapper-bottom">
           <Form.Item
-            name="images"
             className="guest-images"
             style={{
               display: 'flex',
