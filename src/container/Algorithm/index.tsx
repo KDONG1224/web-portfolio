@@ -11,66 +11,47 @@ import { Col, Row } from 'antd';
 // modules
 
 // components
-import { CommonCard } from 'components';
+import { BasicCard, CommonCard } from 'components';
 
 // const
 import { algorithmInfo } from 'consts';
-import { useAppSelector } from 'modules/hooks';
-
 import { ROUTE_ALGORITHM_DETAIL_WITH_ID } from 'consts/route';
 
 // routes
 
-export const Algorithm: React.FC = () => {
-  const { isSideMenuCollapsed } = useAppSelector((state) => state.ui);
+interface AlgorithmProps {
+  algorithmLists: any[];
+}
 
+export const Algorithm: React.FC<AlgorithmProps> = ({ algorithmLists }) => {
   const router = useRouter();
 
-  const onClick = (id: string) => {
-    const key = id.split('-')[1];
-
-    router.push(ROUTE_ALGORITHM_DETAIL_WITH_ID(key));
+  const handleClick = (id: string) => {
+    router.push(ROUTE_ALGORITHM_DETAIL_WITH_ID(id));
   };
-
   return (
     <StyledAlgorithm>
       <div className="algo-title">
         <p className="algo-title-head">알고리즘 사이트</p>
         <p className="algo-title-desc">알고리즘을 직접 풀어봤습니다.</p>
       </div>
-      {/* <div className='algo-box'>
-        <span>리스트</span>
-        <span>카드</span>
-      </div> */}
 
-      <Row
-        justify="space-between"
-        // gutter={isSideMenuCollapsed ? [112, 80] : [10, 80]}
-        gutter={[30, 80]}
-        // style={{
-        //   width: '100%',
-        //   marginLeft: '0px',
-        //   marginRight: '-84px',
-        //   rowGap: '84px'
-        // }}
-      >
-        {algorithmInfo.map((algorithm) => (
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+        {algorithmLists.map((algorithm) => (
           <Col
-            span={6}
-            key={algorithm.key}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
+            className="gutter-row"
+            span={8}
+            key={algorithm.id}
+            style={{ marginBottom: 60 }}
           >
-            {/* <CommonCard
-              id={algorithm.key}
-              title={algorithm.title}
-              url={algorithm.url}
-              onClick={onClick}
-            /> */}
-            {/* <AlgorithmCard id={algorithm.key} /> */}
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <BasicCard
+                data={algorithm.readOnlyData}
+                width={1000}
+                heigth={300}
+                onClick={handleClick}
+              />
+            </div>
           </Col>
         ))}
       </Row>

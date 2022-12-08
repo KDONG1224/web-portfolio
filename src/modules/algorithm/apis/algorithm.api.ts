@@ -1,25 +1,25 @@
 import { AxiosInstance } from 'axios';
 import AxiosServerInstanceCreator from 'services/reqeust-server';
-export class GuestbookApi {
+export class AlgorithmApi {
   Axios: AxiosInstance;
   AxiosClient: AxiosInstance;
 
   constructor() {
     this.Axios = new AxiosServerInstanceCreator({
-      baseURL: process.env.KDONG_API_URL + '/guestbook'
+      baseURL: process.env.KDONG_API_URL + '/algorithm'
     }).create();
 
     this.AxiosClient = new AxiosServerInstanceCreator({
-      baseURL: process.env.NEXT_PUBLIC_KDONG_API_URL + '/guestbook'
+      baseURL: process.env.NEXT_PUBLIC_KDONG_API_URL + '/algorithm'
     }).create();
   }
 
   // client
-  async getAllGuestbookClient() {
+  async getAllAlgorithmClient() {
     return await this.AxiosClient.get(`/all`).then((res) => res.data);
   }
 
-  async createGuestbook(data: FormData) {
+  async createAlgorithm(data: FormData) {
     return await this.AxiosClient.post(`/create`, data, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -28,11 +28,11 @@ export class GuestbookApi {
   }
 
   // server
-  async getAllGuestbook() {
+  async getAllAlgorithm() {
     return await this.Axios.get(`/all`).then((res) => res.data);
   }
 
-  async updateGuestbook(id: string, data: FormData) {
+  async updateAlgorithm(id: string, data: FormData) {
     return await this.AxiosClient.patch<any>(`/update/${id}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -40,13 +40,13 @@ export class GuestbookApi {
     }).then((res) => res.data);
   }
 
-  async getGuestbookLists(filter: any) {
+  async getAlgorithmLists(filter: any) {
     return await this.Axios.get<any>(`/${JSON.stringify(filter)}`).then(
       (res) => res.data
     );
   }
 
-  async getGuestbookById(id: string) {
+  async getAlgorithmById(id: string) {
     return await this.Axios.get<any>(`/${id}`).then((res) => res.data);
   }
 }

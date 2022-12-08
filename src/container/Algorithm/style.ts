@@ -17,10 +17,4 @@ export const StyledAlgorithm = styled.div`
       text-align: center;
     }
   }
-
-  .ant-col {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    max-width: 100% !important;
-  }
 `;

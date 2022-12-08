@@ -124,7 +124,8 @@ export const StyledMainLayout = styled.div`
   }
 
   // javscript icons
-  .ant-menu-item .javascript-icon {
+  .ant-menu-item .javascript-icon,
+  .ant-menu-submenu-title .javascript-icon {
     background-image: url(${menuIcons.JS_ICON});
   }
 
@@ -132,10 +133,10 @@ export const StyledMainLayout = styled.div`
     background-image: url(${menuIcons.JS_ICON});
   }
 
-  /* .ant-menu-submenu-open .javascript-icon,
+  .ant-menu-submenu-open .javascript-icon,
   .ant-menu-submenu-vertical.ant-menu-submenu-active .javascript-icon {
     background-image: url(${menuIcons.JS_ICON});
-  } */
+  }
 
   // algorithm icons
   .ant-menu-item .algorithm-icon {

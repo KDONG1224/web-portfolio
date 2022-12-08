@@ -1,13 +1,17 @@
 // base
-import { Input } from 'antd';
-import { exImg, socialIcons } from 'consts';
-import { ROUTE_ROOT } from 'consts/route';
+import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
 
 // style
 import { StyledMainHeader } from './style';
+
+// consts
+import { exImg, socialIcons } from 'consts';
+import { ROUTE_ROOT } from 'consts/route';
+
+// libraries
+import { Input } from 'antd';
 
 interface MainHeaderProps {}
 
@@ -43,7 +47,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
         </div>
         <div
           className="header-wrapper-right"
-          onClick={() => router.push('http://api.kdong-server.com/api')}
+          onClick={() => window.open('http://api.kdong-server.com/api')}
           style={{
             cursor: 'pointer'
           }}

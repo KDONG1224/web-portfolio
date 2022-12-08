@@ -1,15 +1,20 @@
 // base
-import React, { useMemo } from 'react';
-import { HomeBoard, MainForm } from 'components';
-
+import React, { useEffect, useMemo, useState } from 'react';
 // style
 import { StyledMainBoard } from './style';
 
-// libraries
+// components
+import { HomeBoard, MainForm } from 'components';
+
+// modules
 import { GuestbookApi } from 'modules/guestbook';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+// consts
 import { QUERY_GUESTBOOK_CREATE } from 'consts';
-import { useRouter } from 'next/router';
+
+// libraries
+import nProgress from 'nprogress';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface MainBoardProps {
   datas: any[];
@@ -17,32 +22,46 @@ interface MainBoardProps {
 
 export const MainBoard: React.FC<MainBoardProps> = ({ datas }) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+
+  const [boardLists, setBoardLists] = useState<any[]>(datas);
 
   const guestbookApi = useMemo(() => {
     return new GuestbookApi();
   }, []);
 
+  const getGuestbook = () => {
+    return guestbookApi.getAllGuestbookClient();
+  };
+
   const createGuestbook = (data: FormData) => {
     return guestbookApi.createGuestbook(data);
   };
+
+  const { data } = useQuery([QUERY_GUESTBOOK_CREATE], () => getGuestbook(), {
+    select: (data) => data
+  });
 
   const { mutate: createGb } = useMutation<FormData, unknown, any, any>(
     (values) => createGuestbook(values),
     {
       onMutate: async () => {
         await queryClient.cancelQueries([QUERY_GUESTBOOK_CREATE]);
+        nProgress.start();
       },
       onSuccess: () => {
         queryClient.invalidateQueries([QUERY_GUESTBOOK_CREATE]);
 
-        router.reload();
+        nProgress.done();
       },
       onError: (_, __, context) => {
         queryClient.setQueryData([QUERY_GUESTBOOK_CREATE], context.prev);
       }
     }
   );
+
+  useEffect(() => {
+    setBoardLists(data);
+  }, [data]);
 
   return (
     <StyledMainBoard>
@@ -51,7 +70,7 @@ export const MainBoard: React.FC<MainBoardProps> = ({ datas }) => {
           <MainForm onSubmit={createGb} />
         </div>
         <div className="board-wrapper-body">
-          {datas
+          {boardLists
             .sort((a: any, b: any) => b.index - a.index)
             .map((data) => (
               <HomeBoard key={data.id} data={data.readOnlyData} />

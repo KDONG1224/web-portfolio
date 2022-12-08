@@ -66,23 +66,21 @@ export const StyledBasicCard = styled.div`
       }
 
       &-move {
-        > a {
-          color: #377dff;
-          font-size: 14px;
-          font-family: 'GmarketSans-Medium';
-          position: relative;
+        color: #377dff;
+        font-size: 14px;
+        font-family: 'GmarketSans-Medium';
+        position: relative;
 
-          &::after {
-            content: '';
-            width: 16px;
-            height: 16px;
-            position: absolute;
-            right: -20px;
-            top: -2px;
-            background: url(${arrowIcons.RIGHT_TOP_ARROW_ICON}) center center /
-              contain no-repeat;
-            background-size: 60%;
-          }
+        &::after {
+          content: '';
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          left: 100px;
+          top: -2px;
+          background: url(${arrowIcons.RIGHT_TOP_ARROW_ICON}) center center /
+            contain no-repeat;
+          background-size: 60%;
         }
       }
     }

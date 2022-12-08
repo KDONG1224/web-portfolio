@@ -12,13 +12,34 @@ import {
 // style
 import { StyledBasicCard } from './style';
 import moment from 'moment';
+import { useRouter } from 'next/router';
 
 interface BasicCardProps {
   data: any;
+  width?: number;
+  heigth?: number;
+  onClick?: (id: string) => void;
 }
 
-export const BasicCard: React.FC<BasicCardProps> = ({ data }) => {
-  const { id, type, title, summary, updatedAt, thumbmnaile } = data;
+export const BasicCard: React.FC<BasicCardProps> = ({
+  data,
+  width = 400,
+  heigth = 200,
+  onClick
+}) => {
+  const router = useRouter();
+  console.log(data);
+
+  const { id, type, title, summary, question, updatedAt, thumbmnaile } = data;
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick(id);
+      return;
+    }
+
+    router.push(ROUTE_REFERNCE_DETAIL_WITH_ID(id));
+  };
 
   return (
     <StyledBasicCard>
@@ -26,9 +47,9 @@ export const BasicCard: React.FC<BasicCardProps> = ({ data }) => {
         <div className="algo-wrapper-top">
           <BlurImage
             src={thumbmnaile}
-            alt=""
-            width={400}
-            height={200}
+            alt={title}
+            width={width}
+            height={heigth}
             objectFit="cover"
           />
         </div>
@@ -43,10 +64,10 @@ export const BasicCard: React.FC<BasicCardProps> = ({ data }) => {
           </div>
           <div className="algo-wrapper-bottom-title line-two">{title}</div>
           <div className="algo-wrapper-bottom-desc line-two">
-            <span className="line-two">{summary}</span>
+            <span className="line-two">{summary || question}</span>
           </div>
-          <div className="algo-wrapper-bottom-move">
-            <Link href={ROUTE_REFERNCE_DETAIL_WITH_ID(id)}>READ MORE</Link>
+          <div className="algo-wrapper-bottom-move" onClick={handleClick}>
+            READ MORE
           </div>
         </div>
       </div>

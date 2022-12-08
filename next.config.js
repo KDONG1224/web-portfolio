@@ -32,12 +32,10 @@ const nextConfig = {
   },
   compiler: {
     styledComponents: true
+  },
+  experimental: {
+    reactMode: 'concurrent'
   }
-
-  // experimental: {
-  //   runtime: 'nodejs',
-  //   serverComponents: true,
-  // },
 };
 
 module.exports = withPlugins(
