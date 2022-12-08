@@ -66,4 +66,8 @@ export const StyledHomeBoard = styled.div`
     &-bottom {
     }
   }
+
+  .ant-avatar.ant-avatar-icon {
+    font-size: 60px;
+  }
 `;
