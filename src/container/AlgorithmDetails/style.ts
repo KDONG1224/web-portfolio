@@ -85,7 +85,7 @@ export const StyledAlgorithmDetails = styled.div`
     }
 
     &-answer {
-      background-color: #f5f5f5;
+      background-color: #f2f0ff;
       padding: 20px;
       padding-top: 60px;
       border-radius: 5px;
@@ -106,5 +106,18 @@ export const StyledAlgorithmDetails = styled.div`
         font-size: 14px;
       }
     }
+  }
+
+  .algo-wrapper-code-view {
+    display: flex;
+    align-items: center;
+  }
+
+  pre code.hljs {
+    padding: 30px;
+  }
+
+  pre {
+    line-height: 2;
   }
 `;

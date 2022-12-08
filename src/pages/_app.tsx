@@ -22,6 +22,7 @@ import 'swiper/less/pagination';
 import 'swiper/less/effect-fade';
 import 'swiper/css/effect-fade';
 import 'antd-mobile/bundle/css-vars-patch.css';
+import '../../node_modules/highlight.js/styles/qtcreator_dark.css';
 // import '../../node_modules/@tabler/icons/iconfont/tabler-icons.scss';
 
 // react-query

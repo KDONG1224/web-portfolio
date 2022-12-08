@@ -86,27 +86,19 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
           ROUTE_REFERNCE,
           <div className="html-icon navi-icon" />
         )
-        // getMenuItem(
-        //   'HTML',
-        //   ROUTE_REFERNCE('html'),
-        //   <div className="html-icon navi-icon" />
-        // ),
-        // getMenuItem(
-        //   'CSS',
-        //   ROUTE_REFERNCE('css'),
-        //   <div className="css-icon navi-icon" />
-        // ),
-        // getMenuItem(
-        //   'Javascript',
-        //   ROUTE_REFERNCE('js'),
-        //   <div className="javascript-icon navi-icon" />
-        // )
       ]
     ),
     getMenuItem(
       '알고리즘',
-      ROUTE_ALGORITHM,
-      <div className="algorithm-icon navi-icon" />
+      'algorithm',
+      <div className="javascript-icon navi-icon" />,
+      [
+        getMenuItem(
+          '알고리즘 목록',
+          ROUTE_ALGORITHM,
+          <div className="algorithm-icon navi-icon" />
+        )
+      ]
     ),
     getMenuItem(
       '피그마',
