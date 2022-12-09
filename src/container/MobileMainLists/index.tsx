@@ -1,5 +1,5 @@
 // base
-import React from 'react';
+import React, { useState } from 'react';
 
 // style
 import { StyledMobileMainLists } from './style';
@@ -10,6 +10,7 @@ import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons';
 import { BlurImage } from 'components';
 import { useRouter } from 'next/router';
 import { ROUTE_REFERNCE_DETAIL_WITH_ID } from 'consts/route';
+import { useMedia } from 'hooks';
 
 interface MobileMainListsProps {
   datas: any[];
@@ -27,6 +28,9 @@ export const MobileMainLists: React.FC<MobileMainListsProps> = ({
   ...props
 }) => {
   const router = useRouter();
+  const { isMobile } = useMedia();
+
+  const [pagesize, setPagesize] = useState(10);
 
   const handleClick = (id: string) => {
     router.push(ROUTE_REFERNCE_DETAIL_WITH_ID(id));
@@ -40,6 +44,13 @@ export const MobileMainLists: React.FC<MobileMainListsProps> = ({
         size="large"
         dataSource={datas}
         style={{ paddingBottom: 60 }}
+        pagination={{
+          onChange: (_, pageSize) => {
+            setPagesize(pageSize);
+            document.querySelector('.ant-layout-content')?.scrollTo(0, 0);
+          },
+          pageSize: pagesize
+        }}
         renderItem={(item) => {
           const { title, thumbmnaile, description, id, type } = item;
 

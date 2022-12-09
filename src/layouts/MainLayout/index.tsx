@@ -132,7 +132,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         {isMobile ? (
           <Layout.Header className="mobile-layout">
             <MobileHeader />
-            <div className={`mobile-layout-bg ${scrollY > 100 && 'hide'}`} />
+            <div
+              className={`mobile-layout-bg ${
+                scrollY > 100 && pathname === ROUTE_ROOT && 'find'
+              }`}
+            />
           </Layout.Header>
         ) : (
           <MainHeader />

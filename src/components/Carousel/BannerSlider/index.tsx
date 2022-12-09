@@ -102,8 +102,7 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
                     src={item.mobileUrl as string}
                     alt={item.mobile}
                     width={750}
-                    height={500}
-                    objectFit="contain"
+                    height={600}
                   />
                 </StyledBannerSwiperSlider>
               </SwiperSlide>

@@ -2,7 +2,7 @@ import { menuIcons } from 'consts';
 import styled from 'styled-components';
 
 export const StyledMobileHeader = styled.div`
-  height: 120px;
+  height: 100px;
   position: fixed;
   width: 100%;
   z-index: 9999;
@@ -95,10 +95,18 @@ export const StyledHeaderRight = styled.div`
     left: -10px;
   }
 
+  .adm-nav-bar-back {
+    margin-left: 50px;
+  }
+
+  .adm-nav-bar-back-arrow {
+    font-size: 26px;
+  }
+
   .bm-burger-button {
     position: fixed;
-    width: 50px;
-    height: 44px;
+    width: 40px;
+    height: 34px;
     right: 40px;
     top: 36px;
   }
