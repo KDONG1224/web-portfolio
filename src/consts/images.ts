@@ -78,6 +78,13 @@ export const NOT_IMAGE = `${BANNER_PATH}/kdong-not.png`;
 export const NOISE_IMAGE = `${BANNER_PATH}/d-noise.png`;
 export const NOISE_IMAGE_1 = `${BANNER_PATH}/noise.png`;
 
+export const MOBILE_BANNER_01 = `${BANNER_PATH}/mobileBanner01.png`;
+export const MOBILE_BANNER_02 = `${BANNER_PATH}/mobileBanner02.png`;
+export const MOBILE_BANNER_03 = `${BANNER_PATH}/mobileBanner03.png`;
+export const MOBILE_BANNER_04 = `${BANNER_PATH}/mobileBanner04.png`;
+export const MOBILE_BANNER_05 = `${BANNER_PATH}/mobileBanner05.png`;
+export const MOBILE_BANNER_06 = `${BANNER_PATH}/mobileBanner06.png`;
+
 export const mainBanner = {
   BANNER_01,
   BANNER_02,
@@ -88,6 +95,15 @@ export const mainBanner = {
   NOT_IMAGE,
   NOISE_IMAGE,
   NOISE_IMAGE_1
+};
+
+export const mobileMaimBanner = {
+  MOBILE_BANNER_01,
+  MOBILE_BANNER_02,
+  MOBILE_BANNER_03,
+  MOBILE_BANNER_04,
+  MOBILE_BANNER_05,
+  MOBILE_BANNER_06
 };
 
 // browser

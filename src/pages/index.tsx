@@ -8,7 +8,7 @@ import { Row, Col } from 'antd';
 import { MainLayout } from 'layouts';
 
 // containers
-import { MainBanner, MainBoard } from 'container';
+import { MainBanner, MainBoard, MobileMainLists } from 'container';
 
 // components
 import { BasicCard } from 'components';
@@ -28,7 +28,6 @@ const HomePage: NextPage<HomePageProps> = ({
   const { isMobile } = useMedia();
   return (
     <MainLayout>
-      <MainBanner />
       {!isMobile && (
         <Row gutter={24}>
           <Col span={16}>
@@ -64,6 +63,15 @@ const HomePage: NextPage<HomePageProps> = ({
             <MainBoard datas={guestbookLists} />
           </Col>
         </Row>
+      )}
+
+      {isMobile && (
+        <>
+          <MainBanner />
+          <div style={{ marginTop: 100 }}>
+            <MobileMainLists datas={referenceLists} />
+          </div>
+        </>
       )}
     </MainLayout>
   );

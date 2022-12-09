@@ -49,9 +49,8 @@ export const StyledMainBanner = styled.div<StyledMainBannerProps>`
 
 export const StyledMainBannerMobile = styled.div`
   width: 100%;
-  height: 300px;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 
   .swiper-slide-desc {
     overflow: visible !important;

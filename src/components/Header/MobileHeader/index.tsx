@@ -19,16 +19,19 @@ import {
 } from 'consts/route';
 import { getMenuItem, MenuItem } from 'utils';
 import { Menu } from 'antd';
+import { useMobileScroll } from 'hooks';
 
 interface MobileHeaderProps {}
 
 const HeaderRight = () => {
+  const router = useRouter();
+
   const [activeKey, setActiveKey] = useState<string>('');
   const [selectedKeys, setSelectedKeys] = useState<string[]>();
   const [openKeys, setOpenkeys] = useState<string[] | undefined>();
 
-  const onClick = () => {
-    console.log('click');
+  const onClick = (key: string) => {
+    router.push(`${ROUTE_ROOT}${key}`);
   };
 
   const MenuItems: MenuItem[] = [
@@ -89,7 +92,7 @@ const HeaderRight = () => {
         <Menu
           mode="inline"
           items={MenuItems}
-          onClick={({ key }) => console.log(key)}
+          onClick={({ key }) => onClick(key)}
           onOpenChange={(openKeys) => console.log(openKeys)}
           activeKey={activeKey}
           openKeys={openKeys}
@@ -103,12 +106,12 @@ const HeaderRight = () => {
 
 export const MobileHeader: React.FC<MobileHeaderProps> = ({}) => {
   const router = useRouter();
+  const { scrollY } = useMobileScroll();
   const pathname = router.pathname === ROUTE_ROOT ? false : true;
 
   return (
     <StyledMobileHeader>
       <NavBar
-        // back="返回"
         backArrow={pathname}
         onBack={() => console.log('back')}
         right={<HeaderRight />}
@@ -116,7 +119,8 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({}) => {
         <span
           onClick={() => router.push(ROUTE_ROOT)}
           style={{
-            fontSize: 30
+            fontSize: 30,
+            color: scrollY > 100 ? '#000' : '#fff'
           }}
         >
           KDONG

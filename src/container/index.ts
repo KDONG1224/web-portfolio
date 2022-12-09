@@ -2,6 +2,7 @@
 export * from './MainBanner';
 export * from './MainCard';
 export * from './MainBoard';
+export * from './MobileMainLists';
 
 // about
 export * from './About';

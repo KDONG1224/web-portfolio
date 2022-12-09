@@ -42,7 +42,59 @@ export const StyledMobileHeader = styled.div`
 `;
 
 export const StyledHeaderRight = styled.div`
-  /* Position and sizing of burger button */
+  .ant-menu {
+    > li {
+      /* height: 100px !important; */
+    }
+  }
+
+  .ant-menu-submenu-title,
+  .ant-menu-inline > .ant-menu-item {
+    height: 100px !important;
+    line-height: 100px !important;
+  }
+  .ant-menu-submenu-title {
+    /* height: 100px !important; */
+  }
+
+  .ant-menu-item,
+  .ant-menu-submenu {
+    font-size: 32px;
+  }
+
+  .ant-menu-item .ant-menu-item-icon,
+  .ant-menu-submenu-title .ant-menu-item-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .ant-menu-item .ant-menu-item-icon + span,
+  .ant-menu-submenu-title .ant-menu-item-icon + span {
+    margin-left: 20px;
+  }
+
+  .ant-menu-submenu-inline .ant-menu-submenu-arrow::before {
+    transform: rotate(-45deg) translateX(2.5px) scale(2.5);
+  }
+  .ant-menu-submenu-inline .ant-menu-submenu-arrow::after {
+    transform: rotate(45deg) translateX(-2.5px) scale(2.5);
+  }
+  .ant-menu-submenu-open.ant-menu-submenu-inline
+    > .ant-menu-submenu-title
+    > .ant-menu-submenu-arrow::after {
+    transform: rotate(-45deg) translateX(-2.5px) scale(2.5);
+  }
+  .ant-menu-submenu-open.ant-menu-submenu-inline
+    > .ant-menu-submenu-title
+    > .ant-menu-submenu-arrow::before {
+    transform: rotate(45deg) translateX(2.5px) scale(2.5);
+  }
+
+  .ant-menu-submenu-arrow::before,
+  .ant-menu-submenu-arrow::after {
+    left: -10px;
+  }
+
   .bm-burger-button {
     position: fixed;
     width: 50px;
@@ -51,32 +103,24 @@ export const StyledHeaderRight = styled.div`
     top: 36px;
   }
 
-  /* Color/shape of burger icon bars */
   .bm-burger-bars {
     background: #373a47;
     height: 13% !important;
   }
 
-  /* Color/shape of burger icon bars on hover*/
   .bm-burger-bars-hover {
     background: #a90000;
   }
 
-  /* Position and sizing of clickable cross button */
   .bm-cross-button {
     height: 24px;
     width: 24px;
   }
 
-  /* Color/shape of close button cross */
   .bm-cross {
     background: #000;
   }
 
-  /*
-Sidebar wrapper styles
-Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
-*/
   .bm-menu-wrap {
     position: fixed;
     height: 100%;
@@ -84,7 +128,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
     width: 400px !important;
   }
 
-  /* General sidebar styles */
   .bm-menu {
     width: 400px;
     background: #fff;
@@ -92,12 +135,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
     font-size: 1.15em;
   }
 
-  /* Morph shape necessary with bubble or elastic */
   .bm-morph-shape {
     fill: #373a47;
   }
 
-  /* Wrapper for item list */
   .bm-item-list {
     /* color: #b8b7ad;
     padding: 0.8em; */
@@ -107,19 +148,16 @@ Note: Beware of modifying this element as it can break the animations - you shou
     grid-template-columns: repeat(4, 1fr); */
   }
 
-  /* Individual item */
   .bm-item {
     /* display: inline-block; */
   }
 
-  /* Styling of overlay */
   .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
     left: 0;
     top: 0;
   }
 
-  /* Individual item */
   .bm-item {
     /* display: inline-block;
 
@@ -136,12 +174,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
   .bm-item:hover {
     /* color: #ffffff; */
-  }
-
-  .ant-menu {
-    > li {
-      height: 100px !important;
-    }
   }
 
   .navi-icon {

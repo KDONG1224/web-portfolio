@@ -93,7 +93,8 @@ export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
       isMobile ? '0 !important' : '116px !important'};
     margin-left: ${({ isMobile }) => isMobile && '0 !important'};
     padding-right: ${({ isMobile }) => isMobile && '0 !important'};
-    overflow: hidden;
+    overflow: ${({ isMobile }) => !isMobile && 'hidden !important'};
+    overflow-x: ${({ isMobile }) => isMobile && 'hidden !important'};
   }
 
   .ant-menu-vertical > .ant-menu-item,

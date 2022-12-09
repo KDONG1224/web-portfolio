@@ -28,7 +28,7 @@ import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules';
 
 // components
 import { MainHeader, MobileHeader } from 'components';
-import { useMedia, useScroll } from 'hooks';
+import { useMedia, useMobileScroll } from 'hooks';
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -46,7 +46,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { isMobile } = useMedia();
-  const { scrollY } = useScroll();
+  const { scrollY } = useMobileScroll();
 
   const pathname = router.pathname;
 
@@ -161,12 +161,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             marginLeft: '2rem',
             paddingTop: '36px',
             paddingRight: '36px',
-            height: !isMobile ? 'calc(100vh - 30px)' : 'auto',
+            height: !isMobile ? 'calc(100vh - 30px)' : '100vh',
             overflowY: pathname === ROUTE_ROOT && !isMobile ? 'hidden' : 'auto'
           }}
         >
           {children}
-          <div style={{ width: 100, height: 10000, background: '#000' }}></div>
         </Layout.Content>
       </Layout>
     </StyledMainLayout>
