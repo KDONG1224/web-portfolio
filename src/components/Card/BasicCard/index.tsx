@@ -28,7 +28,6 @@ export const BasicCard: React.FC<BasicCardProps> = ({
   onClick
 }) => {
   const router = useRouter();
-  console.log(data);
 
   const { id, type, title, summary, question, updatedAt, thumbmnaile } = data;
 

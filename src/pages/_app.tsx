@@ -28,6 +28,7 @@ import '../../node_modules/highlight.js/styles/qtcreator_dark.css';
 // react-query
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Suspense } from 'react';
+import { useMedia } from 'hooks';
 
 export interface InitialProps {}
 
@@ -80,11 +81,20 @@ export const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
     }
   });
 
+  const { isMobile } = useMedia();
+
+  // console.log('isMobile : ', isMobile);
+
   return (
     <QueryClientProvider client={queryClient}>
       {/* <SessionProvider session={session}> */}
       <Head>
-        {/* <meta name="viewport" content="width=750,user-scalable=no" /> */}
+        {isMobile ? (
+          <meta name="viewport" content="width=750,user-scalable=no" />
+        ) : (
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        )}
+        <link rel="shortcut icon" sizes="192x192" href="/favicon.png" />
       </Head>
       <SafeArea position="top" />
       <Suspense fallback={<div>Loading...</div>}>

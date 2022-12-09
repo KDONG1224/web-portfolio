@@ -1,8 +1,10 @@
 // base
 import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
+
+// components
+import { BlurImage } from 'components';
 
 // hooks
 import { useInterval } from 'hooks';
@@ -48,7 +50,12 @@ const ErrorPage: NextPage = () => {
     >
       <div>
         <div>
-          <Image src={mainBanner.NOT_IMAGE} width={540} height={540} alt="" />
+          <BlurImage
+            src={mainBanner.NOT_IMAGE}
+            width={540}
+            height={540}
+            alt=""
+          />
         </div>
         <div
           style={{
