@@ -17,7 +17,7 @@ import { BlurImage, PaginationTable } from 'components';
 import { ReferApi } from 'modules';
 
 // hooks
-import { usePagination } from 'hooks';
+import { useMedia, usePagination } from 'hooks';
 
 // const
 import {
@@ -31,6 +31,7 @@ import {
   ROUTE_REFERNCE_EDIT_WITH_ID
 } from 'consts/route';
 import Image from 'next/image';
+import { MobileMainLists } from 'container/MobileMainLists';
 
 interface TableDataType {
   id: number;
@@ -57,6 +58,7 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
   });
 
   const router = useRouter();
+  const { isMobile } = useMedia();
 
   const referenceApi = useMemo(() => {
     return new ReferApi();
@@ -204,8 +206,16 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
   }, [updateFilter]);
 
   return (
-    <StyledReferenceLists>
-      <div className="refer-head">레퍼런스</div>
+    <StyledReferenceLists isMobile={isMobile}>
+      <div className="refer-head">
+        {isMobile ? (
+          <>
+            레퍼런스 모음<p>HTML, CSS, Js에 관한 레퍼런스 모음집 입니다.</p>
+          </>
+        ) : (
+          '레퍼런스'
+        )}
+      </div>
       <div className="refer-body">
         {/* <div className="refer-body-button">
           <Button onClick={() => onChange('table')}>테이블</Button>
@@ -213,40 +223,44 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
           <Button onClick={() => onChange('list')}>리스트</Button>
         </div> */}
         <div className="refer-body-contents">
-          <PaginationTable
-            rowKey="id"
-            loading={isLoading}
-            columns={columns}
-            dataSource={tableList}
-            showRowSelection={false}
-            showPageSize={true}
-            pagination={{
-              ...pagination,
-              showSizeChanger: false,
-              current: pagination.current,
-              pageSize: pagination.pageSize
-            }}
-            onChangePageSize={setUpdateFilter}
-            style={{
-              marginTop: '1.4rem'
-            }}
-            customRight={
-              <>
-                <Select
-                  style={{ width: 150, marginLeft: 5 }}
-                  defaultValue={selectType}
-                  value={selectType}
-                  onChange={handleSelect}
-                >
-                  {DEFAULT_REFERENCE_SELCET.map(({ key, value }) => (
-                    <Select.Option key={key} value={key}>
-                      {value}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </>
-            }
-          />
+          {!isMobile && (
+            <PaginationTable
+              rowKey="id"
+              loading={isLoading}
+              columns={columns}
+              dataSource={tableList}
+              showRowSelection={false}
+              showPageSize={true}
+              pagination={{
+                ...pagination,
+                showSizeChanger: false,
+                current: pagination.current,
+                pageSize: pagination.pageSize
+              }}
+              onChangePageSize={setUpdateFilter}
+              style={{
+                marginTop: '1.4rem'
+              }}
+              customRight={
+                <>
+                  <Select
+                    style={{ width: 150, marginLeft: 5 }}
+                    defaultValue={selectType}
+                    value={selectType}
+                    onChange={handleSelect}
+                  >
+                    {DEFAULT_REFERENCE_SELCET.map(({ key, value }) => (
+                      <Select.Option key={key} value={key}>
+                        {value}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </>
+              }
+            />
+          )}
+
+          {isMobile && <MobileMainLists datas={tableList} />}
         </div>
       </div>
     </StyledReferenceLists>

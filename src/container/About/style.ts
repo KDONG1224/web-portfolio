@@ -1,17 +1,22 @@
 import styled from 'styled-components';
 
-export const StyledAbout = styled.div`
+interface StyledAboutProps {
+  isMobile: boolean;
+}
+
+export const StyledAbout = styled.div<StyledAboutProps>`
   font-family: 'Chosunilbo_myungjo';
   padding: 40px;
   background-color: #f0eeeb;
 
   .about-wrapper {
     &-title {
-      padding: 8rem 0 18rem;
+      padding: ${({ isMobile }) =>
+        isMobile ? '8rem 0 12rem' : '8rem 0 18rem'};
 
       h2 {
         font-family: 'Saol';
-        font-size: 145px;
+        font-size: ${({ isMobile }) => (isMobile ? '6rem;' : '145px;')}
         display: block;
         padding-top: 10px;
         font-weight: 400;
@@ -34,11 +39,11 @@ export const StyledAbout = styled.div`
         padding-bottom: 280px;
 
         &-img {
-          flex: 0 0 64%;
+          flex: ${({ isMobile }) => (isMobile ? '0 0 54%;' : '0 0 64%;')}
         }
 
         &-desc {
-          flex: 0 0 30%;
+          flex: ${({ isMobile }) => (isMobile ? '0 0 40%;' : '0 0 30%;')}
         }
       }
 
@@ -61,7 +66,7 @@ export const StyledAbout = styled.div`
 
     .sub-title {
       font-size: 30px;
-      line-height: 1;
+      line-height: ${({ isMobile }) => (isMobile ? '1.5' : '1')};
       margin-bottom: 15px;
       margin-top: 2em;
 

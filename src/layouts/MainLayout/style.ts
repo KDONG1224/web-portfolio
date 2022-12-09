@@ -15,7 +15,7 @@ export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
   }
 
   .mobile-layout {
-    height: 120px;
+    height: 100px;
     background: transparent;
     /* border-bottom: 1px solid #afafaf; */
     padding: 0;
@@ -26,14 +26,14 @@ export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
 
     &-bg {
       width: 100%;
-      height: 120px;
+      height: 100px;
       position: fixed;
       top: -120px;
       z-index: 999;
       background-color: #fff;
       transition: 0.35s;
 
-      &.hide {
+      &.find {
         top: 0;
       }
     }

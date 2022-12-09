@@ -441,3 +441,120 @@ export const StyledReferenceDetail = styled.div`
     background-image: url(${browserIcons.APPLE_ICON});
   }
 `;
+
+export const StyledReferenceDetailMobile = styled.div`
+  padding: 120px 36px 36px;
+
+  .datail-wrapper {
+    &-top {
+      &-header {
+        > h2 {
+          font-size: 3.8rem;
+          margin-bottom: 20px;
+          margin-top: 36px;
+        }
+        > p {
+          font-size: 26px;
+          line-height: 1.5;
+          margin-bottom: 20px;
+          font-weight: 300;
+          position: relative;
+          color: #000;
+        }
+      }
+
+      &-title {
+        > h3 {
+          font-size: 66px;
+          margin-bottom: 20px;
+          margin-top: 20px;
+        }
+
+        .blue {
+          background: #f4f2fd;
+          padding: 22px 20px 18px 20px;
+          margin-bottom: 10px;
+          border-left: 6px solid black;
+          line-height: 1.8;
+          font-size: 24px;
+        }
+      }
+    }
+
+    &-middle {
+      margin-top: 60px;
+    }
+  }
+
+  table {
+    color: #000;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+  table a {
+    color: #5c43f5;
+    border-bottom: 1px dotted #5c43f5;
+  }
+  table {
+    border: 1px solid #ddd;
+    width: 100%;
+    max-width: 100%;
+    background-color: #fff;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+  .detail-wrapper-middle-table table thead th {
+    text-align: left;
+    font-weight: normal;
+    background-color: #f5f5f5;
+  }
+  .detail-wrapper-middle-table table th,
+  .detail-wrapper-middle-table table td {
+    border: 1px solid #ddd;
+    padding: 14px 12px 12px 12px;
+    vertical-align: middle;
+    text-align: left;
+    font-weight: normal;
+  }
+  .detail-wrapper-middle-table table tr:nth-child(even) > th,
+  .detail-wrapper-middle-table table tr:nth-child(even) > td {
+    background-color: #f5f5f5;
+  }
+  table .icon {
+    width: 16px;
+    line-height: 1.8;
+    vertical-align: middle;
+  }
+  .detail-wrapper-middle-table .ce {
+    text-align: center;
+  }
+  .compatibility thead > tr > th img {
+    width: 30px;
+    display: block;
+    margin: 0 auto;
+  }
+  .compatibility > thead > tr > th {
+    position: relative;
+  }
+  .compatibility > thead > tr > th em {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    font-size: 10px;
+    background: rgb(196, 196, 196);
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .compatibility-icons {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+`;

@@ -29,9 +29,16 @@ const HeaderRight = () => {
   const [activeKey, setActiveKey] = useState<string>('');
   const [selectedKeys, setSelectedKeys] = useState<string[]>();
   const [openKeys, setOpenkeys] = useState<string[] | undefined>();
+  const [isOpen, setIsOpen] = useState(false);
 
   const onClick = (key: string) => {
+    setActiveKey(key);
+
     router.push(`${ROUTE_ROOT}${key}`);
+
+    setIsOpen(false);
+
+    return;
   };
 
   const MenuItems: MenuItem[] = [
@@ -88,6 +95,8 @@ const HeaderRight = () => {
         pageWrapId={'page-wrap'}
         outerContainerId={'outer-container'}
         right
+        onOpen={() => setIsOpen(true)}
+        isOpen={isOpen}
       >
         <Menu
           mode="inline"
@@ -120,7 +129,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({}) => {
           onClick={() => router.push(ROUTE_ROOT)}
           style={{
             fontSize: 30,
-            color: scrollY > 100 ? '#000' : '#fff'
+            color: '#000'
           }}
         >
           KDONG
