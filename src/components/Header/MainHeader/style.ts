@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { Layout } from 'antd';
 
-export const StyledMainHeader = styled(Layout.Header)`
+interface StyledMainHeaderProps {
+  isMobile: boolean;
+}
+
+export const StyledMainHeader = styled(Layout.Header)<StyledMainHeaderProps>`
   height: 80px;
   background-color: #fff;
   position: fixed;
@@ -16,6 +20,7 @@ export const StyledMainHeader = styled(Layout.Header)`
     justify-content: space-between;
 
     &-left {
+      width: ${({ isMobile }) => isMobile && '100%'};
       display: flex;
       align-items: center;
 
@@ -52,7 +57,7 @@ export const StyledMainHeader = styled(Layout.Header)`
     }
 
     &-right {
-      display: flex;
+      display: ${({ isMobile }) => (isMobile ? 'none' : 'flex')};
       align-items: center;
 
       &-name {

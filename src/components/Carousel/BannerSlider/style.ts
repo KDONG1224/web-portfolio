@@ -47,38 +47,40 @@ export const StyledBannerSwiperSlider = styled.div<StyledBannerSwiperSliderProps
     }
 
     &.mobile {
-      bottom: -20px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      font-size: 1.2rem;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
       white-space: nowrap;
       text-align: center;
-      color: #fff;
-      width: 90%;
-      border-radius: 100px;
+      color: #000;
+      width: 96%;
+      border-radius: 10px;
       z-index: 2;
-      padding: 8px 0;
-      /* filter: blur(-10px); */
+      padding: 40px 0;
+      filter: blur(-10px);
+      line-height: 0;
+      backdrop-filter: blur(10px);
+      box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
     }
 
     &.desc1 {
-      background-color: #000b1d;
+      background-color: #f3f3ff;
     }
     &.desc2 {
-      background-color: #ff7b00;
+      background-color: #f3f3ff;
     }
     &.desc3 {
-      background-color: #746eaf;
+      background-color: #f3f3ff;
     }
     &.desc4 {
-      background-color: #f7df1e;
+      background-color: #f3f3ff;
     }
     &.desc5 {
-      background-color: #f0f0f0;
-      color: #000;
+      background-color: #f3f3ff;
     }
     &.desc6 {
-      background-color: #cc4d58;
+      background-color: #f3f3ff;
     }
   }
 `;

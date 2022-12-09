@@ -2,11 +2,14 @@ import { menuIcons } from 'consts';
 import styled from 'styled-components';
 
 export const StyledMobileHeader = styled.div`
-  height: 100%;
-  background: #fff;
-  border-bottom: 1px solid #afafaf;
+  height: 120px;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+
   .adm-nav-bar {
     height: 100%;
+    padding: 0;
 
     .adm-nav-bar-title {
       height: 100%;
@@ -39,63 +42,103 @@ export const StyledMobileHeader = styled.div`
 `;
 
 export const StyledHeaderRight = styled.div`
-  /* Position and sizing of burger button */
-  .bm-burger-button {
-    position: fixed;
-    width: 30px;
-    height: 24px;
-    /* left: 36px; */
-    /* top: 36px; */
-    right: 20px;
-    top: 15px;
+  .ant-menu {
+    > li {
+      /* height: 100px !important; */
+    }
   }
 
-  /* Color/shape of burger icon bars */
+  .ant-menu-submenu-title,
+  .ant-menu-inline > .ant-menu-item {
+    height: 100px !important;
+    line-height: 100px !important;
+  }
+  .ant-menu-submenu-title {
+    /* height: 100px !important; */
+  }
+
+  .ant-menu-item,
+  .ant-menu-submenu {
+    font-size: 32px;
+  }
+
+  .ant-menu-item .ant-menu-item-icon,
+  .ant-menu-submenu-title .ant-menu-item-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .ant-menu-item .ant-menu-item-icon + span,
+  .ant-menu-submenu-title .ant-menu-item-icon + span {
+    margin-left: 20px;
+  }
+
+  .ant-menu-submenu-inline .ant-menu-submenu-arrow::before {
+    transform: rotate(-45deg) translateX(2.5px) scale(2.5);
+  }
+  .ant-menu-submenu-inline .ant-menu-submenu-arrow::after {
+    transform: rotate(45deg) translateX(-2.5px) scale(2.5);
+  }
+  .ant-menu-submenu-open.ant-menu-submenu-inline
+    > .ant-menu-submenu-title
+    > .ant-menu-submenu-arrow::after {
+    transform: rotate(-45deg) translateX(-2.5px) scale(2.5);
+  }
+  .ant-menu-submenu-open.ant-menu-submenu-inline
+    > .ant-menu-submenu-title
+    > .ant-menu-submenu-arrow::before {
+    transform: rotate(45deg) translateX(2.5px) scale(2.5);
+  }
+
+  .ant-menu-submenu-arrow::before,
+  .ant-menu-submenu-arrow::after {
+    left: -10px;
+  }
+
+  .bm-burger-button {
+    position: fixed;
+    width: 50px;
+    height: 44px;
+    right: 40px;
+    top: 36px;
+  }
+
   .bm-burger-bars {
     background: #373a47;
     height: 13% !important;
   }
 
-  /* Color/shape of burger icon bars on hover*/
   .bm-burger-bars-hover {
     background: #a90000;
   }
 
-  /* Position and sizing of clickable cross button */
   .bm-cross-button {
     height: 24px;
     width: 24px;
   }
 
-  /* Color/shape of close button cross */
   .bm-cross {
     background: #000;
   }
 
-  /*
-Sidebar wrapper styles
-Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
-*/
   .bm-menu-wrap {
     position: fixed;
     height: 100%;
     top: 0;
-    width: 100px !important;
+    width: 400px !important;
   }
 
-  /* General sidebar styles */
   .bm-menu {
-    background: #f9e4e4;
-    padding: 2.5em 1.5em 0;
+    width: 400px;
+    background: #fff;
+    padding: 50px 0px 36px;
     font-size: 1.15em;
   }
 
-  /* Morph shape necessary with bubble or elastic */
   .bm-morph-shape {
     fill: #373a47;
   }
 
-  /* Wrapper for item list */
   .bm-item-list {
     /* color: #b8b7ad;
     padding: 0.8em; */
@@ -105,21 +148,18 @@ Note: Beware of modifying this element as it can break the animations - you shou
     grid-template-columns: repeat(4, 1fr); */
   }
 
-  /* Individual item */
   .bm-item {
-    display: inline-block;
+    /* display: inline-block; */
   }
 
-  /* Styling of overlay */
   .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
     left: 0;
     top: 0;
   }
 
-  /* Individual item */
   .bm-item {
-    display: inline-block;
+    /* display: inline-block;
 
     color: #d1d1d1;
     margin-bottom: 20px;
@@ -129,11 +169,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
     display: flex !important;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
   }
 
   .bm-item:hover {
-    color: #ffffff;
+    /* color: #ffffff; */
   }
 
   .navi-icon {

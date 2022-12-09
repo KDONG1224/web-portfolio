@@ -27,7 +27,8 @@ import { useAppDispatch, useAppSelector } from 'modules/hooks';
 import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules';
 
 // components
-import { MainHeader } from 'components';
+import { MainHeader, MobileHeader } from 'components';
+import { useMedia, useMobileScroll } from 'hooks';
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -43,8 +44,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   const [activeKey, setActiveKey] = useState<string>('');
 
   const router = useRouter();
-  const pathname = router.pathname;
   const dispatch = useAppDispatch();
+  const { isMobile } = useMedia();
+  const { scrollY } = useMobileScroll();
+
+  const pathname = router.pathname;
 
   const onCollapse = (value: boolean) => {
     dispatch(sideMenuCollapsedAction(!isSideMenuCollapsed));
@@ -123,37 +127,42 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   }, [pathname, isSideMenuCollapsed]);
 
   return (
-    <StyledMainLayout>
+    <StyledMainLayout isMobile={isMobile}>
       <Layout {...props}>
-        <MainHeader />
-        <Layout.Sider
-          collapsible
-          collapsed={isSideMenuCollapsed}
-          onCollapse={(value) => onCollapse(value)}
-          // style={{
-          //   height: '100vh',
-          //   overflowY: 'scroll'
-          // }}
-        >
-          <Menu
-            mode="inline"
-            items={MenuItems}
-            onClick={({ key }) => onClick(key)}
-            onOpenChange={(openKeys) => onOpenChange(openKeys)}
-            activeKey={activeKey}
-            openKeys={openKeys}
-            selectedKeys={selectedKeys}
-            defaultSelectedKeys={['home']}
-          />
-        </Layout.Sider>
+        {isMobile ? (
+          <Layout.Header className="mobile-layout">
+            <MobileHeader />
+            <div className={`mobile-layout-bg ${scrollY > 100 && 'hide'}`} />
+          </Layout.Header>
+        ) : (
+          <MainHeader />
+        )}
+        {!isMobile && (
+          <Layout.Sider
+            collapsible
+            collapsed={isSideMenuCollapsed}
+            onCollapse={(value) => onCollapse(value)}
+          >
+            <Menu
+              mode="inline"
+              items={MenuItems}
+              onClick={({ key }) => onClick(key)}
+              onOpenChange={(openKeys) => onOpenChange(openKeys)}
+              activeKey={activeKey}
+              openKeys={openKeys}
+              selectedKeys={selectedKeys}
+              defaultSelectedKeys={['home']}
+            />
+          </Layout.Sider>
+        )}
         <Layout.Content
           className="site-layout"
           style={{
             marginLeft: '2rem',
             paddingTop: '36px',
             paddingRight: '36px',
-            height: 'calc(100vh - 30px)',
-            overflowY: pathname === ROUTE_ROOT ? 'hidden' : 'auto'
+            height: !isMobile ? 'calc(100vh - 30px)' : '100vh',
+            overflowY: pathname === ROUTE_ROOT && !isMobile ? 'hidden' : 'auto'
           }}
         >
           {children}

@@ -8,12 +8,13 @@ import { Row, Col } from 'antd';
 import { MainLayout } from 'layouts';
 
 // containers
-import { MainBanner, MainBoard } from 'container';
+import { MainBanner, MainBoard, MobileMainLists } from 'container';
 
 // components
 import { BasicCard } from 'components';
 import { ReferApi } from 'modules';
 import { GuestbookApi } from 'modules/guestbook';
+import { useMedia } from 'hooks';
 
 interface HomePageProps {
   referenceLists: any[];
@@ -24,42 +25,54 @@ const HomePage: NextPage<HomePageProps> = ({
   referenceLists,
   guestbookLists
 }) => {
+  const { isMobile } = useMedia();
   return (
     <MainLayout>
-      <Row gutter={24}>
-        <Col span={16}>
-          <div
+      {!isMobile && (
+        <Row gutter={24}>
+          <Col span={16}>
+            <div
+              style={{
+                height: 'calc(100vh - 80px)',
+                overflowY: 'scroll'
+              }}
+            >
+              <MainBanner />
+              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                {referenceLists.map((reference) => (
+                  <Col
+                    className="gutter-row"
+                    span={8}
+                    key={reference.id}
+                    style={{ marginBottom: 60 }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <BasicCard data={reference} />
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          </Col>
+          <Col
+            span={8}
             style={{
-              height: 'calc(100vh - 80px)',
-              overflowY: 'scroll'
+              paddingRight: 20
             }}
           >
-            <MainBanner />
-            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-              {referenceLists.map((reference) => (
-                <Col
-                  className="gutter-row"
-                  span={8}
-                  key={reference.id}
-                  style={{ marginBottom: 60 }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <BasicCard data={reference} />
-                  </div>
-                </Col>
-              ))}
-            </Row>
+            <MainBoard datas={guestbookLists} />
+          </Col>
+        </Row>
+      )}
+
+      {isMobile && (
+        <>
+          <MainBanner />
+          <div style={{ marginTop: 100 }}>
+            <MobileMainLists datas={referenceLists} />
           </div>
-        </Col>
-        <Col
-          span={8}
-          style={{
-            paddingRight: 20
-          }}
-        >
-          <MainBoard datas={guestbookLists} />
-        </Col>
-      </Row>
+        </>
+      )}
     </MainLayout>
   );
 };

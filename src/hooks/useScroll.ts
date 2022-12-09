@@ -3,16 +3,14 @@ import { useState, useEffect } from 'react';
 export const useScroll = () => {
   const [scrollY, setScrollY] = useState(0);
 
+  const listener = () => {
+    setScrollY(window.scrollY);
+  };
+
   useEffect(() => {
-    const container = document.querySelector('.ant-layout-content') as Element;
-
-    const listener = (e: any) => {
-      setScrollY(e.target.scrollTop);
-    };
-
-    (container || document.body).addEventListener('scroll', listener);
+    window.addEventListener('scroll', listener);
     return () => {
-      (container || document.body).removeEventListener('scroll', listener);
+      window.removeEventListener('scroll', listener);
     };
   });
 

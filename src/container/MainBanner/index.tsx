@@ -5,7 +5,7 @@ import React from 'react';
 import { BannerSlider } from 'components';
 
 // const
-import { mainBanner } from 'consts';
+import { mainBanner, mobileMaimBanner } from 'consts';
 
 // style
 import { StyledMainBanner, StyledMainBannerMobile } from './style';
@@ -21,31 +21,37 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
   const bannerUrl = [
     {
       url: mainBanner.BANNER_01,
+      mobileUrl: mobileMaimBanner.MOBILE_BANNER_01,
       desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
-      mobile: '안녕하세요! KDONG 입니다'
+      mobile: '밥---값하는 프론트엔드 개발자 KDONG'
     },
     {
       url: mainBanner.BANNER_02,
+      mobileUrl: mobileMaimBanner.MOBILE_BANNER_02,
       desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
-      mobile: '안녕하세요! KDONG 입니다'
+      mobile: '당신이 찾던 바로 그 개발자 KDONG'
     },
     {
       url: mainBanner.BANNER_03,
+      mobileUrl: mobileMaimBanner.MOBILE_BANNER_03,
       desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
-      mobile: '안녕하세요! KDONG 입니다'
+      mobile: '개발자계의 4번 홈런 타자 KDONG'
     },
     {
       url: mainBanner.BANNER_04,
+      mobileUrl: mobileMaimBanner.MOBILE_BANNER_04,
       desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
-      mobile: '안녕하세요! KDONG 입니다'
+      mobile: "BTS 봉준호 손흥민 KDONG, Let's go~"
     },
     {
       url: mainBanner.BANNER_05,
+      mobileUrl: mobileMaimBanner.MOBILE_BANNER_05,
       desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
-      mobile: '안녕하세요! KDONG 입니다'
+      mobile: '당신의 웹사이트를 책임질 KDONG'
     },
     {
       url: mainBanner.BANNER_06,
+      mobileUrl: mobileMaimBanner.MOBILE_BANNER_06,
       desc: '<div class="text-black">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
       mobile: '안녕하세요! KDONG 입니다'
     }
@@ -84,23 +90,11 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
       )}
       {isMobile && (
         <StyledMainBannerMobile>
-          <div className="banner-icons">
-            <div className="banner-icons-wrapper">
-              <div
-                className="banner-icons-wrapper-icon left"
-                onClick={() => onClickSocial('github')}
-              />
-              <div
-                className="banner-icons-wrapper-icon right"
-                onClick={() => onClickSocial('instagram')}
-              />
-            </div>
-          </div>
           <BannerSlider
             banner={bannerUrl}
-            autoplay={{ delay: 8000, disableOnInteraction: false }}
+            autoplay={{ delay: 5000, disableOnInteraction: false }}
             loop={true}
-            height={250}
+            height={500}
             pagination={false}
             isMobile={isMobile}
             onClick={({ realIndex }) => onClick()}
@@ -110,3 +104,7 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
     </>
   );
 };
+
+// 직원들의 창의성을 위해 다양한 위치에서 업무를 할 수 있게 수시로 자리를 변경하여 창의성을 지원합니다.
+
+// 매일

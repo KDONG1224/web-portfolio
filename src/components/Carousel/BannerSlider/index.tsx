@@ -14,6 +14,7 @@ import SwiperCore, {
 
 // style
 import { StyledBannerSwiper, StyledBannerSwiperSlider } from './style';
+import { BlurImage } from 'components/Images';
 
 SwiperCore.use([Autoplay]);
 
@@ -22,6 +23,7 @@ interface BannerSliderProps extends SwiperProps {
     url?: string;
     desc?: string;
     mobile?: string;
+    mobileUrl?: string;
   }[];
   height?: number;
   showDesc?: boolean;
@@ -38,11 +40,6 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
 }) => {
   const [firstSwiper, setFirstSwiper] = useState<any>();
   const [secondSwiper, setSecondSwiper] = useState<any>();
-
-  // useEffect(() => {
-  //   firstSwiper.controller.control = secondSwiper;
-  //   secondSwiper.controller.control = firstSwiper;
-  // }, [isMobile])
 
   return (
     <StyledBannerSwiper>
@@ -101,7 +98,13 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
                   height={height || 250}
                   url={!height ? undefined : item.url}
                 >
-                  <img src={item.url || ''} alt={`배너 ${idx}`} />
+                  <BlurImage
+                    src={item.mobileUrl as string}
+                    alt={item.mobile}
+                    width={750}
+                    height={500}
+                    objectFit="contain"
+                  />
                 </StyledBannerSwiperSlider>
               </SwiperSlide>
             ))}
@@ -124,7 +127,7 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
                   <div
                     className={`banner-swiper-slide-desc mobile desc${idx + 1}`}
                     dangerouslySetInnerHTML={{
-                      __html: `${idx + 1} ${item.mobile}`
+                      __html: item.mobile as string
                     }}
                   />
                 </StyledBannerSwiperSlider>
