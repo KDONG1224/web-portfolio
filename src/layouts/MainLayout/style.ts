@@ -1,10 +1,83 @@
 import { menuIcons } from 'consts';
 import styled from 'styled-components';
 
-export const StyledMainLayout = styled.div`
+interface StyledMainLayoutProps {
+  isMobile: boolean;
+}
+
+export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
+  position: relative;
+
   .ant-layout-sider {
+    display: ${({ isMobile }) => isMobile && 'none'};
     height: calc(100vh - 80px) !important;
     margin-top: 80px;
+  }
+
+  .mobile-layout {
+    height: 120px;
+    background: transparent;
+    /* border-bottom: 1px solid #afafaf; */
+    padding: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+
+    &-bg {
+      width: 100%;
+      height: 120px;
+      position: fixed;
+      top: -120px;
+      z-index: 999;
+      background-color: #fff;
+      transition: 0.35s;
+
+      &.hide {
+        top: 0;
+      }
+    }
+
+    .header-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+
+      &-text {
+        width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        white-space: nowrap;
+
+        span {
+          width: 100%;
+          margin-left: 36px;
+        }
+      }
+
+      &-social {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 18%;
+        margin-right: 36px;
+
+        span {
+          display: flex;
+          cursor: pointer;
+
+          img {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
   }
 
   .ant-layout-sider-trigger {
@@ -16,7 +89,10 @@ export const StyledMainLayout = styled.div`
   }
 
   .ant-layout-content {
-    padding-top: 116px !important;
+    padding-top: ${({ isMobile }) =>
+      isMobile ? '0 !important' : '116px !important'};
+    margin-left: ${({ isMobile }) => isMobile && '0 !important'};
+    padding-right: ${({ isMobile }) => isMobile && '0 !important'};
     overflow: hidden;
   }
 

@@ -1,10 +1,12 @@
 // base
 import React from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 // style
 import { StyledMainHeader } from './style';
+
+// components
+import { BlurImage } from 'components';
 
 // consts
 import { exImg, socialIcons } from 'consts';
@@ -12,11 +14,12 @@ import { ROUTE_ROOT } from 'consts/route';
 
 // libraries
 import { Input } from 'antd';
-
+import { useMedia } from 'hooks';
 interface MainHeaderProps {}
 
 export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
   const router = useRouter();
+  const { isMobile } = useMedia();
 
   const onSearch = (value: string) => console.log(value);
 
@@ -25,25 +28,29 @@ export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
   };
 
   return (
-    <StyledMainHeader>
+    <StyledMainHeader isMobile={isMobile}>
       <div className="header-wrapper">
         <div className="header-wrapper-left">
           <div className="header-wrapper-left-title" onClick={handleRouter}>
-            <Image
+            <BlurImage
               src={exImg.EX_NUM_01}
               alt="메인로고"
               width={30}
               height={30}
             />
-            <span className="header-wrapper-title-name">KDONG Portfolio</span>
+            {!isMobile && (
+              <span className="header-wrapper-title-name">KDONG Portfolio</span>
+            )}
           </div>
-          <div className="header-wrapper-left-search">
-            <Input.Search
-              placeholder="검색어를 입력해주세요"
-              onSearch={onSearch}
-              enterButton
-            />
-          </div>
+          {!isMobile && (
+            <div className="header-wrapper-left-search">
+              <Input.Search
+                placeholder="검색어를 입력해주세요"
+                onSearch={onSearch}
+                enterButton
+              />
+            </div>
+          )}
         </div>
         <div
           className="header-wrapper-right"
@@ -60,7 +67,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
           >
             Apis 바로가기 (kdong1224 / 1224)
           </span>
-          <Image
+          <BlurImage
             src={socialIcons.API_ICON}
             alt="메인로고"
             width={30}

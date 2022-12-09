@@ -2,11 +2,14 @@ import { menuIcons } from 'consts';
 import styled from 'styled-components';
 
 export const StyledMobileHeader = styled.div`
-  height: 100%;
-  background: #fff;
-  border-bottom: 1px solid #afafaf;
+  height: 120px;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+
   .adm-nav-bar {
     height: 100%;
+    padding: 0;
 
     .adm-nav-bar-title {
       height: 100%;
@@ -42,12 +45,10 @@ export const StyledHeaderRight = styled.div`
   /* Position and sizing of burger button */
   .bm-burger-button {
     position: fixed;
-    width: 30px;
-    height: 24px;
-    /* left: 36px; */
-    /* top: 36px; */
-    right: 20px;
-    top: 15px;
+    width: 50px;
+    height: 44px;
+    right: 40px;
+    top: 36px;
   }
 
   /* Color/shape of burger icon bars */
@@ -80,13 +81,14 @@ Note: Beware of modifying this element as it can break the animations - you shou
     position: fixed;
     height: 100%;
     top: 0;
-    width: 100px !important;
+    width: 400px !important;
   }
 
   /* General sidebar styles */
   .bm-menu {
-    background: #f9e4e4;
-    padding: 2.5em 1.5em 0;
+    width: 400px;
+    background: #fff;
+    padding: 50px 0px 36px;
     font-size: 1.15em;
   }
 
@@ -107,7 +109,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
   /* Individual item */
   .bm-item {
-    display: inline-block;
+    /* display: inline-block; */
   }
 
   /* Styling of overlay */
@@ -119,7 +121,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
   /* Individual item */
   .bm-item {
-    display: inline-block;
+    /* display: inline-block;
 
     color: #d1d1d1;
     margin-bottom: 20px;
@@ -129,11 +131,17 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
     display: flex !important;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
   }
 
   .bm-item:hover {
-    color: #ffffff;
+    /* color: #ffffff; */
+  }
+
+  .ant-menu {
+    > li {
+      height: 100px !important;
+    }
   }
 
   .navi-icon {

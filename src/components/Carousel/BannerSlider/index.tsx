@@ -39,11 +39,6 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
   const [firstSwiper, setFirstSwiper] = useState<any>();
   const [secondSwiper, setSecondSwiper] = useState<any>();
 
-  // useEffect(() => {
-  //   firstSwiper.controller.control = secondSwiper;
-  //   secondSwiper.controller.control = firstSwiper;
-  // }, [isMobile])
-
   return (
     <StyledBannerSwiper>
       {!isMobile && (

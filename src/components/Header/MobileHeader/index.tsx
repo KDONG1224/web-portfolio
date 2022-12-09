@@ -1,48 +1,102 @@
 // base
-import React from 'react';
+import React, { useState } from 'react';
 
 // style
 import { StyledMobileHeader, StyledHeaderRight } from './style';
 
 // libraries
 import { NavBar } from 'antd-mobile';
-import { stack as Menu } from 'react-burger-menu';
+import { stack as Hanmber } from 'react-burger-menu';
 import { useRouter } from 'next/router';
-import { ROUTE_ROOT } from 'consts/route';
-import { useScroll } from 'hooks';
+import {
+  ROUTE_ABOUT,
+  ROUTE_ALCHOL_CUP,
+  ROUTE_ALGORITHM,
+  ROUTE_FIGMA,
+  ROUTE_NOTION,
+  ROUTE_REFERNCE,
+  ROUTE_ROOT
+} from 'consts/route';
+import { getMenuItem, MenuItem } from 'utils';
+import { Menu } from 'antd';
 
 interface MobileHeaderProps {}
 
 const HeaderRight = () => {
+  const [activeKey, setActiveKey] = useState<string>('');
+  const [selectedKeys, setSelectedKeys] = useState<string[]>();
+  const [openKeys, setOpenkeys] = useState<string[] | undefined>();
+
   const onClick = () => {
     console.log('click');
   };
 
+  const MenuItems: MenuItem[] = [
+    getMenuItem('홈', ROUTE_ROOT, <div className="home-icon navi-icon" />),
+    getMenuItem(
+      '어바웃',
+      ROUTE_ABOUT,
+      <div className="about-icon navi-icon" />
+    ),
+    getMenuItem(
+      '레퍼런스',
+      'reference',
+      <div className="reference-icon navi-icon" />,
+      [
+        getMenuItem(
+          '레퍼런스 목록',
+          ROUTE_REFERNCE,
+          <div className="html-icon navi-icon" />
+        )
+      ]
+    ),
+    getMenuItem(
+      '알고리즘',
+      'algorithm',
+      <div className="javascript-icon navi-icon" />,
+      [
+        getMenuItem(
+          '알고리즘 목록',
+          ROUTE_ALGORITHM,
+          <div className="algorithm-icon navi-icon" />
+        )
+      ]
+    ),
+    getMenuItem(
+      '피그마',
+      ROUTE_FIGMA,
+      <div className="figma-icon navi-icon" />
+    ),
+    getMenuItem(
+      '노션',
+      ROUTE_NOTION,
+      <div className="notion-icon navi-icon" />
+    ),
+    getMenuItem(
+      '토이프로젝트',
+      ROUTE_ALCHOL_CUP,
+      <div className="alchol-icon navi-icon" />
+    )
+  ];
+
   return (
     <StyledHeaderRight id="outer-container">
-      <Menu
+      <Hanmber
         pageWrapId={'page-wrap'}
         outerContainerId={'outer-container'}
         right
-        // disableOverlayClick
       >
-        <div id="home" className="menu-item">
-          <div className="home-icon navi-icon" />
-        </div>
-        <div id="about" className="menu-item">
-          <div className="html-icon navi-icon" />
-        </div>
-        <div id="contact" className="menu-item">
-          <div className="javascript-icon navi-icon" />
-        </div>
-        <div
-          id="setting"
-          className="menu-item--small"
-          onClick={() => console.log('HeaderRight')}
-        >
-          <div className="figma-icon navi-icon" />
-        </div>
-      </Menu>
+        <Menu
+          mode="inline"
+          items={MenuItems}
+          onClick={({ key }) => console.log(key)}
+          onOpenChange={(openKeys) => console.log(openKeys)}
+          activeKey={activeKey}
+          openKeys={openKeys}
+          selectedKeys={selectedKeys}
+          defaultSelectedKeys={['home']}
+        />
+      </Hanmber>
     </StyledHeaderRight>
   );
 };
@@ -59,7 +113,14 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({}) => {
         onBack={() => console.log('back')}
         right={<HeaderRight />}
       >
-        <span onClick={() => router.push(ROUTE_ROOT)}>KDONG</span>
+        <span
+          onClick={() => router.push(ROUTE_ROOT)}
+          style={{
+            fontSize: 30
+          }}
+        >
+          KDONG
+        </span>
       </NavBar>
     </StyledMobileHeader>
   );

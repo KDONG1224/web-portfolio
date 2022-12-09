@@ -84,23 +84,11 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
       )}
       {isMobile && (
         <StyledMainBannerMobile>
-          <div className="banner-icons">
-            <div className="banner-icons-wrapper">
-              <div
-                className="banner-icons-wrapper-icon left"
-                onClick={() => onClickSocial('github')}
-              />
-              <div
-                className="banner-icons-wrapper-icon right"
-                onClick={() => onClickSocial('instagram')}
-              />
-            </div>
-          </div>
           <BannerSlider
             banner={bannerUrl}
-            autoplay={{ delay: 8000, disableOnInteraction: false }}
+            autoplay={{ delay: 11118000, disableOnInteraction: false }}
             loop={true}
-            height={250}
+            height={1000}
             pagination={false}
             isMobile={isMobile}
             onClick={({ realIndex }) => onClick()}
@@ -110,3 +98,7 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
     </>
   );
 };
+
+// 직원들의 창의성을 위해 다양한 위치에서 업무를 할 수 있게 수시로 자리를 변경하여 창의성을 지원합니다.
+
+// 매일
