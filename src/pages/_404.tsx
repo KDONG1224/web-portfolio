@@ -1,9 +1,11 @@
 // base
 import { NextPage } from 'next';
-import Image from 'next/image';
 
 // const
 import { mainBanner } from 'consts';
+
+// components
+import { BlurImage } from 'components';
 
 const NotFoundPage: NextPage = () => {
   return (
@@ -22,7 +24,12 @@ const NotFoundPage: NextPage = () => {
     >
       <div>
         <div>
-          <Image src={mainBanner.NOT_IMAGE} width={540} height={540} alt="" />
+          <BlurImage
+            src={mainBanner.NOT_IMAGE}
+            width={540}
+            height={540}
+            alt=""
+          />
         </div>
         <div
           style={{

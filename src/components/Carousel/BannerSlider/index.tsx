@@ -90,10 +90,7 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({
             onClick={onClick}
             effect="fade"
             fadeEffect={{ crossFade: true }}
-            onSwiper={(swiper) => {
-              console.log(swiper);
-              setFirstSwiper(swiper);
-            }}
+            onSwiper={(swiper) => setFirstSwiper(swiper)}
             controller={{ control: secondSwiper }}
             {...rest}
           >

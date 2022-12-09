@@ -47,7 +47,6 @@ export class ReferApi {
 
   async getAlgorithm() {
     return await this.Axios.get<any>('/algorithm/all').then((res) => {
-      console.log('res.data : ', res.data);
       return res.data;
     });
   }

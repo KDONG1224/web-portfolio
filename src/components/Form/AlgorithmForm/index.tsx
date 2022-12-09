@@ -84,8 +84,6 @@ export const AlgorithmForm: React.FC<AlgorithmFormProps> = ({ onSubmit }) => {
   };
 
   const onFinish = (values: any) => {
-    console.log(values);
-
     const { grassMyDesc, grassDifferDesc, level, title, question, hint, type } =
       values;
 

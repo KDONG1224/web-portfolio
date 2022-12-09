@@ -1,6 +1,5 @@
 // base
-import type { NextPage } from 'next';
-import type { GetServerSideProps } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 
 // libraries
 import { Row, Col } from 'antd';
@@ -65,7 +64,7 @@ const HomePage: NextPage<HomePageProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const referApi = new ReferApi();
     const guestbookApi = new GuestbookApi();
