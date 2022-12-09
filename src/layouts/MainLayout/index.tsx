@@ -165,7 +165,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             marginLeft: '2rem',
             paddingTop: '36px',
             paddingRight: '36px',
-            height: !isMobile ? 'calc(100vh - 30px)' : '100vh',
+            height: '100vh',
             overflowY: pathname === ROUTE_ROOT && !isMobile ? 'hidden' : 'auto'
           }}
         >

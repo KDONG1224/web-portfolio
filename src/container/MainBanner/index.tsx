@@ -92,7 +92,7 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
         <StyledMainBannerMobile>
           <BannerSlider
             banner={bannerUrl}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            autoplay={{ delay: 10000, disableOnInteraction: false }}
             loop={true}
             height={500}
             pagination={false}
