@@ -5,6 +5,8 @@ interface StyledReferenceListsProps {
 }
 
 export const StyledReferenceLists = styled.div<StyledReferenceListsProps>`
+  background: #fff;
+
   .ant-table-tbody > tr > td {
     vertical-align: middle !important;
   }
@@ -13,7 +15,7 @@ export const StyledReferenceLists = styled.div<StyledReferenceListsProps>`
     ${({ isMobile }) =>
       isMobile &&
       `font-size: 4.5rem;
-    margin-top: 120px;
+    padding-top: 120px;
     text-align: center;
 
     > p {

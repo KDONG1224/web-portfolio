@@ -14,6 +14,9 @@ export * from './ReferenceEdit';
 export * from './ReferenceLists';
 export * from './ReferenceDetail';
 
+export * from './Javascript';
+export * from './JavascriptDetail';
+
 // algorithm
 export * from './Algorithm';
 export * from './AlgorithmDetails';

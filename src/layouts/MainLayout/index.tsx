@@ -19,7 +19,8 @@ import {
   ROUTE_FIGMA,
   ROUTE_NOTION,
   ROUTE_ALCHOL_CUP,
-  ROUTE_REFERNCE
+  ROUTE_REFERNCE,
+  ROUTE_REFERNCE_JS
 } from 'consts/route';
 
 // modules
@@ -89,6 +90,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
           '레퍼런스 목록',
           ROUTE_REFERNCE,
           <div className="html-icon navi-icon" />
+        ),
+        getMenuItem(
+          'JAVASCRIPT',
+          ROUTE_REFERNCE_JS,
+          <div className="javascript-icon navi-icon" />
         )
       ]
     ),
@@ -166,7 +172,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             paddingTop: '36px',
             paddingRight: '36px',
             height: '100vh',
-            overflowY: pathname === ROUTE_ROOT && !isMobile ? 'hidden' : 'auto'
+            overflowY:
+              pathname === ROUTE_ROOT && !isMobile ? 'hidden' : 'scroll'
           }}
         >
           {children}
