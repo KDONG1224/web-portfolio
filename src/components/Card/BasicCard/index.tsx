@@ -13,6 +13,7 @@ import {
 import { StyledBasicCard } from './style';
 import moment from 'moment';
 import { useRouter } from 'next/router';
+import { useMedia } from 'hooks';
 
 interface BasicCardProps {
   data: any;
@@ -28,6 +29,7 @@ export const BasicCard: React.FC<BasicCardProps> = ({
   onClick
 }) => {
   const router = useRouter();
+  const { isMobile } = useMedia();
 
   const { id, type, title, summary, question, updatedAt, thumbmnaile } = data;
 
@@ -57,11 +59,18 @@ export const BasicCard: React.FC<BasicCardProps> = ({
             <span className="algo-wrapper-bottom-date-tag">
               <Tag color="red">{type.toLocaleUpperCase()}</Tag>
             </span>
-            <span className="algo-wrapper-bottom-date-text">
-              {moment(updatedAt).format('YYYY-MM-DD, HH-mm')}
-            </span>
+            {!isMobile && (
+              <span className="algo-wrapper-bottom-date-text">
+                {moment(updatedAt).format('YYYY-MM-DD, HH-mm')}
+              </span>
+            )}
           </div>
           <div className="algo-wrapper-bottom-title line-two">{title}</div>
+          {isMobile && (
+            <div className="algo-wrapper-bottom-date">
+              {moment(updatedAt).format('YYYY-MM-DD, HH-mm')}
+            </div>
+          )}
           <div className="algo-wrapper-bottom-desc line-two">
             <span className="line-two">{summary || question}</span>
           </div>

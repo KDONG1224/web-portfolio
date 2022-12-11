@@ -15,11 +15,11 @@ import {
   ROUTE_FIGMA,
   ROUTE_NOTION,
   ROUTE_REFERNCE,
+  ROUTE_REFERNCE_JS,
   ROUTE_ROOT
 } from 'consts/route';
 import { getMenuItem, MenuItem } from 'utils';
 import { Menu } from 'antd';
-import { useMobileScroll } from 'hooks';
 
 interface MobileHeaderProps {}
 
@@ -57,6 +57,11 @@ const HeaderRight = () => {
           '레퍼런스 목록',
           ROUTE_REFERNCE,
           <div className="html-icon navi-icon" />
+        ),
+        getMenuItem(
+          'JAVASCRIPT',
+          ROUTE_REFERNCE_JS,
+          <div className="javascript-icon navi-icon" />
         )
       ]
     ),
@@ -115,13 +120,16 @@ const HeaderRight = () => {
 
 export const MobileHeader: React.FC<MobileHeaderProps> = ({}) => {
   const router = useRouter();
-  const { scrollY } = useMobileScroll();
   const pathname = router.pathname === ROUTE_ROOT ? false : true;
 
   return (
-    <StyledMobileHeader>
+    <StyledMobileHeader
+      style={{
+        background: pathname ? '#fff' : 'transparent'
+      }}
+    >
       <NavBar
-        backArrow={pathname}
+        backArrow={false}
         onBack={() => console.log('back')}
         right={<HeaderRight />}
       >

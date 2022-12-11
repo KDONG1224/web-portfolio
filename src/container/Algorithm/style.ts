@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-export const StyledAlgorithm = styled.div`
-  padding: 36px 0;
+interface StyledAlgorithmProps {
+  isMobile: boolean;
+}
+
+export const StyledAlgorithm = styled.div<StyledAlgorithmProps>`
+  padding: ${({ isMobile }) => (isMobile ? '120px 0 36px' : '36px 0')};
   .algo-title {
     padding-bottom: 80px;
 

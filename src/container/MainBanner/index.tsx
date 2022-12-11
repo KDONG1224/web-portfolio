@@ -35,7 +35,7 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
       url: mainBanner.BANNER_03,
       mobileUrl: mobileMaimBanner.MOBILE_BANNER_03,
       desc: '<div class="text-white">안녕하세요! <br /> 저는 밥값하는 프론트엔드</div>',
-      mobile: '개발자계의 4번 홈런 타자 KDONG'
+      mobile: '개발자계의 리키 헨더슨 KDONG'
     },
     {
       url: mainBanner.BANNER_04,

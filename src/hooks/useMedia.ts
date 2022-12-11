@@ -15,7 +15,7 @@ export const useMedia = () => {
   const tablet = useMediaQuery({
     query: '(min-width:768px) and (max-width:1023px)'
   });
-  const mobile = useMediaQuery({ query: '(max-width: 767px)' });
+  const mobile = useMediaQuery({ query: '(max-width: 750px)' });
 
   const handleFront = () => {
     setIsPc(false);

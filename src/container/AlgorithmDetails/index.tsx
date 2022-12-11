@@ -1,18 +1,17 @@
 // base
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 
 // style
 import { StyledAlgorithmDetails } from './style';
 
-// const
-import { algorithmInfo } from 'consts';
-
-// components
-import { AlgorithmQuestion1 } from './AlgorithmQuestions';
-import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
+// libraries
 import Highlight from 'react-highlight';
+import {
+  EditOutlined,
+  SoundOutlined,
+  UserAddOutlined
+} from '@ant-design/icons';
+import { Radio } from 'antd';
 
 export interface AlgorithmQuestionProps {
   questionList: any;
@@ -37,8 +36,29 @@ export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({ data }) => {
     type
   } = data;
 
+  const [select, setSelect] = useState('design1');
+
+  const options = [
+    { label: '디자인1', value: 'design1' },
+    { label: '디자인2', value: 'design2' }
+  ];
+
+  const onChange = (value: string) => {
+    setSelect(value);
+  };
+
   return (
     <StyledAlgorithmDetails>
+      <div className="select-box">
+        <Radio.Group
+          options={options}
+          onChange={(e) => onChange(e.target.value)}
+          value={select}
+          optionType="button"
+          buttonStyle="solid"
+        />
+      </div>
+
       <div className="algo-wrapper">
         <div className="algo-wrapper-title">
           <span>
@@ -98,39 +118,126 @@ export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({ data }) => {
             </tbody>
           </table>
         </div>
-        <div className="algo-wrapper-question">
-          <span>{title}</span>
-          {question}
-          <em
-            dangerouslySetInnerHTML={{
-              __html: hint
-            }}
-          />
-        </div>
-        <div className="algo-wrapper-code my">
-          <Highlight className="javascript">
-            <div
-              className="algo-wrapper-code-view"
-              dangerouslySetInnerHTML={{ __html: JSON.parse(grassMyCode) }}
-            />
-          </Highlight>
-        </div>
-        <div className="algo-wrapper-answer my">
-          <span>나의 풀이</span>
-          {grassMyDesc}
-        </div>
-        <div className="algo-wrapper-code another">
-          <Highlight className="javascript">
-            <div
-              className="algo-wrapper-code-view"
-              dangerouslySetInnerHTML={{ __html: JSON.parse(grassDifferCode) }}
-            />
-          </Highlight>
-        </div>
-        <div className="algo-wrapper-answer another">
-          <span>다른 풀이</span>
-          {grassDifferDesc}
-        </div>
+
+        {/* design1 */}
+        {select === 'design1' && (
+          <div className="algo-wrapper-design1">
+            <div id="sample" className="sample">
+              <h2>
+                {title} <span className="dot"></span>
+              </h2>
+              <p className="problem">
+                <strong>Q : </strong>
+                {question}
+              </p>
+              <div className="desc">
+                <dl>
+                  <dt>
+                    <span>
+                      <EditOutlined /> 입력 설명
+                    </span>
+                  </dt>
+                  <dd
+                    dangerouslySetInnerHTML={{
+                      __html: hint
+                    }}
+                  />
+                  {/* <dt>
+       <HighlightOutlined /> 출력 설명
+     </dt>
+     <dd>첫 번째 줄에 가장 작은 수를 출력한다.</dd> */}
+                </dl>
+              </div>
+              {/* <div className="sam">
+   <dl>
+     <dt>
+       <SendOutlined /> 입력 예제
+     </dt>
+     <dd>10 50 85</dd>
+     <dt>
+       <SoundOutlined /> 출력 예제
+     </dt>
+     <dt>10</dt>
+   </dl>
+ </div> */}
+              <div className="code">
+                <div className="algo-wrapper-code my">
+                  <Highlight className="javascript">
+                    <div
+                      className="algo-wrapper-code-view"
+                      dangerouslySetInnerHTML={{
+                        __html: JSON.parse(grassMyCode)
+                      }}
+                    />
+                  </Highlight>
+                </div>
+                <div className="algo-wrapper-answer my">
+                  <span>
+                    <SoundOutlined /> 나의 풀이
+                  </span>
+                  {grassMyDesc}
+                </div>
+                <div className="algo-wrapper-code another">
+                  <Highlight className="javascript">
+                    <div
+                      className="algo-wrapper-code-view"
+                      dangerouslySetInnerHTML={{
+                        __html: JSON.parse(grassDifferCode)
+                      }}
+                    />
+                  </Highlight>
+                </div>
+                <div className="algo-wrapper-answer another">
+                  <span>
+                    <UserAddOutlined /> 다른 풀이
+                  </span>
+                  {grassDifferDesc}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* design2 */}
+        {select === 'design2' && (
+          <div className="algo-wrapper-design2">
+            <div className="algo-wrapper-design2-question">
+              <span>{title}</span>
+              {question}
+              <em
+                dangerouslySetInnerHTML={{
+                  __html: hint
+                }}
+              />
+            </div>
+            <div className="algo-wrapper-design2-code my">
+              <Highlight className="javascript">
+                <div
+                  className="algo-wrapper-design2-code-view"
+                  dangerouslySetInnerHTML={{ __html: JSON.parse(grassMyCode) }}
+                />
+              </Highlight>
+            </div>
+            <div className="algo-wrapper-design2-answer my">
+              <span>나의 풀이</span>
+              {grassMyDesc}
+            </div>
+            <div className="algo-wrapper-design2-code another">
+              <Highlight className="javascript">
+                <div
+                  className="algo-wrapper-design2-code-view"
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.parse(grassDifferCode)
+                  }}
+                />
+              </Highlight>
+            </div>
+            <div className="algo-wrapper-design2-answer another">
+              <span>다른 풀이</span>
+              {grassDifferDesc}
+            </div>
+          </div>
+        )}
       </div>
     </StyledAlgorithmDetails>
   );
