@@ -18,9 +18,9 @@ export const DetailContent = () => {
               <Highlight>{refer.codeView || ''}</Highlight>
             </div>
             <div className="result">
-              <h3>
+              {/* <h3>
                 <a href="#">결과보기</a>
-              </h3>
+              </h3> */}
               <div className="show">
                 {refer.result?.map((desc: string, num: number) => (
                   <React.Fragment key={num}>

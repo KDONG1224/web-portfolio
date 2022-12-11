@@ -286,6 +286,11 @@ export const StyledAlgorithmDetails = styled.div`
   }
 
   @media (max-width: 750px) {
+    .select-box {
+      top: 100px;
+      z-index: 99;
+    }
+
     .algo-wrapper {
       &-info {
         > table {

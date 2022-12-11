@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 
 export const StyledDetailMenu = styled.div`
+  padding: 36px 36px 0;
+
   h2 {
     font-size: 2rem;
     margin-bottom: 20px;
-    padding-left: 26px;
+    /* padding-left: 26px; */
   }
 
   ol {
-    padding-left: 26px;
+    /* padding-left: 26px; */
   }
   a {
     text-decoration: none;

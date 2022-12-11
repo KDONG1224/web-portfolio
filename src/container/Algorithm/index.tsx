@@ -42,7 +42,8 @@ export const Algorithm: React.FC<AlgorithmProps> = ({ algorithmLists }) => {
         gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
         style={{
           marginLeft: isMobile ? 22 : 'auto',
-          marginRight: isMobile ? 22 : 'auto'
+          marginRight: isMobile ? 22 : 'auto',
+          paddingBottom: isMobile ? 100 : 0
         }}
       >
         {algorithmLists.map((algorithm) => (

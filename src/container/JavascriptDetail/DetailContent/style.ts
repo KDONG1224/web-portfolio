@@ -3,10 +3,12 @@ import styled from 'styled-components';
 export const StyledDetailContent = styled.div`
   margin-top: 50px;
   background-color: #fff;
+  padding: 0 36px 100px;
 
   .sample {
     /* border: 1px solid #E6E6E6; */
     border-radius: 5px;
+    margin-bottom: 60px;
   }
   .sample h2 {
     position: relative;
@@ -131,6 +133,9 @@ export const StyledDetailContent = styled.div`
   }
   .result div span {
     display: block;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    padding: 2px;
   }
 
   .hljs {
