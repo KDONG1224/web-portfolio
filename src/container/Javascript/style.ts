@@ -94,11 +94,11 @@ export const StyledJavascript = styled.div`
     #wrap {
       margin: 0;
       height: 100%;
-      border-width: 6px;
+      border-width: 1rem;
       border-radius: 18px;
     }
     #contents {
-      border-width: 6px;
+      border-width: 1rem;
       padding: 15% 2%;
     }
 
