@@ -185,7 +185,7 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
           <Button
             className="btn-28 btn-primary color-white"
             type="primary"
-            disabled
+            // disabled
             onClick={() => {
               onClickDetail(String(record.id), 'edit');
             }}
@@ -217,11 +217,6 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
         )}
       </div>
       <div className="refer-body">
-        {/* <div className="refer-body-button">
-          <Button onClick={() => onChange('table')}>테이블</Button>
-          <Button onClick={() => onChange('box')}>박스</Button>
-          <Button onClick={() => onChange('list')}>리스트</Button>
-        </div> */}
         <div className="refer-body-contents">
           {!isMobile && (
             <PaginationTable

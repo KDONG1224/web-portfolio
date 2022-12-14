@@ -43,7 +43,8 @@ export const StyledMainHeader = styled(Layout.Header)<StyledMainHeaderProps>`
           height: 40px;
           border: none;
           border: 1px solid #b8bec9;
-          width: 600px;
+          max-width: 600px;
+          width: 100%;
         }
 
         .ant-input-search-button {
@@ -63,6 +64,12 @@ export const StyledMainHeader = styled(Layout.Header)<StyledMainHeaderProps>`
       &-name {
         margin-right: 10px;
       }
+    }
+  }
+
+  @media (max-width: 1350px) {
+    .header-wrapper-right {
+      display: none;
     }
   }
 `;

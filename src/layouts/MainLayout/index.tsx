@@ -109,22 +109,22 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
           <div className="algorithm-icon navi-icon" />
         )
       ]
-    ),
-    getMenuItem(
-      '피그마',
-      ROUTE_FIGMA,
-      <div className="figma-icon navi-icon" />
-    ),
-    getMenuItem(
-      '노션',
-      ROUTE_NOTION,
-      <div className="notion-icon navi-icon" />
-    ),
-    getMenuItem(
-      '토이프로젝트',
-      ROUTE_ALCHOL_CUP,
-      <div className="alchol-icon navi-icon" />
     )
+    // getMenuItem(
+    //   '피그마',
+    //   ROUTE_FIGMA,
+    //   <div className="figma-icon navi-icon" />
+    // ),
+    // getMenuItem(
+    //   '노션',
+    //   ROUTE_NOTION,
+    //   <div className="notion-icon navi-icon" />
+    // ),
+    // getMenuItem(
+    //   '토이프로젝트',
+    //   ROUTE_ALCHOL_CUP,
+    //   <div className="alchol-icon navi-icon" />
+    // )
   ];
 
   useEffect(() => {

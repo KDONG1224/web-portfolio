@@ -1,4 +1,5 @@
 // base
+import { FIGMA_LISTS } from 'consts';
 import React from 'react';
 import Embed from 'react-embed';
 
@@ -6,10 +7,30 @@ import Embed from 'react-embed';
 import { StyledFigma } from './style';
 
 export const Figma = () => {
+  const handleOpen = (url: string) => {
+    window.open(url);
+  };
+
   return (
     <StyledFigma>
-      <div>figma page</div>
-      <Embed url="https://www.figma.com/file/OObYKiYoLf1ZsA0oB2g1jS/KDONG's-Reference-Book?node-id=1%3A8" />
+      <div className="figma-wrapper">
+        <div className="figma-wrapper-title">
+          피그마로 제작한 레퍼런스 북 입니다.
+        </div>
+
+        <div className="figma-wrapper-body">
+          {FIGMA_LISTS.map(({ key, title, embedLink, url }) => (
+            <div
+              key={key}
+              className="figma-wrapper-body-embed"
+              onClick={() => handleOpen(url)}
+            >
+              <h2>{title}</h2>
+              {embedLink !== '' && <Embed url={embedLink} />}
+            </div>
+          ))}
+        </div>
+      </div>
     </StyledFigma>
   );
 };

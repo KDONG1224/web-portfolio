@@ -6,9 +6,14 @@ interface StyledReferenceListsProps {
 
 export const StyledReferenceLists = styled.div<StyledReferenceListsProps>`
   background: #fff;
+  padding: 36px;
 
   .ant-table-tbody > tr > td {
     vertical-align: middle !important;
+  }
+
+  .refer-body-contents {
+    overflow-x: scroll;
   }
 
   .refer-head {
