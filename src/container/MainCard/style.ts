@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface StyledMainCardProps {
-  isMobile: boolean;
+  ismobile: boolean;
 }
 
 export const StyledMainCard = styled.div<StyledMainCardProps>`
@@ -10,7 +10,7 @@ export const StyledMainCard = styled.div<StyledMainCardProps>`
   }
 
   ${(props) =>
-    props.isMobile &&
+    props.ismobile &&
     `
     padding: 0 10px 50px;
 

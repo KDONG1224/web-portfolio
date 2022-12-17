@@ -76,7 +76,7 @@ export const MainBanner: React.FC<MainBannerProps> = ({}) => {
       {!isMobile && (
         <StyledMainBanner
           style={{ backgroundColor: '#efbd5a' }}
-          isMobile={isMobile}
+          ismobile={isMobile}
         >
           <BannerSlider
             banner={bannerUrl}

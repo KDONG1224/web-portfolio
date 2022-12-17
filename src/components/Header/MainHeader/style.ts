@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Layout } from 'antd';
 
 interface StyledMainHeaderProps {
-  isMobile: boolean;
+  ismobile: string;
 }
 
 export const StyledMainHeader = styled(Layout.Header)<StyledMainHeaderProps>`
@@ -20,7 +20,7 @@ export const StyledMainHeader = styled(Layout.Header)<StyledMainHeaderProps>`
     justify-content: space-between;
 
     &-left {
-      width: ${({ isMobile }) => isMobile && '100%'};
+      width: ${({ ismobile }) => ismobile === 'true' && '100%'};
       display: flex;
       align-items: center;
 
@@ -57,7 +57,7 @@ export const StyledMainHeader = styled(Layout.Header)<StyledMainHeaderProps>`
     }
 
     &-right {
-      display: ${({ isMobile }) => (isMobile ? 'none' : 'flex')};
+      display: ${({ ismobile }) => (ismobile === 'true' ? 'none' : 'flex')};
       align-items: center;
 
       &-name {

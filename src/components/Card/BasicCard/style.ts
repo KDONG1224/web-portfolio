@@ -2,6 +2,7 @@ import { arrowIcons } from 'consts';
 import styled from 'styled-components';
 
 export const StyledBasicCard = styled.div`
+  width: 100%;
   .algo-wrapper {
     /* max-width: 350px; */
     max-height: 430px;

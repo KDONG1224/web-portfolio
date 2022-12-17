@@ -133,7 +133,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   }, [pathname, isSideMenuCollapsed]);
 
   return (
-    <StyledMainLayout isMobile={isMobile}>
+    <StyledMainLayout ismobile={isMobile}>
       <Layout {...props}>
         {isMobile ? (
           <Layout.Header className="mobile-layout">

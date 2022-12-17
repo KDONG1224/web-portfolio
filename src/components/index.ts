@@ -32,3 +32,5 @@ export * from './Form';
 
 // Board
 export * from './Board';
+
+export * from './Drawer';

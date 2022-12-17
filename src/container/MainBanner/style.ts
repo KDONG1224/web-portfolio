@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import { socialIcons } from 'consts';
 
 interface StyledMainBannerProps {
-  isMobile: boolean;
+  ismobile: boolean;
 }
 
 export const StyledMainBanner = styled.div<StyledMainBannerProps>`
   width: 100%;
-  height: ${(props) => (props.isMobile ? '300px' : '500px')};
+  height: ${(props) => (props.ismobile ? '300px' : '500px')};
   margin-bottom: 50px;
   border-radius: 30px;
   position: relative;
@@ -32,13 +32,13 @@ export const StyledMainBanner = styled.div<StyledMainBannerProps>`
       }
 
       ${(props) =>
-        props.isMobile &&
+        props.ismobile &&
         `.banner-swiper-slide-desc { font-size: 2rem; bottom: 20px; right: 20px; }`}
     }
   }
 
   ${(props) =>
-    props.isMobile &&
+    props.ismobile &&
     `
   .swiper-pagination-bullet {
     width: 10px;

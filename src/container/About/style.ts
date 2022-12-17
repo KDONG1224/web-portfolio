@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface StyledAboutProps {
-  isMobile: boolean;
+  ismobile: string;
 }
 
 export const StyledAbout = styled.div<StyledAboutProps>`
@@ -11,12 +11,13 @@ export const StyledAbout = styled.div<StyledAboutProps>`
 
   .about-wrapper {
     &-title {
-      padding: ${({ isMobile }) =>
-        isMobile ? '8rem 0 12rem' : '8rem 0 18rem'};
+      padding: ${({ ismobile }) =>
+        ismobile === 'true' ? '8rem 0 12rem' : '8rem 0 18rem'};
 
       h2 {
         font-family: 'Saol';
-        font-size: ${({ isMobile }) => (isMobile ? '6rem;' : '145px;')}
+        font-size: ${({ ismobile }) =>
+          ismobile === 'true' ? '6rem;' : '145px;'}
         display: block;
         padding-top: 10px;
         font-weight: 400;
@@ -39,11 +40,13 @@ export const StyledAbout = styled.div<StyledAboutProps>`
         padding-bottom: 280px;
 
         &-img {
-          flex: ${({ isMobile }) => (isMobile ? '0 0 54%;' : '0 0 64%;')}
+          flex: ${({ ismobile }) =>
+            ismobile === 'true' ? '0 0 54%;' : '0 0 64%;'}
         }
 
         &-desc {
-          flex: ${({ isMobile }) => (isMobile ? '0 0 40%;' : '0 0 30%;')}
+          flex: ${({ ismobile }) =>
+            ismobile === 'true' ? '0 0 40%;' : '0 0 30%;'}
         }
       }
 
@@ -66,7 +69,7 @@ export const StyledAbout = styled.div<StyledAboutProps>`
 
     .sub-title {
       font-size: 30px;
-      line-height: ${({ isMobile }) => (isMobile ? '1.5' : '1')};
+      line-height: ${({ ismobile }) => (ismobile === 'true' ? '1.5' : '1')};
       margin-bottom: 15px;
       margin-top: 2em;
 

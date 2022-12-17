@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { menuIcons } from 'consts';
 
 interface StyledMainLayoutProps {
-  isMobile: boolean;
+  ismobile: boolean;
   isHide: boolean;
   isRoot: boolean;
 }

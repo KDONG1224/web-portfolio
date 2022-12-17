@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 interface StyledMainCardItemProps {
-  isMobile: boolean;
+  ismobile: string;
 }
 
 export const StyledMainCardItem = styled.div<StyledMainCardItemProps>`
   /* width: 250px; */
 
   ${(props) =>
-    props.isMobile &&
+    props.ismobile === 'ture' &&
     `
     .card-wrapper {
       width: 100%;

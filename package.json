@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 2377",
-    "build": "next build",
-    "start": "next start -p 2377",
+    "dev": "env-cmd -f ./config/.env.development next dev -p 2377",
+    "build": "env-cmd -f ./config/.env.production next build",
+    "start": "env-cmd -f ./config/.env.production next start -p 2377",
     "lint": "next lint",
-    "vercel-deploy": "next build && npm run start"
+    "vercel-deploy": "env-cmd -f ./config/.env.production next build && npm run start"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
