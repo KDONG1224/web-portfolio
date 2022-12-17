@@ -49,7 +49,7 @@ export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({ data }) => {
 
   return (
     <StyledAlgorithmDetails>
-      <div className="select-box">
+      {/* <div className="select-box">
         <Radio.Group
           options={options}
           onChange={(e) => onChange(e.target.value)}
@@ -57,7 +57,7 @@ export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({ data }) => {
           optionType="button"
           buttonStyle="solid"
         />
-      </div>
+      </div> */}
 
       <div className="algo-wrapper">
         <div className="algo-wrapper-title">
@@ -137,11 +137,14 @@ export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({ data }) => {
                       <EditOutlined /> 입력 설명
                     </span>
                   </dt>
-                  <dd
+                  {hint.split('/').map((text: any, idx: number) => (
+                    <dd key={idx}>{text}</dd>
+                  ))}
+                  {/* <dd
                     dangerouslySetInnerHTML={{
                       __html: hint
                     }}
-                  />
+                  /> */}
                   {/* <dt>
        <HighlightOutlined /> 출력 설명
      </dt>

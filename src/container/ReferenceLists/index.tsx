@@ -206,7 +206,7 @@ export const ReferenceLists: React.FC<ReferenceListsProps> = ({
   }, [updateFilter]);
 
   return (
-    <StyledReferenceLists isMobile={isMobile}>
+    <StyledReferenceLists ismobile={isMobile}>
       <div className="refer-head">
         {isMobile ? (
           <>

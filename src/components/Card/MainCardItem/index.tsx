@@ -21,7 +21,7 @@ export const MainCardItem: React.FC<MainCardItemProps> = ({
   const { isMobile } = useMedia();
 
   return (
-    <StyledMainCardItem isMobile={isMobile}>
+    <StyledMainCardItem ismobile={isMobile ? 'true' : 'false'}>
       <div className="card-wrapper">
         <div className="card-wrapper-top">
           <img src={url} alt={title} />

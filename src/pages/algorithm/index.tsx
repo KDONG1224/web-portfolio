@@ -28,7 +28,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
       props: {
-        algorithmLists: algorithmLists
+        algorithmLists: algorithmLists.map(
+          ({ readOnlyData }: any) => readOnlyData
+        )
       }
     };
   } catch (error) {

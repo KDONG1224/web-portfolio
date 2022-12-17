@@ -11,7 +11,7 @@ export const About = () => {
   const { isMobile } = useMedia();
 
   return (
-    <StyledAbout isMobile={isMobile}>
+    <StyledAbout ismobile={isMobile}>
       <div className="about-wrapper">
         <div className="about-wrapper-title">
           <h2>

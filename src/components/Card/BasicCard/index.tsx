@@ -31,7 +31,7 @@ export const BasicCard: React.FC<BasicCardProps> = ({
   const router = useRouter();
   const { isMobile } = useMedia();
 
-  const { id, type, title, summary, question, updatedAt, thumbmnaile } = data;
+  const { id, type, title, summary, question, createdAt, thumbmnaile } = data;
 
   const handleClick = () => {
     if (onClick) {
@@ -52,6 +52,7 @@ export const BasicCard: React.FC<BasicCardProps> = ({
             width={width}
             height={heigth}
             objectFit="cover"
+            layout="responsive"
           />
         </div>
         <div className="algo-wrapper-bottom">
@@ -61,14 +62,14 @@ export const BasicCard: React.FC<BasicCardProps> = ({
             </span>
             {!isMobile && (
               <span className="algo-wrapper-bottom-date-text">
-                {moment(updatedAt).format('YYYY-MM-DD, HH-mm')}
+                {moment(createdAt).format('YYYY-MM-DD, HH:mm')}
               </span>
             )}
           </div>
           <div className="algo-wrapper-bottom-title line-two">{title}</div>
           {isMobile && (
             <div className="algo-wrapper-bottom-date">
-              {moment(updatedAt).format('YYYY-MM-DD, HH-mm')}
+              {moment(createdAt).format('YYYY-MM-DD, HH:mm')}
             </div>
           )}
           <div className="algo-wrapper-bottom-desc line-two">

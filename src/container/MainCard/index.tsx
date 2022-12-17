@@ -117,7 +117,7 @@ export const MainCard: React.FC<MainCardProps> = ({}) => {
   };
 
   return (
-    <StyledMainCard isMobile={isMobile}>
+    <StyledMainCard ismobile={isMobile}>
       <Row
         justify="space-between"
         // gutter={isSideMenuCollapsed ? [112, 40] : [58, 40]}

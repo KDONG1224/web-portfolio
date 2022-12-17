@@ -4,7 +4,7 @@ export const StyledJavascript = styled.div`
   background-color: #fff;
 
   #wrap {
-    margin: 2vh;
+    /* margin: 2vh; */
     border: 8px solid #0e43f1;
     border-radius: 20px;
     height: 96vh;

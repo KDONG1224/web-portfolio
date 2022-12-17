@@ -221,7 +221,7 @@ export const MainLayoutPrev: React.FC<MainLayoutProps> = ({
       )}
       {isMobile && (
         <StyledMobileLayout
-          isMobile={isMobile}
+          ismobile={isMobile}
           isRoot={isRoot}
           isHide={isRoot && scrollY < 200 ? true : false}
         >

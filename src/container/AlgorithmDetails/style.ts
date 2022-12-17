@@ -62,10 +62,11 @@ export const StyledAlgorithmDetails = styled.div`
       display: flex;
       flex-wrap: nowrap;
       margin-bottom: 50px;
+      justify-content: space-between;
 
       > table {
         border-collapse: collapse;
-        margin: 0 auto;
+        /* margin: 0 auto; */
 
         td {
           padding: 7px;
@@ -78,7 +79,7 @@ export const StyledAlgorithmDetails = styled.div`
     &-design1 {
       .sample {
         border-radius: 5px;
-        padding: 20px 60px;
+        /* padding: 20px 60px; */
       }
       .sample h2 {
         position: relative;
@@ -93,7 +94,7 @@ export const StyledAlgorithmDetails = styled.div`
       .sample h2 .dot {
         width: 10px;
         height: 10px;
-        background: #989898;
+        background: #f2a948;
         display: block;
         border-radius: 50%;
         position: absolute;
@@ -104,7 +105,7 @@ export const StyledAlgorithmDetails = styled.div`
         content: '';
         width: 10px;
         height: 10px;
-        background: #989898;
+        background: #e07865;
         border-radius: 50%;
         position: absolute;
         left: -15px;
@@ -114,7 +115,7 @@ export const StyledAlgorithmDetails = styled.div`
         content: '';
         width: 10px;
         height: 10px;
-        background: #989898;
+        background: #f4bb67;
         position: absolute;
         border-radius: 50%;
         right: -15px;

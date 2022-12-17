@@ -2,14 +2,14 @@ import { menuIcons } from 'consts';
 import styled from 'styled-components';
 
 interface StyledMainLayoutProps {
-  isMobile: boolean;
+  ismobile: boolean;
 }
 
 export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
   position: relative;
 
   .ant-layout-sider {
-    display: ${({ isMobile }) => isMobile && 'none'};
+    display: ${({ ismobile }) => ismobile && 'none'};
     height: calc(100vh - 80px) !important;
     margin-top: 80px;
   }
@@ -89,12 +89,12 @@ export const StyledMainLayout = styled.div<StyledMainLayoutProps>`
   }
 
   .ant-layout-content {
-    padding-top: ${({ isMobile }) =>
-      isMobile ? '0 !important' : '116px !important'};
-    margin-left: ${({ isMobile }) => isMobile && '0 !important'};
-    padding-right: ${({ isMobile }) => isMobile && '0 !important'};
-    /* overflow: ${({ isMobile }) => !isMobile && 'hidden !important'}; */
-    overflow-x: ${({ isMobile }) => isMobile && 'hidden !important'};
+    padding-top: ${({ ismobile }) =>
+      ismobile ? '0 !important' : '116px !important'};
+    margin-left: ${({ ismobile }) => ismobile && '0 !important'};
+    padding-right: ${({ ismobile }) => ismobile && '0 !important'};
+    /* overflow: ${({ ismobile }) => !ismobile && 'hidden !important'}; */
+    overflow-x: ${({ ismobile }) => ismobile && 'hidden !important'};
   }
 
   .ant-menu-vertical > .ant-menu-item,

@@ -1,12 +1,10 @@
 // base
 import React from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 // style
 import { StyledMainHeader } from './style';
-
-// components
-import { BlurImage } from 'components';
 
 // consts
 import { exImg, socialIcons } from 'consts';
@@ -15,6 +13,7 @@ import { ROUTE_ROOT } from 'consts/route';
 // libraries
 import { Input } from 'antd';
 import { useMedia } from 'hooks';
+
 interface MainHeaderProps {}
 
 export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
@@ -28,11 +27,11 @@ export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
   };
 
   return (
-    <StyledMainHeader isMobile={isMobile}>
+    <StyledMainHeader ismobile={isMobile ? 'true' : 'false'}>
       <div className="header-wrapper">
         <div className="header-wrapper-left">
           <div className="header-wrapper-left-title" onClick={handleRouter}>
-            <BlurImage
+            <Image
               src={exImg.EX_NUM_01}
               alt="메인로고"
               width={30}
@@ -67,7 +66,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({}) => {
           >
             Apis 바로가기 (kdong1224 / 1224)
           </span>
-          <BlurImage
+          <Image
             src={socialIcons.API_ICON}
             alt="메인로고"
             width={30}
