@@ -11,7 +11,7 @@ import {
   SoundOutlined,
   UserAddOutlined
 } from '@ant-design/icons';
-import { Radio } from 'antd';
+import { Button, Popover, Radio } from 'antd';
 import Head from 'next/head';
 
 export interface AlgorithmQuestionProps {
@@ -47,6 +47,10 @@ export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({ data }) => {
 
   const onChange = (value: string) => {
     setSelect(value);
+  };
+
+  const handleEditClick = () => {
+    console.log(id);
   };
 
   return (
@@ -133,7 +137,10 @@ export const AlgorithmDetails: React.FC<AlgorithmDetailsProps> = ({ data }) => {
             <div className="algo-wrapper-design1">
               <div id="sample" className="sample">
                 <h2>
-                  {title} <span className="dot"></span>
+                  {title}{' '}
+                  <Popover title={title} content="수정하시려면 클릭해주세요.">
+                    <span className="dot" onClick={handleEditClick} />
+                  </Popover>
                 </h2>
                 <p className="problem">
                   <strong>Q : </strong>

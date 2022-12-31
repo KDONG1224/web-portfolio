@@ -37,6 +37,12 @@ export const ROUTE_FIGMA_INFO = `${ROUTE_FIGMA}/info`;
 export const ROUTE_NOTION = '/notion';
 export const ROUTE_NOTION_INFO = `${ROUTE_NOTION}/info`;
 
+// toy-project
+export const ROUTE_TOY_PROJECT = '/toy-project';
+export const ROUTE_TOY_PROJECT_DETAIL = `${ROUTE_TOY_PROJECT}/detail`;
+export const ROUTE_TOY_PROJECT_DETAIL_WITH_ID = (id: string) =>
+  `${ROUTE_TOY_PROJECT_DETAIL}/${id}`;
+
 // alcholcup
 export const ROUTE_ALCHOL_CUP = '/alchol';
 export const ROUTE_ALCHOL_CUP_INFO = `${ROUTE_ALCHOL_CUP}/info`;

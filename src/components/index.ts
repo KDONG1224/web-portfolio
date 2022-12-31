@@ -34,3 +34,5 @@ export * from './Form';
 export * from './Board';
 
 export * from './Drawer';
+
+export * from './Modal';

@@ -100,6 +100,7 @@ export const StyledAlgorithmDetails = styled.div`
         position: absolute;
         left: auto;
         right: 50px;
+        cursor: pointer !important;
       }
       .sample h2 .dot::before {
         content: '';

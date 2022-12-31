@@ -18,7 +18,7 @@ import {
   ROUTE_ALGORITHM,
   ROUTE_FIGMA,
   ROUTE_NOTION,
-  ROUTE_ALCHOL_CUP,
+  ROUTE_TOY_PROJECT,
   ROUTE_REFERNCE,
   ROUTE_REFERNCE_JS
 } from 'consts/route';
@@ -122,7 +122,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     ),
     getMenuItem(
       '토이프로젝트',
-      ROUTE_ALCHOL_CUP,
+      ROUTE_TOY_PROJECT,
       <div className="alchol-icon navi-icon" />
     )
   ];
