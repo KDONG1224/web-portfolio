@@ -12,7 +12,14 @@ import { Notion } from 'container';
 import { NotionRenderer } from 'react-notion';
 
 // style
-import { StyleNotionPage } from './style';
+import styled from 'styled-components';
+
+export const StyleNotionPage = styled.div`
+  .notion-page-header {
+    top: -40px;
+    z-index: 99;
+  }
+`;
 
 interface NotionPageProps {
   notionPage: any;
