@@ -99,9 +99,9 @@ export const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
         <link rel="shortcut icon" sizes="192x192" href="/favicon.png" />
       </Head>
       <SafeArea position="top" />
-      <Suspense fallback={<div>Loading...</div>}>
-        <Component {...pageProps} />
-      </Suspense>
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
+      <Component {...pageProps} />
+      {/* </Suspense> */}
       <SafeArea position="bottom" />
       {/* </SessionProvider> */}
     </QueryClientProvider>
