@@ -1,6 +1,6 @@
 // base
 import React from 'react';
-import { GetServerSideProps } from 'next';
+import type { GetStaticProps } from 'next';
 
 // layouts
 import { MainLayout } from 'layouts';
@@ -12,8 +12,6 @@ import { Notion } from 'container';
 import { NotionRenderer } from 'react-notion';
 
 // style
-import 'react-notion/src/styles.css';
-import 'prismjs/themes/prism-tomorrow.css';
 import { StyleNotionPage } from './style';
 
 interface NotionPageProps {
@@ -43,7 +41,7 @@ const NotionPage: React.FC<NotionPageProps> = ({ notionPage }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const NOTION_PAGE_ID =
       'c6b408675eac41e2a803a7e54f8eff63#e2cbf7c6ea3045669e6891561555ac9f';
