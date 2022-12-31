@@ -10,7 +10,7 @@ import { HomeBoard, MainForm } from 'components';
 import { GuestbookApi } from 'modules/guestbook';
 
 // consts
-import { QUERY_GUESTBOOK_CREATE } from 'consts';
+import { QUERY_GUESTBOOK, QUERY_GUESTBOOK_CREATE } from 'consts';
 
 // libraries
 import nProgress from 'nprogress';
@@ -37,9 +37,13 @@ export const MainBoard: React.FC<MainBoardProps> = ({ datas }) => {
     return guestbookApi.createGuestbook(data);
   };
 
-  const { data } = useQuery([QUERY_GUESTBOOK_CREATE], () => getGuestbook(), {
-    select: (data) => data
-  });
+  const { data } = useQuery(
+    [QUERY_GUESTBOOK, nProgress],
+    () => getGuestbook(),
+    {
+      select: (data) => data
+    }
+  );
 
   const { mutate: createGb } = useMutation<FormData, unknown, any, any>(
     (values) => createGuestbook(values),
@@ -52,6 +56,7 @@ export const MainBoard: React.FC<MainBoardProps> = ({ datas }) => {
         queryClient.invalidateQueries([QUERY_GUESTBOOK_CREATE]);
 
         nProgress.done();
+        getGuestbook();
       },
       onError: (_, __, context) => {
         queryClient.setQueryData([QUERY_GUESTBOOK_CREATE], context.prev);
@@ -73,7 +78,7 @@ export const MainBoard: React.FC<MainBoardProps> = ({ datas }) => {
           {boardLists &&
             boardLists
               .sort((a: any, b: any) => b.index - a.index)
-              .map((data) => (
+              .map((data: any) => (
                 <HomeBoard key={data.id} data={data.readOnlyData} />
               ))}
         </div>

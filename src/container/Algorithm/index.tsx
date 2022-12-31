@@ -20,7 +20,7 @@ import { useMedia } from 'hooks';
 import { AlgorithmApi } from 'modules/algorithm';
 
 // library
-import { Button, Col, Row, Space } from 'antd';
+import { Button, Col, Pagination, Row, Space } from 'antd';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import nProgress from 'nprogress';
 import Link from 'next/link';
@@ -96,6 +96,8 @@ export const Algorithm: React.FC<AlgorithmProps> = ({ algorithmLists }) => {
     setDatas(data);
   }, [data, createMutate]);
 
+  console.log(datas.length);
+
   return (
     <>
       <StyledAlgorithm ismobile={isMobile ? 'true' : 'false'}>
@@ -106,6 +108,11 @@ export const Algorithm: React.FC<AlgorithmProps> = ({ algorithmLists }) => {
         {!isMobile && (
           <Space className="algo-create">
             <Button onClick={handleCreateVisible}>생성</Button>
+            {/* <Pagination
+              defaultCurrent={1}
+              total={datas.length}
+              showSizeChanger
+            /> */}
           </Space>
         )}
 

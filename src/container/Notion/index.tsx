@@ -1,12 +1,10 @@
 // base
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 
 // style
 import { StyledNotion } from './style';
 
-interface NotionProps {
-  // data: any;
-}
+interface NotionProps {}
 
 export const Notion: React.FC<NotionProps> = ({}) => {
   return (

@@ -32,3 +32,6 @@ export * from './Notion';
 // alcholcup
 export * from './AlcholCup';
 export * from './AlcholCupGame';
+
+export * from './ToyProject';
+export * from './ToyProjectDetail';

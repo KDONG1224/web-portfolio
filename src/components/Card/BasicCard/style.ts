@@ -71,6 +71,7 @@ export const StyledBasicCard = styled.div`
         font-size: 14px;
         font-family: 'GmarketSans-Medium';
         position: relative;
+        cursor: pointer !important;
 
         &::after {
           content: '';

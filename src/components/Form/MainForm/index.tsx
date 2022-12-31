@@ -58,17 +58,31 @@ export const MainForm: React.FC<MainFormProps> = ({ onSubmit }) => {
 
   const onClickImageDelete = () => {
     setFileList([]);
+    setImgList(undefined);
     form.setFieldsValue({
       images: []
     });
   };
 
   const onFinish = (values: any) => {
+    const { name, email, content } = values;
+    const formData = new FormData();
+
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('content', content);
+
+    if (imgList !== undefined) {
+      formData.append('images', imgList, imgList.name);
+    }
+
     if (onSubmit) {
-      onSubmit(values);
+      onSubmit(formData);
     }
 
     form.resetFields();
+    onClickImageDelete();
+
     return;
   };
 

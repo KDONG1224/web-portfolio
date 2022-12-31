@@ -23,6 +23,8 @@ import 'swiper/less/effect-fade';
 import 'swiper/css/effect-fade';
 import 'antd-mobile/bundle/css-vars-patch.css';
 import '../../node_modules/highlight.js/styles/qtcreator_dark.css';
+import 'react-notion/src/styles.css';
+import 'prismjs/themes/prism-tomorrow.css';
 // import '../../node_modules/@tabler/icons/iconfont/tabler-icons.scss';
 
 // react-query
@@ -97,9 +99,9 @@ export const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
         <link rel="shortcut icon" sizes="192x192" href="/favicon.png" />
       </Head>
       <SafeArea position="top" />
-      <Suspense fallback={<div>Loading...</div>}>
-        <Component {...pageProps} />
-      </Suspense>
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
+      <Component {...pageProps} />
+      {/* </Suspense> */}
       <SafeArea position="bottom" />
       {/* </SessionProvider> */}
     </QueryClientProvider>
