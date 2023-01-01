@@ -7,7 +7,7 @@ const StorageBuilder = (storage?: Storage) => ({
 const STORAGE_BASE_NAME = 'kdong';
 
 export const STORAGE_SESSION_ASCT = `${STORAGE_BASE_NAME}_asct`;
-// export const STORAGE_SESSION_ICT = 'kdong_ict';
+export const STORAGE_SESSION_ICT = 'kdong_ict';
 export const STORAGE_SESSION_BRAND = 'brand_token';
 
 export const STORAGE_LOCAL_COLLAPSED = `${STORAGE_BASE_NAME}_collapsed`;
