@@ -30,6 +30,7 @@ import { sideMenuCollapsedAction, touchSideMenuCollapsed } from 'modules';
 // components
 import { MainHeader, MobileHeader } from 'components';
 import { useMedia, useMobileScroll } from 'hooks';
+import { STORAGE_LOCAL_COLLAPSED } from 'services';
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -55,6 +56,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     dispatch(sideMenuCollapsedAction(!isSideMenuCollapsed));
     dispatch(touchSideMenuCollapsed(value));
     setCollapsed(value);
+
+    if (value) {
+      globalThis.sessionStorage.setItem(STORAGE_LOCAL_COLLAPSED, 'Y');
+    } else {
+      globalThis.sessionStorage.removeItem(STORAGE_LOCAL_COLLAPSED);
+    }
   };
 
   const handleOpen = () => {
@@ -131,6 +138,16 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     handleOpen();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, isSideMenuCollapsed]);
+
+  useEffect(() => {
+    if (globalThis.sessionStorage.getItem(STORAGE_LOCAL_COLLAPSED) === 'Y') {
+      dispatch(sideMenuCollapsedAction(true));
+      dispatch(touchSideMenuCollapsed(true));
+      setCollapsed(true);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   return (
     <StyledMainLayout ismobile={isMobile}>
